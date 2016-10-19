@@ -1,0 +1,39 @@
+	<div class="row">
+	
+	    <div class="col-md-5">
+	      <a ui-sref="person.insert" class="btn btn-primary">
+	        <i class="glyphicon glyphicon-plus"></i>Novo
+	      </a>
+	
+	      <button type="button" class="btn btn-danger" ng-click="person.methods.delete(selectedValues)" gumga-confirm="Deseja remover?">
+	        <i class="glyphicon glyphicon-trash"></i>Remover
+	      </button>
+	    </div>
+	
+	    <div class="col-md-7">
+	        <gumga-query search="person.methods.search(field,param)" advanced-search="person.methods.advancedSearch(param)" saved-filters="person.methods.getQuery(page)">
+	            <search-field label="nome" field="nome"></search-field>
+	            <advanced-search-field  type="string"  label="nome" field="nome"></advanced-search-field>
+	        </gumga-query>
+	    </div>
+	</div>
+	
+	<div class="full-width-without-padding">
+	    <gumga-list sort="person.methods.sort(field, dir)"
+	           class="table-striped table-condensed"
+	            data="person.data"
+	            configuration="tableConfig">
+	    </gumga-list>
+	</div>
+
+	<uib-pagination ng-model="page"
+	            max-size="10"
+	            boundary-links="true"
+	            previous-text="?"
+	            next-Text="?"
+	            first-text="?"
+	            last-text="?"
+	            items-per-page="person.pageSize"
+	            total-items="person.count"
+	            ng-change="person.methods.get(page)">
+	</uib-pagination>

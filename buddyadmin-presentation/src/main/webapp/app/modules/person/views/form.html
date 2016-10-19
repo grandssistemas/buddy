@@ -1,0 +1,24 @@
+<form name="PersonForm" >
+		
+	<div class="form-group gmd">
+		<input type="text" class="form-control gmd" ng-model="entity.name" id="name" required>
+		<span class="bar"></span>
+		<label for="name" class="control-label">Nome/Razão Social</label>
+
+		<gumga-many-to-one
+				value="entity.parent"
+				search-method="getPerson(param)"
+				field="name"
+				authorize-add="false"
+				display-info="false"
+				on-select="Function(value)">
+			<match>
+				<div>{{match.model.id}} - {{match.model.name}}</div>
+			</match>
+
+		</gumga-many-to-one>
+		<button type="button" class="btn gmd fab btn-success">
+			<i class="material-icons">add</i>
+		</button>
+	</div>
+</form>

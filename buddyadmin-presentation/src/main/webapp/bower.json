@@ -1,0 +1,23 @@
+{
+  "name": "sistema",
+  "version": "1.0",
+  "license": "CC BY-ND 4.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "gumga-components": "latest",
+    "requirejs": "~2.1.16",
+    "angular-sanitize": "1.4.9",
+    "animate.css": "~3.2.6",
+    "bootstrap-stylus": "~4.0.4",
+    "gumga-layout": "^1.1.0"
+  },
+  "resolutions": {
+    "angular": "1.4.9"
+  }
+}
