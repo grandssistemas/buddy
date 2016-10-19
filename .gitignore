@@ -5,7 +5,7 @@
 /buddyadmin-api/target/
 /buddyadmin-api/src/main/java/br/com/codein/seed/Seed.java
 /buddyadmin-presentation/target/
-/buddyadmin-presentation/src/webapp/bower_components/
+/buddyadmin-presentation/src/main/webapp/bower_components/
 /buddyadmin-integration/target/
 /.idea/
 /atlassian-ide-plugin.xml
