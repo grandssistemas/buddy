@@ -1,0 +1,16 @@
+/buddyadmin-domain/target/
+/buddyadmin-infrastructure/target/
+/buddyadmin-application/target/
+/buddyadmin-gateway/target/
+/buddyadmin-api/target/
+/buddyadmin-api/src/main/java/br/com/codein/seed/Seed.java
+/buddyadmin-presentation/target/
+/buddyadmin-presentation/src/webapp/bower_components/
+/buddyadmin-integration/target/
+/.idea/
+/atlassian-ide-plugin.xml
+/buddyadmin.iml
+/**/src/main/resources/rebel.xml
+*.iml
+/buddyadmin-application/br.com.codein.buddyadmin.domain.model.*/
+/buddyadmin-application/br.com.codein.buddyperson.domain.*/
