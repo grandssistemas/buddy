@@ -1,24 +1,64 @@
 <form name="PersonForm" >
 		
-	<div class="form-group gmd">
-		<input type="text" class="form-control gmd" ng-model="entity.name" id="name" required>
-		<span class="bar"></span>
-		<label for="name" class="control-label">Nome/Razão Social</label>
+	<div >
+		<div class="row">
+			<div class="col-lg-6">
 
-		<gumga-many-to-one
-				value="entity.parent"
-				search-method="getPerson(param)"
-				field="name"
-				authorize-add="false"
-				display-info="false"
-				on-select="Function(value)">
-			<match>
-				<div>{{match.model.id}} - {{match.model.name}}</div>
-			</match>
+				<treecontrol
+                    class="tree-light"
+                    tree-model="personTree"
+                    on-selection="selectNode(node,$parentNode)"
+                    options="treeOptions"
+					selected-node="currentCompany">
+                 Empresa: {{node.name}}
+				</treecontrol>
+			</div>
+			<div class="col-lg-6">
+                <div class="form-group gmd">
+                    <input type="text" class="form-control gmd" ng-model="currentCompany.name" id="name" required autocomplete="off">
+                    <span class="bar"></span>
+                    <label for="name" class="control-label" gumga-translate-tag="person.name">Nome/Razão Social</label>
+                </div>
 
-		</gumga-many-to-one>
-		<button type="button" class="btn gmd fab btn-success">
-			<i class="material-icons">add</i>
+
+				<div style="margin-top:15px">
+					<label gumga-translate-tag="person.father">Father</label>
+					<gumga-many-to-one
+							value="currentCompany.father"
+							search-method="getPerson(param)"
+							field="name"
+							authorize-add="false"
+							display-info="false"
+                            disabled="!!currentCompany.id"
+							on-select="getFatherFat(value)">
+						<match>
+							<div>{{match.model.name}}, CNPJ: {{match.model.cnpj.value | cnpj}}</div>
+						</match>
+					</gumga-many-to-one>
+				</div>
+			</div>
+		</div>
+
+		<div style="margin-top: 15px" ng-if="currentCompany.id">
+            <div class="form-group gmd">
+                <input type="text" class="form-control gmd" ng-model="currentCompany.CNPJ" id="cnpj" ui-br-cnpj-mask required autocomplete="off">
+                <span class="bar"></span>
+                <label for="cnpj" class="control-label" gumga-translate-tag="person.cnpj">CNPJ</label>
+            </div>
+            <div class="form-group gmd">
+                <input type="text" class="form-control gmd" ng-model="currentCompany.CNPJ" id="IE"  required autocomplete="off">
+                <span class="bar"></span>
+                <label for="IE" class="control-label" gumga-translate-tag="person.stateReg">stateRegistration</label>
+            </div>
+
+		</div>
+
+
+		<button type="button" class="btn gmd fab btn-success fixed" ng-click="update(currentCompany)">
+			<i class="material-icons">{{currentCompany.id? 'save' : 'add'}}</i>
+		</button>
+		<button type="button" class="btn btn-warning gmd fab fixed" style="right: 95px" ng-click="clean()" >
+			<i class="material-icons">clear</i>
 		</button>
 	</div>
 </form>

@@ -1,24 +1,31 @@
-define(function(require) {
-  'use strict';
-  require('angular');
-  require('angular-ui-router');
-  require('angular-sanitize');
-  require('ngImgCrop');
-  require('gumga-components');
-  require('app/modules/login/module');
-  require('app/apiLocations');
-  require('app/modules/gumgatagdefinition/module');
-  require('app/modules/gumgacustomfield/module');
-    require('app/modules/person/module');
-  //FIMREQUIRE
+define(['angular',
+    'angular-ui-router',
+    'angular-sanitize',
+    'ngImgCrop',
+    'gumga-components',
+    'app/modules/login/module',
+    'app/apiLocations',
+    'app/modules/gumgatagdefinition/module',
+    'app/modules/gumgacustomfield/module',
+    'app/modules/person/module',
+    'ng-filter-br',
+    'tree-control',
+    'angular-input-masks',
+    'string-mask',
+    'moment',
+    'br-validations'], function(angular) {
+    //FIMREQUIRE
   angular.module('app.core', [
-    'ui.router'
-    ,'ngSanitize'
-    ,'gumga.core'
-    ,'app.login'
-    ,'app.gumgatagdefinition'
-    ,'app.gumgacustomfield'
-        ,'app.person'
+      'ui.router'
+      , 'ngSanitize'
+      , 'gumga.core'
+      , 'app.login'
+      , 'app.gumgatagdefinition'
+      , 'app.gumgacustomfield'
+      , 'app.person'
+      , 'brasil.filters'
+      , 'treeControl'
+      , 'ui.utils.masks'
   //FIMINJECTIONS
     ])
     .config(function($stateProvider, $urlRouterProvider, $httpProvider, $injector, GumgaAlertProvider) {

@@ -8,20 +8,25 @@ define([], function() {
 
     PersonService.resetDefaultState();
     $scope.person.execute('get');
+    
+    $scope.$on('deleteSuccess',function(){
+      $scope.person.execute('get');
+    })
 
     $scope.tableConfig = {
-      columns: 'nome ,button',
-      checkbox: true,
-      columnsConfig: [{
-        name: 'nome',
-        title: '<span gumga-translate-tag="person.nome"> nome </span>',
-        content: '{{$value.nome }}',
+      columns: 'button, name',
+      columnsConfig: [
+        {
+          name: 'button',
+          size: 'col-md-1',
+          title: ' ',
+          content: '<span class="pull-right"><a class="btn btn-primary gmd btn-sm" ui-sref="person.edit({id: {{$value.id}} })"><i class="glyphicon glyphicon-pencil"></i></a></span>'
+        },{
+        name: 'name',
+        title: '<span gumga-translate-tag="person.name"> nome </span>',
+        content: '{{$value.name }}',
         sortField: 'nome'
-      }, {
-        name: 'button',
-        title: ' ',
-        content: '<span class="pull-right"><a class="btn btn-primary btn-sm" ui-sref="person.edit({id: {{$value.id}} })"><i class="glyphicon glyphicon-pencil"></i></a></span>'
-      }]
+      }, ]
     };
 
   };

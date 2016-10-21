@@ -25,7 +25,7 @@ define(function(require) {
           controller: 'PersonFormController',
           resolve: {
             entity: ['$stateParams', '$http', function($stateParams, $http) {
-              return $http.get(APILocation.apiLocation + '/api/person/new');
+              return $http.get(APILocation.apiLocation + '/api/juridica/new');
             }]
           }
         })
@@ -35,7 +35,7 @@ define(function(require) {
           controller: 'PersonFormController',
           resolve: {
             entity: ['$stateParams', '$http', function($stateParams, $http) {
-              return $http.get(APILocation.apiLocation + '/api/person/' + $stateParams.id);
+              return $http.get(APILocation.apiLocation + '/api/juridica/loadwithfather/' + $stateParams.id);
             }]
           }
         });

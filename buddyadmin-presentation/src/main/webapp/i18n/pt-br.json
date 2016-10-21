@@ -6,7 +6,10 @@
     "insert": "Inserir Person",
     "list": "Consulta Person",
     "id": "id",
-    "nome": "Nome"
+    "name": "Nome/Razão Social",
+    "father": "Matriz",
+    "cnpj": "CNPJ",
+    "stateReg": "Inscrição Estadual"
   },
   "address": {
     "cep": "CEP",
