@@ -1,38 +1,38 @@
 define(function(require) {
 
-  var APILocation = require('app/apiLocations');
+  var APILocation = require('apiLocations');
   require('angular-ui-router');
-  require('app/modules/person/services/module');
-  require('app/modules/person/controllers/module');
+  require('app/modules/company/services/module');
+  require('app/modules/company/controllers/module');
 
   return require('angular')
-    .module('app.person', [
+    .module('app.company', [
       'ui.router',
-      'app.person.controllers',
-      'app.person.services',
+      'app.company.controllers',
+      'app.company.services',
       'gumga.core'
     ])
     .config(function($stateProvider, $httpProvider) {
       $stateProvider
-        .state('person.list', {
+        .state('company.list', {
           url: '/list',
-          templateUrl: 'app/modules/person/views/list.html',
-          controller: 'PersonListController'
+          templateUrl: 'app/modules/company/views/list.html',
+          controller: 'CompanyListController'
         })
-        .state('person.insert', {
+        .state('company.insert', {
           url: '/insert',
-          templateUrl: 'app/modules/person/views/form.html',
-          controller: 'PersonFormController',
+          templateUrl: 'app/modules/company/views/form.html',
+          controller: 'CompanyFormController',
           resolve: {
             entity: ['$stateParams', '$http', function($stateParams, $http) {
               return $http.get(APILocation.apiLocation + '/api/juridica/new');
             }]
           }
         })
-        .state('person.edit', {
+        .state('company.edit', {
           url: '/edit/:id',
-          templateUrl: 'app/modules/person/views/form.html',
-          controller: 'PersonFormController',
+          templateUrl: 'app/modules/company/views/form.html',
+          controller: 'CompanyFormController',
           resolve: {
             entity: ['$stateParams', '$http', function($stateParams, $http) {
               return $http.get(APILocation.apiLocation + '/api/juridica/loadwithfather/' + $stateParams.id);

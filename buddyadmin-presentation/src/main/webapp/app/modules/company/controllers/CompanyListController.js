@@ -1,12 +1,12 @@
 define([], function() {
 
-  PersonListController.$inject = ['$scope', 'PersonService', 'gumgaController'];
+  CompanyListController.$inject = ['$scope', 'JuridicaCompanyService', 'gumgaController'];
 
-  function PersonListController($scope, PersonService, gumgaController) {
+  function CompanyListController($scope, JuridicaCompanyService, gumgaController) {
 
-    gumgaController.createRestMethods($scope, PersonService, 'person');
+    gumgaController.createRestMethods($scope, JuridicaCompanyService, 'person');
 
-    PersonService.resetDefaultState();
+    JuridicaService.resetDefaultState();
     $scope.person.execute('get');
     
     $scope.$on('deleteSuccess',function(){
@@ -20,7 +20,7 @@ define([], function() {
           name: 'button',
           size: 'col-md-1',
           title: ' ',
-          content: '<span class="pull-right"><a class="btn btn-primary gmd btn-sm" ui-sref="person.edit({id: {{$value.id}} })"><i class="glyphicon glyphicon-pencil"></i></a></span>'
+          content: '<span class="pull-right"><a class="btn btn-primary gmd btn-sm" ui-sref="company.edit({id: {{$value.id}} })"><i class="glyphicon glyphicon-pencil"></i></a></span>'
         },{
         name: 'name',
         title: '<span gumga-translate-tag="person.name"> nome </span>',
@@ -30,5 +30,5 @@ define([], function() {
     };
 
   };
-  return PersonListController;
+  return CompanyListController;
 });

@@ -1,4 +1,4 @@
-define(['app/apiLocations'], function (APILocation) {
+define(['apiLocations'], function (APILocation) {
     'use strict';
     LoginService.$inject = ['$http', '$q', '$rootScope', '$state', 'GumgaWebStorage'];
 

@@ -1,7 +1,7 @@
 {
   "person": {
     "title": "Person",
-    "menulabel": "Person",
+    "menulabel": "Cadastro de Empresas",
     "edit": "Editar Person",
     "insert": "Inserir Person",
     "list": "Consulta Person",

@@ -14,11 +14,14 @@
 				</treecontrol>
 			</div>
 			<div class="col-lg-6">
-                <div class="form-group gmd">
-                    <input type="text" class="form-control gmd" ng-model="currentCompany.name" id="name" required autocomplete="off">
-                    <span class="bar"></span>
-                    <label for="name" class="control-label" gumga-translate-tag="person.name">Nome/Razão Social</label>
-                </div>
+                <gmd-input>
+                    <div class="form-group gmd">
+                        <input type="text" class="form-control gmd" ng-model="currentCompany.name" id="name" required autocomplete="off">
+                        <span class="bar"></span>
+                        <label for="name" class="control-label" gumga-translate-tag="person.name">Nome/Razão Social</label>
+                    </div>
+                </gmd-input>
+
 
 
 				<div style="margin-top:15px">
@@ -40,16 +43,7 @@
 		</div>
 
 		<div style="margin-top: 15px" ng-if="currentCompany.id">
-            <div class="form-group gmd">
-                <input type="text" class="form-control gmd" ng-model="currentCompany.CNPJ" id="cnpj" ui-br-cnpj-mask required autocomplete="off">
-                <span class="bar"></span>
-                <label for="cnpj" class="control-label" gumga-translate-tag="person.cnpj">CNPJ</label>
-            </div>
-            <div class="form-group gmd">
-                <input type="text" class="form-control gmd" ng-model="currentCompany.CNPJ" id="IE"  required autocomplete="off">
-                <span class="bar"></span>
-                <label for="IE" class="control-label" gumga-translate-tag="person.stateReg">stateRegistration</label>
-            </div>
+
 
 		</div>
 

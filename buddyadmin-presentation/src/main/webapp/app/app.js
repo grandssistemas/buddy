@@ -3,29 +3,30 @@ define(['angular',
     'angular-sanitize',
     'ngImgCrop',
     'gumga-components',
-    'app/modules/login/module',
-    'app/apiLocations',
-    'app/modules/gumgatagdefinition/module',
-    'app/modules/gumgacustomfield/module',
-    'app/modules/person/module',
     'ng-filter-br',
     'tree-control',
     'angular-input-masks',
     'string-mask',
     'moment',
-    'br-validations'], function(angular) {
+    'br-validations',
+    'gumga-layout',
+    'buddy-core',
+    'app/modules/login/module',
+    'apiLocations',
+    'app/modules/company/module'], function(angular,moment) {
     //FIMREQUIRE
+    window.moment = moment;
   angular.module('app.core', [
       'ui.router'
       , 'ngSanitize'
       , 'gumga.core'
       , 'app.login'
-      , 'app.gumgatagdefinition'
-      , 'app.gumgacustomfield'
-      , 'app.person'
+      , 'app.company'
       , 'brasil.filters'
       , 'treeControl'
       , 'ui.utils.masks'
+      , 'gumga.layout'
+      , 'buddy.core'
   //FIMINJECTIONS
     ])
     .config(function($stateProvider, $urlRouterProvider, $httpProvider, $injector, GumgaAlertProvider) {
@@ -78,12 +79,12 @@ define(['angular',
              url: '/gumgacustomfield',
              templateUrl: 'app/modules/gumgacustomfield/views/base.html'
         })
-        .state('person', {
+        .state('company', {
         data: {
             id: 1
         }, 
-            url: '/person',
-            templateUrl: 'app/modules/person/views/base.html'
+            url: '/company',
+            templateUrl: 'app/modules/company/views/base.html'
         })
 
         //FIMROUTE

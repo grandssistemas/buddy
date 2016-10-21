@@ -11,8 +11,9 @@ requirejs.config({
         "jquery": "bower_components/jquery/dist/jquery.min",
         "es5-sshim": "bower_components/es5-shim/es5-shim.min",
         'notify': "bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.min",
-        "api-locations":"app/apiLocations",
+        "apiLocations":"app/apiLocations",
         "gumga-components":"bower_components/gumga-components/dist/gumga.min",
+        "gumga-layout":"bower_components/gumga-layout/dist/app",
         "mousetrap-latest": "bower_components/mousetrap-latest/mousetrap.min",
         "remarkable-bootstrap-notify": "bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.min",
         "ngImgCrop": "bower_components/ng-img-crop/compile/minified/ng-img-crop",
@@ -22,7 +23,8 @@ requirejs.config({
         "moment": "bower_components/moment/min/moment-with-locales.min",
         "moment-timezone": "bower_components/moment-timezone/builds/moment-timezone.min",
         "br-validations": "bower_components/br-validations/releases/br-validations",
-        "tree-control": "bower_components/angular-tree-control/angular-tree-control"
+        "tree-control": "bower_components/angular-tree-control/angular-tree-control",
+        "buddy-core": "bower_components/buddy-person-front/app/app"
     },
     shim: {
         "angular": {exports: "angular", deps: ["jquery"]},
@@ -37,6 +39,8 @@ requirejs.config({
         "gumga-components":{deps:['angular','angular-bootstrap', 'angular-ui-router', 'jquery', 'remarkable-bootstrap-notify', 'mousetrap-latest'] },
         "ngImgCrop": {deps: ["angular"]},
         "ng-filter-br": {deps: ['angular']},
-        "tree-control": {deps: ['angular']}
+        "tree-control": {deps: ['angular']},
+        "buddy-core":{deps:['angular','gumga-components','apiLocations']},
+        "gumga-layout":{deps:['angular']}
     }
 });

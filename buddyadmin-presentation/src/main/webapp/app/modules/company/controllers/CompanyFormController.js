@@ -1,16 +1,16 @@
 define(['angular'], function (angular) {
 
 
-    PersonFormController.$inject = ['PersonService', '$state', 'entity', '$scope', 'IndividualService', 'JuridicaService'];
+    CompanyFormController.$inject = ['JuridicaCompanyService', 'entity', '$scope'];
 
-    function PersonFormController(PersonService, $state, entity, $scope, IndividualService, JuridicaService) {
+    function CompanyFormController(JuridicaCompanyService, entity, $scope) {
 
         $scope.entity = angular.copy(entity.data);
         $scope.continue = {};
 
         $scope.getPerson = function (param) {
             param = param || '';
-            return PersonService.getAdvancedSearch('(lower(obj.name) like lower(\'%' + param + '%\'))').then(function (data) {
+            return JuridicaCompanyService.getAdvancedSearch('(lower(obj.name) like lower(\'%' + param + '%\'))').then(function (data) {
                 return $scope.people = data.data.values;
             })
         };
@@ -18,7 +18,7 @@ define(['angular'], function (angular) {
         getTree();
 
         $scope.getFatherFat = function (value) {
-            JuridicaService.loadWithParent(value.id).then(function (data) {
+            JuridicaCompanyService.loadWithParent(value.id).then(function (data) {
                 $scope.currentCompany.father = data.data;
             })
         };
@@ -32,12 +32,12 @@ define(['angular'], function (angular) {
                 father.branches = father.branches || [];
                 father.branches.push(entity);
                 delete entity.father;
-                JuridicaService.update(father).then(function () {
+                JuridicaCompanyService.update(father).then(function () {
                     getTree();
                     $scope.clean();
                 })
             } else {
-                JuridicaService.update(entity).then(function () {
+                JuridicaCompanyService.update(entity).then(function () {
                     getTree();
                     $scope.clean();
                 })
@@ -46,7 +46,6 @@ define(['angular'], function (angular) {
 
         $scope.selectNode = function(node,$parentNode){
             node.father = $parentNode;
-            console.log(node);
         }
 
         $scope.treeOptions = {
@@ -63,7 +62,7 @@ define(['angular'], function (angular) {
 
 
         function getTree(){
-            JuridicaService.getTree().then(function(data){
+            JuridicaCompanyService.getTree().then(function(data){
                 $scope.personTree = data.data;
             })
         }
@@ -139,5 +138,5 @@ define(['angular'], function (angular) {
         }
     }
 
-    return PersonFormController;
+    return CompanyFormController;
 });

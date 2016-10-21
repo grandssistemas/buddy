@@ -22,7 +22,8 @@
     "string-mask": "^0.3.0",
     "moment": "^2.15.1",
     "moment-timezone": "^0.5.6",
-    "br-validations": "^0.3.0"
+    "br-validations": "^0.3.0",
+    "buddy-person-front": "https://github.com/grandssistemas/Buddy-Person-Front.git"
   },
   "resolutions": {
     "angular": "~1.5.8",

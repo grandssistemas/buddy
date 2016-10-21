@@ -1,8 +1,8 @@
-define(['app/apiLocations'], function(APILocation) {
+define(['apiLocations'], function(APILocation) {
 
-	JuridicaService.$inject = ['GumgaRest'];
+	JuridicaCompanyService.$inject = ['GumgaRest'];
 
-	function JuridicaService(GumgaRest) {
+	function JuridicaCompanyService(GumgaRest) {
     	var Service = new GumgaRest(APILocation.apiLocation + '/api/juridica');
 
 		Service.loadWithParent = function(id){
@@ -16,5 +16,5 @@ define(['app/apiLocations'], function(APILocation) {
 		return Service;
     }
 
-  	return JuridicaService;
+  	return JuridicaCompanyService;
 });
