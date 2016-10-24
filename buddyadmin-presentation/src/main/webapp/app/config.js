@@ -9,6 +9,7 @@ requirejs.config({
         "angular-sanitize": "bower_components/angular-sanitize/angular-sanitize.min",
         "bootstrap": "bower_components/bootstrap/dist/js/bootstrap.min",
         "jquery": "bower_components/jquery/dist/jquery.min",
+        'jquery-mask': "bower_components/jQuery-Mask-Plugin/dist/jquery.mask.min",
         "es5-sshim": "bower_components/es5-shim/es5-shim.min",
         'notify': "bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.min",
         "apiLocations":"app/apiLocations",
@@ -19,12 +20,16 @@ requirejs.config({
         "ngImgCrop": "bower_components/ng-img-crop/compile/minified/ng-img-crop",
         "ng-filter-br": "resources/javascript/ng-filters-br/ng-filter-br",
         'angular-input-masks': "bower_components/angular-input-masks/angular-input-masks",
+        "inspinia": "dist/inspinia/js/inspinia",
         "string-mask": "bower_components/string-mask/src/string-mask",
         "moment": "bower_components/moment/min/moment-with-locales.min",
         "moment-timezone": "bower_components/moment-timezone/builds/moment-timezone.min",
         "br-validations": "bower_components/br-validations/releases/br-validations",
         "tree-control": "bower_components/angular-tree-control/angular-tree-control",
-        "buddy-core": "bower_components/buddy-person-front/app/app"
+        "buddy-core": "bower_components/buddy-person-front/app/app",
+        "inspinia-datepicker": "bower_components/angular-datepicker/dist/angular-datepicker",
+        "angular-moment": "bower_components/angular-moment/angular-moment.min",
+        "angular-locale": "bower_components/angular-locale-pt-br/angular-locale_pt-br"
     },
     shim: {
         "angular": {exports: "angular", deps: ["jquery"]},
@@ -38,7 +43,11 @@ requirejs.config({
         "moment": {deps: ["jquery"], exports:"moment"},
         "gumga-components":{deps:['angular','angular-bootstrap', 'angular-ui-router', 'jquery', 'remarkable-bootstrap-notify', 'mousetrap-latest'] },
         "ngImgCrop": {deps: ["angular"]},
+        "jquery": {exports: 'jquery'},
+        "inspinia-datepicker": {deps: ['angular', 'angular-moment','moment']},
         "ng-filter-br": {deps: ['angular']},
+        "inspinia": {deps: ['jquery']},
+        "angular-locale": {deps: ['angular']},
         "tree-control": {deps: ['angular']},
         "buddy-core":{deps:['angular','gumga-components','apiLocations']},
         "gumga-layout":{deps:['angular']}

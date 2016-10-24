@@ -1,12 +1,13 @@
 define(['angular'], function (angular) {
 
 
-    CompanyFormController.$inject = ['JuridicaCompanyService', 'entity', '$scope'];
+    CompanyFormController.$inject = ['JuridicaCompanyService', 'entity', '$scope','$controller'];
 
-    function CompanyFormController(JuridicaCompanyService, entity, $scope) {
+    function CompanyFormController(JuridicaCompanyService, entity, $scope,$controller) {
 
-        $scope.entity = angular.copy(entity.data);
+        $scope.currentCompany = angular.copy(entity.data);
         $scope.continue = {};
+        $scope.isIntegration = true;
 
         $scope.getPerson = function (param) {
             param = param || '';
@@ -53,11 +54,18 @@ define(['angular'], function (angular) {
             isLeaf: function(node){
                 return (node.branches.length === 0);
             }
-
         }
+
+        $scope.$watch('currentNode',function(data){
+            if(data){
+                $scope.currentCompany = angular.copy(data);
+                $scope.$broadcast('companyChange',$scope.currentCompany);
+            }
+        });
 
         $scope.clean = function(){
             $scope.currentCompany = {}
+            $scope.currentNode = {};
         }
 
 

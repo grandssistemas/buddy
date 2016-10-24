@@ -9,7 +9,7 @@
                     tree-model="personTree"
                     on-selection="selectNode(node,$parentNode)"
                     options="treeOptions"
-					selected-node="currentCompany">
+					selected-node="currentNode">
                  Empresa: {{node.name}}
 				</treecontrol>
 			</div>
@@ -41,11 +41,14 @@
 				</div>
 			</div>
 		</div>
-
 		<div style="margin-top: 15px" ng-if="currentCompany.id">
+			<div  ng-controller="PersonFormController" buddy-include="{entity: {data: currentCompany}, returnCallBack : null, updateCallBack: null }">
+				<div ng-include src="'bower_components/buddy-person-front/app/modules/person/views/form.html'">
+				</div>
 
-
+			</div>
 		</div>
+
 
 
 		<button type="button" class="btn gmd fab btn-success fixed" ng-click="update(currentCompany)">

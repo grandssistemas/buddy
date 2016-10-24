@@ -11,6 +11,8 @@ define(['angular',
     'br-validations',
     'gumga-layout',
     'buddy-core',
+    'inspinia-datepicker',
+    'angular-locale',
     'app/modules/login/module',
     'apiLocations',
     'app/modules/company/module'], function(angular,moment) {
@@ -27,6 +29,7 @@ define(['angular',
       , 'ui.utils.masks'
       , 'gumga.layout'
       , 'buddy.core'
+      , 'datePicker'
   //FIMINJECTIONS
     ])
     .config(function($stateProvider, $urlRouterProvider, $httpProvider, $injector, GumgaAlertProvider) {
