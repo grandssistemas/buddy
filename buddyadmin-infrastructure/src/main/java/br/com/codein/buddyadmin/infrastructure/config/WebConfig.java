@@ -1,4 +1,4 @@
-package br.com.codein.infrastructure.config;
+package br.com.codein.buddyadmin.infrastructure.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -34,7 +34,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"br.com.codein.presentation.web", "gumga.framework"})
+@ComponentScan(basePackages = {"br.com.codein", "gumga.framework"})
 @Import(Application.class)
 public class WebConfig extends WebMvcConfigurerAdapter implements WebApplicationInitializer {
 

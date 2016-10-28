@@ -1,8 +1,9 @@
-package br.com.codein.infrastructure.config;
+package br.com.codein.buddyadmin.infrastructure.config;
 
 import gumga.framework.application.GumgaRepositoryFactoryBean;
 import gumga.framework.application.spring.config.DatabaseConfigSupport;
 import gumga.framework.core.GumgaValues;
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -67,7 +68,7 @@ public class Application {
 
         Properties properties = new Properties();
         properties.put("eclipselink.weaving", "false");
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "none");
 
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.EJB3NamingStrategy");
@@ -78,6 +79,10 @@ public class Application {
         properties.put("hibernate.connection.useUnicode", "true");
         properties.put("hibernate.jdbc.batch_size", "55");
 
+        properties.put("liquibase.enabled", "true");
+        properties.put("liquibase.drop-first","false");
+        properties.put("liquibase.change-log","src/main/resources/liquibase/changelog-master.xml");
+
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("gumga.framework.domain","br.com.codein");
@@ -87,6 +92,15 @@ public class Application {
         factory.afterPropertiesSet();
 
         return factory;
+    }
+
+    @Bean
+    public static SpringLiquibase liquibase() {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setDataSource(dataSource());
+        liquibase.setDropFirst(false);
+        liquibase.setChangeLog("classpath:/liquibase/changelog-master.xml");
+        return liquibase;
     }
 
     @Bean

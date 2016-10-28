@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>br.com.codein</groupId>
@@ -30,7 +31,7 @@
         <dependency>
             <groupId>br.com.codein</groupId>
             <artifactId>buddyperson-api</artifactId>
-            <version>1.0</version>
+            <version>${buddyperson.version}</version>
             <type>jar</type>
         </dependency>
         <dependency>
@@ -45,13 +46,13 @@
             <plugin>
                 <groupId>com.google.code.maven-replacer-plugin</groupId>
                 <artifactId>replacer</artifactId>
-                <version>1.5.3</version>             
+                <version>1.5.3</version>
                 <executions>
                     <execution>
                         <phase>compile</phase>
                         <goals>
                             <goal>replace</goal>
-                        </goals>                    
+                        </goals>
                     </execution>
                 </executions>
                 <configuration>

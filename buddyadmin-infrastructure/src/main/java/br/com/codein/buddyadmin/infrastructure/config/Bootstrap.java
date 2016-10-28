@@ -1,4 +1,4 @@
-package br.com.codein.infrastructure.config;
+package br.com.codein.buddyadmin.infrastructure.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

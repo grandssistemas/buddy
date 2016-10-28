@@ -24,6 +24,11 @@
         </dependency>
         <dependency>
             <groupId>br.com.codein</groupId>
+            <artifactId>buddyadmin-integration</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>br.com.codein</groupId>
             <artifactId>buddyperson-application</artifactId>
             <type>jar</type>
         </dependency>
@@ -33,5 +38,11 @@
             <artifactId>gumga-domain</artifactId>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>br.com.gumga</groupId>
+            <artifactId>security-domain</artifactId>
+            <type>jar</type>
+        </dependency>
+
     </dependencies>
 </project>

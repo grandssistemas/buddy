@@ -9,9 +9,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <gumga.framework.version>1.2.12</gumga.framework.version>
+        <gumga.security.version>1.2.12-SNAPSHOT</gumga.security.version>
         <spring.version>4.2.6.RELEASE</spring.version>
         <hibernate.version>4.3.1.Final</hibernate.version>
-        <buddyperson.version>1.0</buddyperson.version>
+        <buddyperson.version>1.1</buddyperson.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -29,6 +30,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>buddyadmin-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>buddyadmin-integration</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -119,6 +125,11 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
@@ -232,9 +243,20 @@
                 <version>${buddyperson.version}</version>
             </dependency>
             <dependency>
+                <groupId>br.com.gumga</groupId>
+                <artifactId>security-domain</artifactId>
+                <version>1.2.12-SNAPSHOT</version>
+            </dependency>
+            <dependency>
                 <groupId>br.com.codein</groupId>
                 <artifactId>buddyperson-application</artifactId>
                 <version>${buddyperson.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>br.com.codein</groupId>
+                        <artifactId>buddyadmin-infrastructure</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>br.com.codein</groupId>
@@ -313,6 +335,7 @@
   <modules>
     <module>buddyadmin-domain</module>
     <module>buddyadmin-infrastructure</module>
+      <module>buddyadmin-integration</module>
     <module>buddyadmin-application</module>
     <module>buddyadmin-gateway</module>
     <module>buddyadmin-api</module>

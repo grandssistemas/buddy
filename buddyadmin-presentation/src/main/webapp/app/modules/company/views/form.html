@@ -1,6 +1,9 @@
 <form name="PersonForm" >
 		
 	<div >
+		<button type="button" class="btn gmd raised btn-danger" ng-click="change" >
+			Mudar
+		</button>
 		<div class="row">
 			<div class="col-lg-6">
 
@@ -21,6 +24,15 @@
                         <label for="name" class="control-label" gumga-translate-tag="person.name">Nome/Razão Social</label>
                     </div>
                 </gmd-input>
+
+				<div class="col-md-4">
+					<gmd-select ng-model="example.select"
+								on-update="change(option)"
+								options="optionss"
+								option="name"
+								placeholder="- Selecione uma pessoa -">
+					</gmd-select>
+				</div>
 
 
 

@@ -1,14 +1,18 @@
 define(['angular'], function (angular) {
 
 
-    CompanyFormController.$inject = ['JuridicaCompanyService', 'entity', '$scope','$controller'];
+    CompanyFormController.$inject = ['JuridicaCompanyService', 'entity', '$scope','CompanyService'];
 
-    function CompanyFormController(JuridicaCompanyService, entity, $scope,$controller) {
+    function CompanyFormController(JuridicaCompanyService, entity, $scope, CompanyService) {
 
         $scope.currentCompany = angular.copy(entity.data);
         $scope.continue = {};
         $scope.isIntegration = true;
 
+
+        $scope.change = function(){
+            CompanyService.changeOrganization(8);
+        }
         $scope.getPerson = function (param) {
             param = param || '';
             return JuridicaCompanyService.getAdvancedSearch('(lower(obj.name) like lower(\'%' + param + '%\'))').then(function (data) {
@@ -34,11 +38,13 @@ define(['angular'], function (angular) {
                 father.branches.push(entity);
                 delete entity.father;
                 JuridicaCompanyService.update(father).then(function () {
+                    CompanyService.createOrganization(entity);
                     getTree();
                     $scope.clean();
                 })
             } else {
                 JuridicaCompanyService.update(entity).then(function () {
+                    CompanyService.createOrganization(entity);
                     getTree();
                     $scope.clean();
                 })
