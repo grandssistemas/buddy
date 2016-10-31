@@ -14,7 +14,7 @@ requirejs.config({
         'notify': "bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.min",
         "apiLocations":"app/apiLocations",
         "gumga-components":"bower_components/gumga-components/dist/gumga.min",
-        "gumga-layout":"bower_components/gumga-layout/dist/app",
+        "gumga-layout":"resources/gumgalayout/gumga-layout.min",
         "mousetrap-latest": "bower_components/mousetrap-latest/mousetrap.min",
         "remarkable-bootstrap-notify": "bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.min",
         "ngImgCrop": "bower_components/ng-img-crop/compile/minified/ng-img-crop",
