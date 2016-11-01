@@ -72,7 +72,7 @@ public class Application {
 
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.EJB3NamingStrategy");
-        //properties.put("hibernate.show_sql", "true");
+        properties.put("hibernate.show_sql", "true");
         //properties.put("hibernate.format_sql", "true");
         properties.put("hibernate.connection.charSet", "UTF-8");
         properties.put("hibernate.connection.characterEncoding", "UTF-8");

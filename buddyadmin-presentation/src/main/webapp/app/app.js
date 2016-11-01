@@ -15,6 +15,7 @@ define(['angular',
     'angular-locale',
     'app/modules/login/module',
     'apiLocations',
+    'bootstrap',
     'app/modules/company/module'], function(angular,moment) {
     //FIMREQUIRE
     window.moment = moment;
@@ -103,7 +104,7 @@ define(['angular',
           'responseError': function(rejection) {
             var $state = $injector.get('$state');
             GumgaAlertProvider.createDangerMessage(rejection.data.response, rejection.statusText);
-            rejection.status == 403 && ($state.go('login.log'));
+            rejection.status === 403 && ($state.go('login.log'));
             return $q.reject(rejection);
           }
         };

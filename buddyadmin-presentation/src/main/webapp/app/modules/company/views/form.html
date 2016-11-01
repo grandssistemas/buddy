@@ -1,73 +1,69 @@
-<form name="PersonForm" >
-		
-	<div >
-		<button type="button" class="btn gmd raised btn-danger" ng-click="change" >
-			Mudar
-		</button>
-		<div class="row">
-			<div class="col-lg-6">
+<form name="PersonForm">
 
-				<treecontrol
-                    class="tree-light"
-                    tree-model="personTree"
-                    on-selection="selectNode(node,$parentNode)"
-                    options="treeOptions"
-					selected-node="currentNode">
-                 Empresa: {{node.name}}
-				</treecontrol>
-			</div>
-			<div class="col-lg-6">
+    <div>
+        <div class="row">
+            <div class="col-lg-6">
+
+                <treecontrol
+                        class="tree-light"
+                        tree-model="personTree"
+                        on-selection="selectNode(node,$parentNode)"
+                        options="treeOptions"
+                        selected-node="currentNode">
+                    Empresa: {{node.name}}
+                </treecontrol>
+            </div>
+            <div class="col-lg-6">
                 <gmd-input>
                     <div class="form-group gmd">
-                        <input type="text" class="form-control gmd" ng-model="currentCompany.name" id="name" required autocomplete="off">
+                        <input type="text" class="form-control gmd" ng-model="currentCompany.name" id="name" required
+                               autocomplete="off">
                         <span class="bar"></span>
-                        <label for="name" class="control-label" gumga-translate-tag="person.name">Nome/Razão Social</label>
+                        <label for="name" class="control-label" gumga-translate-tag="person.name">Nome/Razão
+                            Social</label>
                     </div>
                 </gmd-input>
 
-				<div class="col-md-4">
-					<gmd-select ng-model="example.select"
-								on-update="change(option)"
-								options="optionss"
-								option="name"
-								placeholder="- Selecione uma pessoa -">
-					</gmd-select>
-				</div>
+                <gmd-select ng-model="role"
+                            options="roleCategories"
+                            option="name"
+                            placeholder="Selecione um tipo de Pessoa">
+                </gmd-select>
 
 
-
-				<div style="margin-top:15px">
-					<label gumga-translate-tag="person.father">Father</label>
-					<gumga-many-to-one
-							value="currentCompany.father"
-							search-method="getPerson(param)"
-							field="name"
-							authorize-add="false"
-							display-info="false"
+                <div style="margin-top:15px">
+                    <label gumga-translate-tag="person.father">Father</label>
+                    <gumga-many-to-one
+                            value="currentCompany.father"
+                            search-method="getPerson(param)"
+                            field="name"
+                            authorize-add="false"
+                            display-info="false"
                             disabled="!!currentCompany.id"
-							on-select="getFatherFat(value)">
-						<match>
-							<div>{{match.model.name}}, CNPJ: {{match.model.cnpj.value | cnpj}}</div>
-						</match>
-					</gumga-many-to-one>
-				</div>
-			</div>
-		</div>
-		<div style="margin-top: 15px" ng-if="currentCompany.id">
-			<div  ng-controller="PersonFormController" buddy-include="{entity: {data: currentCompany}, returnCallBack : null, updateCallBack: null }">
-				<div ng-include src="'bower_components/buddy-person-front/app/modules/person/views/form.html'">
-				</div>
+                            on-select="getFatherFat(value)">
+                        <match>
+                            <div>{{match.model.name}}, CNPJ: {{match.model.cnpj.value | cnpj}}</div>
+                        </match>
+                    </gumga-many-to-one>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 15px" ng-if="currentCompany.id">
+            <div ng-controller="PersonFormController"
+                 buddy-include="{entity: {data: currentCompany}, returnCallBack : null, updateCallBack: null }">
+                <div ng-include src="'bower_components/buddy-person-front/app/modules/person/views/form.html'">
+                </div>
 
-			</div>
-		</div>
+            </div>
+        </div>
 
 
-
-		<button type="button" class="btn gmd fab btn-success fixed" ng-click="update(currentCompany)">
-			<i class="material-icons">{{currentCompany.id? 'save' : 'add'}}</i>
-		</button>
-		<button type="button" class="btn btn-warning gmd fab fixed" style="right: 95px" ng-click="clean()" >
-			<i class="material-icons">clear</i>
-		</button>
-	</div>
+        <button type="button" class="btn gmd fab btn-success fixed" ng-click="update(currentCompany)"
+                ng-disabled="blockBtnSave()">
+            <i class="material-icons">{{currentCompany.id? 'save' : 'add'}}</i>
+        </button>
+        <button type="button" class="btn btn-warning gmd fab fixed" style="right: 95px" ng-click="clean()">
+            <i class="material-icons">clear</i>
+        </button>
+    </div>
 </form>

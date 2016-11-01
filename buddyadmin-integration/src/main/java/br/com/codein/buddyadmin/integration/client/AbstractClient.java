@@ -61,4 +61,6 @@ public abstract class AbstractClient<T>{
         this.requestEntity = new HttpEntity(object, this.headers);
         return this.restTemplate.exchange(this.url.concat(url), HttpMethod.PUT, (HttpEntity<?>) this.requestEntity, objectClass);
     }
+
+
 }

@@ -13,6 +13,18 @@ define(['apiLocations'], function(APILocation) {
 			return Service.extend('get','/tree');
 		}
 
+		Service.getAdvancedSearchWithoutTenancy = function(p){
+			Service.resetDefaultState();
+			if(typeof p === 'string'){
+				this._query.params.aq = p;
+				return Service.extend('get','/searchwithouttenancy',this._query)
+			}
+			this._query.params.aq = p.hql;
+			this._query.params.aqo = JSON.stringify(p.source);
+			return Service.extend('get','/searchwithouttenancy',this._query)
+
+		}
+
 		return Service;
     }
 

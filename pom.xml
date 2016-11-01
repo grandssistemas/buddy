@@ -9,7 +9,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <gumga.framework.version>1.2.12</gumga.framework.version>
-        <gumga.security.version>1.2.12-SNAPSHOT</gumga.security.version>
         <spring.version>4.2.6.RELEASE</spring.version>
         <hibernate.version>4.3.1.Final</hibernate.version>
         <buddyperson.version>1.1</buddyperson.version>
@@ -245,7 +244,7 @@
             <dependency>
                 <groupId>br.com.gumga</groupId>
                 <artifactId>security-domain</artifactId>
-                <version>1.2.12-SNAPSHOT</version>
+                <version>1.2.14-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>br.com.codein</groupId>
