@@ -9,10 +9,16 @@ import br.com.gumga.security.domain.model.institutional.Organization;
 import br.com.gumga.security.domain.model.institutional.User;
 import gumga.framework.core.GumgaThreadScope;
 import gumga.framework.domain.domains.GumgaBoolean;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by luizaugusto on 27/10/16.
@@ -26,6 +32,7 @@ public class CompanyService {
     @Autowired
     private PersonService personService;
 
+    @Transactional
     public Organization newOrganization(Person obj){
         Organization x = new Organization();
 
@@ -43,7 +50,7 @@ public class CompanyService {
         if (needToCreateSubOrganization(j)){
             result = createSubOrganization(j, x);
         } else {
-            result =securityClient.newOrganization(x);
+            result =securityClient.saveOrganization(x);
         }
 
 
@@ -52,10 +59,17 @@ public class CompanyService {
         return result;
     }
 
-
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     public Boolean needToCreateSubOrganization(Person p){
-       return (p.getRoles().stream().filter(associativeRole ->
-                associativeRole.getActive() &&  RoleCategory.REPRESENTATIVE.equals(associativeRole.getRole().getCategory())).count() > 0);
+
+        Boolean isRepresentative = p.containRoleWithCategory(RoleCategory.REPRESENTATIVE);
+        Boolean isSubCompany = Boolean.FALSE;
+        if (p.getFather() != null){
+            Hibernate.initialize(p.getFather().getRoles());
+            isSubCompany = p.containRoleWithCategory(RoleCategory.COMPANY) &&
+                    p.getFather().containRoleWithCategory(RoleCategory.COMPANY);
+        }
+       return isRepresentative || isSubCompany;
     }
 
     public Organization createSubOrganization(Person p, Organization org){
@@ -63,6 +77,7 @@ public class CompanyService {
         String rootFatherSecurityId = splicedFatherOi.removeFirst();
         Organization root = securityClient.getOrganization(Long.valueOf(rootFatherSecurityId));
         Organization father = getChildRecursive(splicedFatherOi,root);
+        org.setMainUser(null);
         father.getSubOrganizations().add(org);
         securityClient.saveOrganization(root);
         List<Organization> search = securityClient.getByInternalCode(org.getInternalCode());

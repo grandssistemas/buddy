@@ -1,5 +1,8 @@
 package br.com.codein.buddyadmin.integration.client;
 
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import gumga.framework.core.GumgaThreadScope;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -8,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -18,6 +23,7 @@ public abstract class AbstractClient<T>{
     private HttpHeaders headers;
     private RestTemplate restTemplate;
     private HttpEntity requestEntity;
+    private ObjectMapper mapper = new ObjectMapper();
     protected String url;
 
     public AbstractClient(){
@@ -62,5 +68,30 @@ public abstract class AbstractClient<T>{
         return this.restTemplate.exchange(this.url.concat(url), HttpMethod.PUT, (HttpEntity<?>) this.requestEntity, objectClass);
     }
 
+    protected <T> T translate(Object obj, Class<T> clazz){
+        T result = null;
+        try {
+            byte[] x = mapper.writeValueAsBytes(obj);
+            result =  mapper.readValue(x,clazz);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    protected <T> T translate(Object obj, JavaType type){
+        T result = null;
+
+        try {
+            byte[] x = mapper.writeValueAsBytes(obj);
+            result =  mapper.readValue(x,type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    protected <T> CollectionType createListType(Class<T> clazz){
+        return mapper.getTypeFactory().constructCollectionType(List.class,clazz);
+    }
 
 }
