@@ -130,5 +130,9 @@
     "menulabel": "Configurações",
     "gumgatagdefinition": "Tags",
     "gumgacustomfield": "Atributos Genéricos"
+  },
+  "user":{
+    "name": "Nome",
+    "role": "Papel"
   }
 }
