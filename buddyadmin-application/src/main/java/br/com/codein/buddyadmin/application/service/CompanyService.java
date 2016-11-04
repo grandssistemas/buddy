@@ -64,12 +64,14 @@ public class CompanyService {
 
         Boolean isRepresentative = p.containRoleWithCategory(RoleCategory.REPRESENTATIVE);
         Boolean isSubCompany = Boolean.FALSE;
+        Boolean hasAggregatorFather = Boolean.FALSE;
         if (p.getFather() != null){
             Hibernate.initialize(p.getFather().getRoles());
             isSubCompany = p.containRoleWithCategory(RoleCategory.COMPANY) &&
                     p.getFather().containRoleWithCategory(RoleCategory.COMPANY);
+            hasAggregatorFather = p.getFather().containRoleWithCategory(RoleCategory.AGGREGATOR);
         }
-       return isRepresentative || isSubCompany;
+       return isRepresentative || isSubCompany || hasAggregatorFather;
     }
 
     public Organization createSubOrganization(Person p, Organization org){

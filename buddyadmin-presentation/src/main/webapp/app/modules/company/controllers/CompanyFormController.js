@@ -37,12 +37,13 @@ define(['angular'], function (angular) {
                 fillPerson(entity);
                 var father = entity.father;
                 var toUpdate = entity;
-                if (father) {
+                if (!entity.id && father) {
                     father.branches = father.branches || [];
                     father.branches.push(entity);
-                    delete entity.father;
                     toUpdate = father;
                 }
+                delete entity.father;
+
                 JuridicaCompanyService.update(toUpdate).then(function (data) {
                     if (!entity.id) {
                         var newCompany = data.data.data.name === entity.name ? data.data.data : getBranchByName(data.data.data,entity.name);
@@ -141,19 +142,28 @@ define(['angular'], function (angular) {
                     }
                     break;
                 case "COMPANY":
-                    if (entity.father && (containRoles('OWNER', entity.father))) {
+                    if (!entity.father ){
+                        GumgaAlert.createDangerMessage('Erro no Cadastro', 'Uma empresa deve estar ligada à alguma entidade.');
+                        return false;
+                    }
+                    if (containRoles('OWNER', entity.father)) {
                         GumgaAlert.createDangerMessage('Erro no Cadastro', 'Uma empresa não pode estar ligada diretamente à uma entidade do tipo \'DONO\'.');
                         return false;
                     }
                     break;
                 case "AGGREGATOR":
-                    GumgaAlert.createDangerMessage('Erro no Cadastro', 'Uma matriz agregadora não pode estar ligada diretamente à uma entidade do tipo \'DONO\'.');
-                    return false;
+                    if (!entity.father ){
+                        GumgaAlert.createDangerMessage('Erro no Cadastro', 'Uma Matriz Agregadora deve estar ligada à alguma entidade.');
+                        return false;
+                    }
+                    if (containRoles('OWNER', entity.father)) {
+                        GumgaAlert.createDangerMessage('Erro no Cadastro', 'Uma matriz agregadora não pode estar ligada diretamente à uma entidade do tipo \'DONO\'.');
+                        return false;
+                    }
                     break;
                 default:
-                    GumgaAlert.createDangerMessage('Erro no Cadastro', 'Uma empresa não pode estar ligada diretamente à uma entidade do tipo \'DONO\'.');
+                    GumgaAlert.createDangerMessage('Erro no Cadastro', 'Tipo de empresa inválido.');
                     return false;
-                    break;
             }
             return true;
         }

@@ -8,6 +8,7 @@ import gumga.framework.core.GumgaThreadScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -72,8 +73,8 @@ public Organization getOrganization(Long id) {
             } else {
                 response = this.put("/api/organization/".concat(org.getId().toString()),org);
             }
-        } catch (Exception e){
-            e.printStackTrace();
+        } catch (HttpClientErrorException e){
+            throw new RuntimeException("Error while saving entity, there is already an entity with this name");
         }
 
         return translate(((LinkedHashMap)response.getBody()).get("data"),Organization.class);
