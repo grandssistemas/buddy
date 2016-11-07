@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +34,10 @@ public abstract class AbstractClient<T>{
     public AbstractClient(String url) {
         this.url = url;
         this.objectClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
+
+    protected ResponseEntity<T> get(String url) {
+        return this.get(url, new HashMap<>());
     }
 
     protected ResponseEntity<T> get(String url, Map<String, Object> stringObjectMap) {
