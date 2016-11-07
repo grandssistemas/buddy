@@ -16,7 +16,8 @@ define(['angular',
     'app/modules/login/module',
     'apiLocations',
     'bootstrap',
-    'app/modules/company/module'], function(angular,moment) {
+    'app/modules/company/module',
+    'app/directives/module'], function(angular,moment) {
     //FIMREQUIRE
     window.moment = moment;
   angular.module('app.core', [
@@ -30,6 +31,7 @@ define(['angular',
       , 'ui.utils.masks'
       , 'gumga.layout'
       , 'buddy.core'
+      , 'buddyadmin.core'
       , 'datePicker'
   //FIMINJECTIONS
     ])

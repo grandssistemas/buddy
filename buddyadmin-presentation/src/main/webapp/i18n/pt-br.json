@@ -78,7 +78,8 @@
     "dateofbirthorfoundation": "Dt. Nasc/fundação",
     "ie": "IE",
     "group": "Grupo de Pessoa Fiscal",
-    "securityId": "Identificação do Segurança"
+    "securityId": "Identificação do Segurança",
+    "details": "Detalhes"
   },
   "address": {
     "cep": "CEP",
@@ -133,6 +134,13 @@
   },
   "user":{
     "name": "Nome",
-    "role": "Papel"
+    "role": "Perfil",
+    "login": "Email"
+  },
+ "instance": {
+   "expiration": "Data de Expiração"
+ },
+  "tree": {
+    "filter": "Filtre a árvore"
   }
 }

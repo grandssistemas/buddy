@@ -2,104 +2,76 @@
 
     <div>
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-4 panel gmd p-b" style="width: 32.5%; overflow:auto; max-height:250px" id="xxx">
+                <div class="m-t-lg">
+                    <gmd-input>
+                        <div class="form-group gmd m-b-none">
+                            <input type="text" class="form-control gmd" ng-model="treeSearch" id="treeSearch"
+                                   required
+                                   autocomplete="off">
+                            <span class="bar"></span>
+                            <label for="treeSearch" class="control-label" gumga-translate-tag="tree.filter">Nome/Razão
+                                Social</label>
+                            {{treeSearch}}
+                        </div>
+                    </gmd-input>
+                </div>
 
+                {{treeSearch}}
                 <treecontrol
                         class="tree-light"
                         tree-model="personTree"
                         on-selection="selectNode(node,$parentNode)"
                         options="treeOptions"
-                        selected-node="currentNode">
+                        selected-node="currentNode"
+                        filter-comparator="false"
+                        filter-expression="treeSearch">
                     Empresa: {{node.name}}
                 </treecontrol>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-8 panel gmd p-b" style="left: 0.8%" buddy-resize dependents="['xxx']">
                 <ul class=" nav nav-tabs gmd" role="tablist">
                     <li role="presentation" class="active"><a href="#organization" aria-controls="organization"
-                                                              role="tab" data-toggle="tab">Organização</a></li>
+                                                              ng-click=" apply()" role="tab" data-toggle="tab">Organização</a>
+                    </li>
                     <li role="presentation" ng-if="currentCompany.id"><a href="#user" aria-controls="user" role="tab"
+                                                                         ng-click="  apply()"
                                                                          data-toggle="tab">Usuários</a></li>
                     <li role="presentation" ng-if="currentCompany.id"><a href="#instance" aria-controls="user"
-                                                                         role="tab" data-toggle="tab">Instâncias</a>
+                                                                         ng-click=" apply()" role="tab"
+                                                                         data-toggle="tab">Instâncias</a>
                     </li>
                     <li role="presentation" ng-if="currentCompany.id"><a href="#role" aria-controls="user" role="tab"
+                                                                         ng-click=" apply()"
                                                                          data-toggle="tab">Perfis</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="organization" style="margin-top:30px">
-
-                        <gmd-input>
-                            <div class="form-group gmd">
-                                <input type="text" class="form-control gmd" ng-model="currentCompany.name" id="name"
-                                       required
-                                       autocomplete="off">
-                                <span class="bar"></span>
-                                <label for="name" class="control-label" gumga-translate-tag="person.name">Nome/Razão
-                                    Social</label>
-                            </div>
-                        </gmd-input>
-
-                        <gmd-select ng-model="role"
-                                    options="roleCategories"
-                                    option="name"
-                                    placeholder="Selecione um tipo de Pessoa">
-                        </gmd-select>
-
-
-                        <div style="margin-top:15px">
-                            <label gumga-translate-tag="person.father">Father</label>
-                            <gumga-many-to-one
-                                    value="currentCompany.father"
-                                    search-method="getPerson(param)"
-                                    field="name"
-                                    authorize-add="false"
-                                    display-info="false"
-                                    disabled="!!currentCompany.id"
-                                    on-select="getFatherFat(value)">
-                                <match>
-                                    <div>{{match.model.name}}, CNPJ: {{match.model.cnpj.value | cnpj}}</div>
-                                </match>
-                            </gumga-many-to-one>
-                        </div>
+                    <div role="tabpanel" class="tab-pane active m-t-lg" id="organization">
+                        <div ng-include src="'app/modules/company/views/organizationPanel.html'"></div>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="user" style="margin-top:30px">
-                        <gmd-input>
-                            <div class="form-group gmd">
-                                <input type="text" class="form-control gmd" ng-model="currentUser.name" id="username"
-                                       required
-                                       autocomplete="off">
-                                <span class="bar"></span>
-                                <label for="username" class="control-label" gumga-translate-tag="user.name">Nome de Usuário</label>
-                            </div>
-                        </gmd-input>
+                    <div role="tabpanel" class="tab-pane m-t-lg" id="user">
+                        <div ng-include src="'app/modules/company/views/userPanel.html'"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane m-t-lg" id="instance">
+                        <div ng-include src="'app/modules/company/views/instancePanel.html'"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane m-t-lg" id="role">
 
-                        <div style="margin-top:15px">
-                            <label gumga-translate-tag="user.role">Papel</label>
-                            <gumga-many-to-one
-                                    value="currentCompany.father"
-                                    search-method="getPerson(param)"
-                                    field="name"
-                                    authorize-add="false"
-                                    display-info="false"
-                                    disabled="!!currentCompany.id"
-                                    on-select="getFatherFat(value)">
-                                <match>
-                                    <div>{{match.model.name}}</div>
-                                </match>
-                            </gumga-many-to-one>
-                        </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="instance" style="margin-top:30px">
-                        <h1> Instance</h1>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="role" style="margin-top:30px">
-                        <h1> Role</h1>
+                        <div ng-include src="'app/modules/company/views/rolePanel.html'"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div style="margin-top: 15px" ng-if="currentCompany.id" >
-            <div ng-controller="PersonFormController"
+        <div class="m-t panel gmd" ng-if="currentCompany.id">
+            <div class="panel-heading">
+                <a ng-click="detailsExpanded = !detailsExpanded" class="hover-no-underline" style="cursor: pointer ">
+                    <i class="material-icons" style="vertical-align: bottom">{{detailsExpanded? "expand_less" :
+                        "expand_more"}}</i>
+                    <span gumga-translate-tag="person.details"></span>
+                </a>
+
+            </div>
+            <div ng-controller="PersonFormController" class="panel-body" ng-show="detailsExpanded"
                  buddy-include="{entity: {data: currentCompany}, returnCallBack : null, updateCallBack: null }">
                 <div ng-include src="'bower_components/buddy-person-front/app/modules/person/views/form.html'">
                 </div>

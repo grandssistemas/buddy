@@ -1,0 +1,16 @@
+<label gumga-translate-tag="instance.expiration">Data de Expiração</label>
+<div class="input-group date col-md-4">
+    <input id="expiration" type="text" class="form-control"
+           date-time ng-model="entity.dateofbirthorfoundation" view="date"
+           min-view="date" format="dd/MM/yyyy"
+           ng-blur="checkDate('dateofbirthorfoundation')"
+           ng-readonly="true"
+           auto-close="true">
+    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+</div>
+<div class="m-t pull-right">
+    <button type="button" class="btn gmd  btn-success">Mais informações</button>
+</div>
+<div class="m-t pull-left">
+    <button type="button" class="btn gmd  btn-primary">Adicionar Instância</button>
+</div>

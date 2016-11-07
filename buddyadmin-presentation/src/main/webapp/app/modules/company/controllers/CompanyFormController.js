@@ -1,18 +1,27 @@
 define(['angular'], function (angular) {
 
 
-    CompanyFormController.$inject = ['JuridicaCompanyService', 'entity', '$scope', 'CompanyService', 'RoleService', 'GumgaAlert'];
+    CompanyFormController.$inject = ['JuridicaCompanyService', 'entity', '$scope', 'CompanyService', 'RoleService', 'GumgaAlert','$timeout'];
 
-    function CompanyFormController(JuridicaCompanyService, entity, $scope, CompanyService, RoleService,  GumgaAlert) {
+    function CompanyFormController(JuridicaCompanyService, entity, $scope, CompanyService, RoleService,  GumgaAlert,$timeout) {
 
         $scope.currentCompany = angular.copy(entity.data);
+        $scope.currentCompany.id = 1;
         $scope.continue = {};
         $scope.isIntegration = true;
+
+        // $scope.treeSearch = 'Luiz'
 
 
         RoleService.findAll().then(function (data) {
             $scope.roleCategories = data.data;
         })
+
+        $scope.apply = function(){
+            $timeout(function(){
+                $scope.a = !$scope.a;
+            },10)
+        }
 
 
         $scope.change = function () {
