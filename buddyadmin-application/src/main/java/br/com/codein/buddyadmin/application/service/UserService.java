@@ -1,6 +1,8 @@
 package br.com.codein.buddyadmin.application.service;
 
+import br.com.codein.buddyadmin.application.utils.StringUtils;
 import br.com.codein.buddyadmin.integration.client.SecurityClient;
+import br.com.gumga.security.domain.model.instance.Role;
 import br.com.gumga.security.domain.model.institutional.Organization;
 import br.com.gumga.security.domain.model.institutional.User;
 import gumga.framework.core.GumgaThreadScope;
@@ -19,57 +21,59 @@ public class UserService {
     @Autowired
     private CompanyService companyService;
 
-    public List<User> getUsersFromOrganization(Long orgId){
+    @Autowired
+    private StringUtils stringUtils;
+
+    public List<User> getUsersFromOrganization(Long orgId) {
         Long oldId = GumgaThreadScope.organizationId.get();
         securityClient.changeOrganization(orgId);
-        List <User> result = securityClient.getUsersFromOrganization();
+        List<User> result = securityClient.getUsersFromOrganization();
         securityClient.changeOrganization(oldId);
         return result;
     }
 
-    public User createUser(String login, String name){
+    public User createUser(String name, String login, String organizationOi, Role role) {
         User user = new User();
         user.setLogin(login);
         user.setName(name);
         user.setStatus(new GumgaBoolean(true));
         user.setPassword("qwe123");
         user = securityClient.saveUser(user);
-        this.addUserInOrganization(user);
+        String id = stringUtils.extractOrgIdFromOi(organizationOi);
+        this.addUserInOrganization(user, Long.valueOf(id));
         return user;
-
     }
 
-    public User addUserInOrganization(User user){
-        Organization org = companyService.getOrganization(GumgaThreadScope.organizationId.get());
-        return addUserInOrganization(user,org);
+    public User addUserInOrganization(String userEmail, Long organizationId) {
+        User user = securityClient.getUserByEmail(userEmail);
+        return addUserInOrganization(user, organizationId);
     }
 
-    public User addUserInOrganization(User user, Long organizationId){
+    public User addUserInOrganization(User user, Long organizationId) {
         Organization org = companyService.getOrganization(organizationId);
-        return addUserInOrganization(user,org);
+        return addUserInOrganization(user, org);
     }
 
-
-    public User addUserInOrganization(User user, Organization org){
-        securityClient.addUserInOrganization(user,org);
+    public User addUserInOrganization(User user, Organization org) {
+        securityClient.addUserInOrganization(user, org);
         return securityClient.getUserByEmail(user.getLogin());
     }
 
-    public User removeUserFromOrganization(User user, Long organizationId){
+    public User removeUserFromOrganization(String userEmail, Long organizationId) {
+        User user = securityClient.getUserByEmail(userEmail);
+        return removeUserFromOrganization(user, organizationId);
+    }
+
+    public User removeUserFromOrganization(User user, Long organizationId) {
         Organization org = companyService.getOrganization(organizationId);
-        return removeUserFromOrganization(user,org);
+        return removeUserFromOrganization(user, org);
     }
 
 
-    public User removeUserFromOrganization(User user, Organization org){
-        securityClient.removeUserFromOrganization(user,org);
+    public User removeUserFromOrganization(User user, Organization org) {
+        securityClient.removeUserFromOrganization(user, org);
         return securityClient.getUserByEmail(user.getLogin());
     }
-
-
-
-
-
 
 
 }

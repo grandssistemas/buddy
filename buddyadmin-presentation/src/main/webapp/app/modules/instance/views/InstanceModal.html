@@ -1,0 +1,46 @@
+<div class="gumga-layout">
+    <header>
+        <nav class="navbar">
+            <span class="navbar-brand" gumga-translate-tag="instance.new">New Instance</span>
+        </nav>
+    </header>
+
+
+    <div class="row m-t-lg">
+        <div class="col-md-12 full-width-sm-modal">
+            <gmd-input>
+                <div class="form-group gmd">
+                    <input type="text" class="form-control gmd" ng-model="entity.name" id="name"
+                           required
+                           autocomplete="off">
+                    <span class="bar"></span>
+                    <label for="name" class="control-label" gumga-translate-tag="instance.name">Instance Name</label>
+                </div>
+            </gmd-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 m-t-n-lg m-b-lg full-width-sm-modal">
+            <label gumga-translate-tag="instance.expiration">Expiration Date</label>
+            <div class="input-group date">
+                <input id="expiration" type="text" class="form-control"
+                       date-time ng-model="entity.expiration" view="date"
+                       min-view="date" format="dd/MM/yyyy"
+                       ng-blur="checkDate('expiration')"
+                       auto-close="true">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="row m-b-sm">
+            <button type="button" class="btn gmd btn-success pull-right m-r-lg" ng-click="create()" ng-disabled="blockBtnSave()">Salvar</button>
+            <button type="button" class="btn gmd btn-danger pull-right m-r" ng-click="cancel()">Cancelar</button>
+        </div>
+
+
+</div>
+
+

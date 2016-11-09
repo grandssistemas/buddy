@@ -5,19 +5,18 @@
             <div class="col-lg-4 panel gmd p-b" style="width: 32.5%; overflow:auto; max-height:250px" id="xxx">
                 <div class="m-t-lg">
                     <gmd-input>
-                        <div class="form-group gmd m-b-none">
-                            <input type="text" class="form-control gmd" ng-model="treeSearch" id="treeSearch"
+                        <div class="form-group gmd m-b-none ">
+                            <input type="text" class="form-control gmd" ng-model="tree.search" id="treeSearch"
                                    required
                                    autocomplete="off">
                             <span class="bar"></span>
                             <label for="treeSearch" class="control-label" gumga-translate-tag="tree.filter">Nome/Razão
                                 Social</label>
-                            {{treeSearch}}
                         </div>
                     </gmd-input>
                 </div>
 
-                {{treeSearch}}
+
                 <treecontrol
                         class="tree-light"
                         tree-model="personTree"
@@ -25,7 +24,7 @@
                         options="treeOptions"
                         selected-node="currentNode"
                         filter-comparator="false"
-                        filter-expression="treeSearch">
+                        filter-expression="tree.search">
                     Empresa: {{node.name}}
                 </treecontrol>
             </div>

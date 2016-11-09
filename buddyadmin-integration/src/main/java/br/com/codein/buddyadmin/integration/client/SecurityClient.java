@@ -3,15 +3,19 @@ package br.com.codein.buddyadmin.integration.client;
 import br.com.codein.buddyadmin.domain.exception.OrganizationException;
 import br.com.codein.buddyadmin.domain.exception.UserException;
 import br.com.codein.buddyadmin.infrastructure.config.ApplicationConstants;
+import br.com.gumga.security.domain.model.instance.Instance;
 import br.com.gumga.security.domain.model.institutional.Organization;
 import br.com.gumga.security.domain.model.institutional.User;
+import br.com.gumga.security.domain.model.softwarehouse.Software;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import gumga.framework.core.GumgaThreadScope;
+import gumga.framework.core.QueryObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Properties;
@@ -75,7 +79,7 @@ public Organization getOrganization(Long id) {
                 response = this.put("/api/organization/".concat(org.getId().toString()),org);
             }
         } catch (HttpClientErrorException e){
-            throw new OrganizationException("Error while saving entity, there is already an entity with this name");
+            throw new OrganizationException("Error while saving organization, there is already an organization with this name");
         }
 
         return translate(((LinkedHashMap)response.getBody()).get("data"),Organization.class);
@@ -105,7 +109,7 @@ public Organization getOrganization(Long id) {
         if (organization.getHierarchyCode() == null){
             throw new OrganizationException("Invalid organization. Id doesn't have an hierarchy code.");
         }
-        this.get("/api/gumga-security/remove-user-organization/".concat(user.getId().toString()).concat("/").concat(organization.getId().toString()));
+        this.get("/api/gumga-security/remove-user-organization/".concat(user.getId().toString()).concat("/").concat(organization.getHierarchyCode().toString()));
     }
 
 
@@ -132,6 +136,32 @@ public Organization getOrganization(Long id) {
         return translate(response.getBody(), createListType(User.class));
     }
 
+    //</editor-fold>
+
+    //<editor-fold desc="Software">
+    public Software searchSoftware(QueryObject queryObject){
+        ResponseEntity<Object> response= this.search("/api/software/",queryObject);
+        LinkedHashMap <String,Object> x =(LinkedHashMap) ((List)((LinkedHashMap) response.getBody()).get("values")).get(0);
+        x.put("modules",new ArrayList());
+        return translate(x, Software.class);
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Instance">
+    public Instance saveInstance(Instance instance){
+        ResponseEntity<Object> response = null;
+        try {
+            if (instance.getId() == null){
+                response = this.post("/api/instance/",instance);
+            } else {
+                response = this.put("/api/instance/".concat(instance.getId().toString()),instance);
+            }
+        } catch (HttpClientErrorException e){
+            throw new OrganizationException("Error while saving instance, there is already an instance with this name");
+        }
+
+        return translate(((LinkedHashMap)response.getBody()).get("data"),Instance.class);
+    }
     //</editor-fold>
 }
 

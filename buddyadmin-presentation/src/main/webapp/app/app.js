@@ -16,6 +16,9 @@ define(['angular',
     'app/modules/login/module',
     'apiLocations',
     'bootstrap',
+    'app/modules/user/module',
+    'app/modules/instance/module',
+    'app/modules/role/module',
     'app/modules/company/module',
     'app/directives/module'], function(angular,moment) {
     //FIMREQUIRE
@@ -26,6 +29,9 @@ define(['angular',
       , 'gumga.core'
       , 'app.login'
       , 'app.company'
+      , 'app.user'
+      , 'app.instance'
+      , 'app.securityrole'
       , 'brasil.filters'
       , 'treeControl'
       , 'ui.utils.masks'

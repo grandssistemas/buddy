@@ -240,3 +240,8 @@
 .hover-no-underline:hover{
     text-decoration: none !important;
 }
+
+.full-width-sm-modal{
+    left: 5%;
+    width: 90%;
+}

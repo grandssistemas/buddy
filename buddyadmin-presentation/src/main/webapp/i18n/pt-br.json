@@ -138,7 +138,9 @@
     "login": "Email"
   },
  "instance": {
-   "expiration": "Data de Expiração"
+   "expiration": "Data de Expiração",
+   "new": "Nova Instância",
+   "name": "Nome da Instância"
  },
   "tree": {
     "filter": "Filtre a árvore"

@@ -1,16 +1,21 @@
 define(['angular'], function (angular) {
 
 
-    CompanyFormController.$inject = ['JuridicaCompanyService', 'entity', '$scope', 'CompanyService', 'RoleService', 'GumgaAlert','$timeout'];
+    CompanyFormController.$inject = [
+        'JuridicaCompanyService', 'entity', '$scope', 'CompanyService',
+        'RoleService', 'GumgaAlert','$timeout', 'UserService', '$uibModal'
+    ];
 
-    function CompanyFormController(JuridicaCompanyService, entity, $scope, CompanyService, RoleService,  GumgaAlert,$timeout) {
+    function CompanyFormController(JuridicaCompanyService, entity, $scope, CompanyService,
+                                   RoleService,  GumgaAlert,$timeout,UserService, $uibModal) {
 
         $scope.currentCompany = angular.copy(entity.data);
-        $scope.currentCompany.id = 1;
+        // $scope.currentCompany.id = 1;
         $scope.continue = {};
+        $scope.currentUser = {}
         $scope.isIntegration = true;
 
-        // $scope.treeSearch = 'Luiz'
+        $scope.tree = {}
 
 
         RoleService.findAll().then(function (data) {
@@ -41,6 +46,7 @@ define(['angular'], function (angular) {
                 $scope.currentCompany.father = data.data;
             })
         };
+
         $scope.update = function (entity) {
             if (validRecord(entity)) {
                 fillPerson(entity);
@@ -101,8 +107,34 @@ define(['angular'], function (angular) {
 
         $scope.blockBtnSave = function () {
             return !$scope.currentCompany.name || !$scope.role;
+        };
+
+        $scope.addUser = function(user){
+            var userToAdd = angular.copy(user);
+            userToAdd.oi = $scope.currentCompany.oi.value;
+            userToAdd.role = null;
+            UserService.saveUser(userToAdd).then(function(data){
+                console.log(data);
+            })
         }
 
+        $scope.newInstance = function(){
+            var modalResult =$uibModal.open({
+                animation: true,
+                backdrop:'static',
+                templateUrl: 'app/modules/instance/views/InstanceModal.html',
+                controller: 'InstanceModalController',
+                resolve: {
+
+                },
+                size: 'sm'
+            })
+
+            modalResult.result.then(function(data){
+                console.log(data);
+            })
+
+        }
 
         function getTree() {
             JuridicaCompanyService.getTree().then(function (data) {
