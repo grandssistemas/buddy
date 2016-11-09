@@ -1,6 +1,7 @@
 package br.com.codein.buddyadmin.integration.client;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
@@ -19,7 +20,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Component
 public abstract class AbstractClient<T>{
@@ -34,6 +34,7 @@ public abstract class AbstractClient<T>{
     public AbstractClient(){
         this.objectClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         mapper.getSerializationConfig().withSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     public AbstractClient(String url) {
@@ -103,15 +104,10 @@ public abstract class AbstractClient<T>{
     }
 
     protected <T> T translate(Object obj, Class<T> clazz){
-        T result = null;
-        try {
-            byte[] x = mapper.writeValueAsBytes(obj);
-            result =  mapper.readValue(x,clazz);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
+        JavaType type = mapper.getTypeFactory().constructFromCanonical(clazz.getCanonicalName());
+        return translate(obj,type);
     }
+
     protected <T> T translate(Object obj, JavaType type){
         T result = null;
 
@@ -127,8 +123,6 @@ public abstract class AbstractClient<T>{
     protected <T> CollectionType createListType(Class<T> clazz){
         return mapper.getTypeFactory().constructCollectionType(List.class,clazz);
 
-    }protected <T> CollectionType createSetType(Class<T> clazz){
-        return mapper.getTypeFactory().constructCollectionType(Set.class,clazz);
     }
 
 }

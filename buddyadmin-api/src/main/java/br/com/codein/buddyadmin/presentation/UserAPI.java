@@ -46,4 +46,13 @@ public class UserAPI {
     public User removeUserFromOrganization(@PathVariable("orgId") Long organizationId, @PathVariable("userEmail") String userEmail){
         return userService.removeUserFromOrganization(userEmail,organizationId);
     }
+    @RequestMapping(value ="/adduserinrole/{roleId}/{userEmail}")
+    public User addUserInRole(@PathVariable("roleId") Long roleId, @PathVariable("userEmail") String userEmail){
+        return userService.addUserInRole(userEmail,roleId);
+    }
+
+    @RequestMapping(value ="/removeuserfromrole/{roleId}/{userEmail}")
+    public User removeUserFromRole(@PathVariable("roleId") Long roleId, @PathVariable("userEmail") String userEmail){
+        return userService.removeUserFromRole(userEmail,roleId);
+    }
 }

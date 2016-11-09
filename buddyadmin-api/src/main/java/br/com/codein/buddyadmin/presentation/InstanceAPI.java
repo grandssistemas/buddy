@@ -33,4 +33,16 @@ public class InstanceAPI {
         String organizationOi = params.get("oi").asText();
         return instanceService.createInstance(name,expiration,organizationOi);
     }
+
+    @RequestMapping(value = "/createwithrole", method = RequestMethod.POST)
+    public Instance createWithRole(@RequestBody ObjectNode params) throws IOException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        mapper.setDateFormat(df);
+        String name = params.get("name").asText();
+        Date expiration = mapper.readValue(params.get("expiration").toString(),Date.class);
+        String organizationOi = params.get("oi").asText();
+        return instanceService.createInstanceWithRole(name,expiration,organizationOi);
+    }
 }
