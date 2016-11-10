@@ -6,7 +6,6 @@ import br.com.codein.buddyperson.application.service.person.PersonService;
 import br.com.codein.buddyperson.domain.person.Person;
 import br.com.codein.buddyperson.domain.person.enums.RoleCategory;
 import br.com.gumga.security.domain.model.institutional.Organization;
-import br.com.gumga.security.domain.model.institutional.User;
 import gumga.framework.core.GumgaThreadScope;
 import gumga.framework.domain.domains.GumgaBoolean;
 import org.hibernate.Hibernate;
@@ -20,9 +19,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by luizaugusto on 27/10/16.
- */
+
 @Service
 public class CompanyService {
 
@@ -33,29 +30,26 @@ public class CompanyService {
     private PersonService personService;
 
     @Transactional
-    public Organization newOrganization(Person obj){
-        Organization x = new Organization();
+    public Organization newOrganization(Person person){
+        Organization newOrganization = new Organization();
 
-        x.setName(obj.getName());
-        x.setIsSoftwareHouse(false);
-        x.setSecurityManager(false);
-        x.setMainOrganization(new GumgaBoolean(false));
-        x.setSubOrganizations(new HashSet<>());
-        x.setInternalCode(obj.getHierarchy());
-        User main =securityClient.getUserByEmail(GumgaThreadScope.login.get());
-        x.setMainUser(main);
+        newOrganization.setName(person.getName());
+        newOrganization.setIsSoftwareHouse(false);
+        newOrganization.setSecurityManager(false);
+        newOrganization.setMainOrganization(new GumgaBoolean(false));
+        newOrganization.setSubOrganizations(new HashSet<>());
+        newOrganization.setInternalCode(person.getHierarchy());
+        newOrganization.setMainUser(securityClient.getUserByEmail(GumgaThreadScope.login.get()));
 
         Organization result;
-        Person j = personService.loadFatWithFather(obj);
-        if (needToCreateSubOrganization(j)){
-            result = createSubOrganization(j, x);
+        Person personWithFather = personService.loadFatWithFather(person);
+        if (needToCreateSubOrganization(personWithFather)){
+            result = createSubOrganization(personWithFather, newOrganization);
         } else {
-            result =securityClient.saveOrganization(x);
+            result =securityClient.saveOrganization(newOrganization);
         }
 
-
-        personService.changeOrganization(j,result.getHierarchyCode());
-
+        personService.changeOrganization(personWithFather,result.getHierarchyCode());
         return result;
     }
 
@@ -77,7 +71,7 @@ public class CompanyService {
     public Organization createSubOrganization(Person p, Organization org){
         LinkedList<String> splicedFatherOi = new LinkedList<>(Arrays.asList(p.getFather().getOi().getValue().split("\\.")));
         String rootFatherSecurityId = splicedFatherOi.removeFirst();
-        Organization root = securityClient.getOrganization(Long.valueOf(rootFatherSecurityId));
+        Organization root = this.getOrganization(Long.valueOf(rootFatherSecurityId));
         Organization father = getChildRecursive(splicedFatherOi,root);
         org.setMainUser(null);
         father.getSubOrganizations().add(org);
@@ -99,8 +93,11 @@ public class CompanyService {
         return result;
     }
 
-
     public Organization changeOrganization(Long id){
         return securityClient.changeOrganization(id);
+    }
+
+    public Organization getOrganization(Long id){
+        return securityClient.getOrganization(id);
     }
 }

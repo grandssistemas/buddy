@@ -78,7 +78,8 @@
     "dateofbirthorfoundation": "Dt. Nasc/fundação",
     "ie": "IE",
     "group": "Grupo de Pessoa Fiscal",
-    "securityId": "Identificação do Segurança"
+    "securityId": "Identificação do Segurança",
+    "details": "Detalhes"
   },
   "address": {
     "cep": "CEP",
@@ -130,5 +131,23 @@
     "menulabel": "Configurações",
     "gumgatagdefinition": "Tags",
     "gumgacustomfield": "Atributos Genéricos"
+  },
+  "user":{
+    "name": "Nome",
+    "role": "Perfil",
+    "login": "Email"
+  },
+ "instance": {
+   "expiration": "Data de Expiração",
+   "new": "Nova Instância",
+   "name": "Nome da Instância",
+   "withrole": "Criar perfis padrões"
+ },
+  "tree": {
+    "filter": "Filtre a árvore"
+  },
+  "role": {
+    "name" : "Nome do Perfil",
+    "instance": "Instância"
   }
 }

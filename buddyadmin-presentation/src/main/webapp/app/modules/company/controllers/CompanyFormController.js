@@ -1,18 +1,34 @@
 define(['angular'], function (angular) {
 
 
-    CompanyFormController.$inject = ['JuridicaCompanyService', 'entity', '$scope', 'CompanyService', 'RoleService', 'GumgaAlert'];
+    CompanyFormController.$inject = [
+        'JuridicaCompanyService', 'entity', '$scope', 'CompanyService',
+        'RoleService', 'GumgaAlert','$timeout', 'UserService', '$uibModal',
+        'InstanceService','moment'
+    ];
 
-    function CompanyFormController(JuridicaCompanyService, entity, $scope, CompanyService, RoleService,  GumgaAlert) {
+    function CompanyFormController(JuridicaCompanyService, entity, $scope, CompanyService,
+                                   RoleService,  GumgaAlert,$timeout,UserService, $uibModal,
+                                    InstanceService,moment) {
 
         $scope.currentCompany = angular.copy(entity.data);
         $scope.continue = {};
+        $scope.currentUser = {}
+        $scope.instance = {};
         $scope.isIntegration = true;
+
+        $scope.tree = {}
 
 
         RoleService.findAll().then(function (data) {
             $scope.roleCategories = data.data;
         })
+
+        $scope.apply = function(){
+            $timeout(function(){
+                $scope.a = !$scope.a;
+            },10)
+        }
 
 
         $scope.change = function () {
@@ -32,6 +48,7 @@ define(['angular'], function (angular) {
                 $scope.currentCompany.father = data.data;
             })
         };
+
         $scope.update = function (entity) {
             if (validRecord(entity)) {
                 fillPerson(entity);
@@ -85,15 +102,74 @@ define(['angular'], function (angular) {
         });
 
         $scope.clean = function () {
-            $scope.currentCompany = {}
+            $scope.PersonForm.treeSearch.$setUntouched();
+            $scope.cleanOrganization();
+            $scope.cleanUser();
+        }
+
+        $scope.cleanOrganization = function(){
+            $scope.currentCompany = {};
             $scope.currentNode = {};
+            $scope.PersonForm.organizationName.$setUntouched();
             $scope.role = null;
         }
 
         $scope.blockBtnSave = function () {
             return !$scope.currentCompany.name || !$scope.role;
+        };
+
+
+        $scope.blockBtnUser = function(user){
+            return !user.name || !user.email;
         }
 
+        $scope.addUser = function(user){
+            var userToAdd = angular.copy(user);
+            userToAdd.oi = $scope.currentCompany.oi.value;
+            userToAdd.role = null;
+            UserService.saveUser(userToAdd).then(function(data){
+                console.log(data);
+            })
+        }
+        $scope.cleanUser = function(){
+            $scope.currentUser = {}
+            $scope.PersonForm.username.$setUntouched();
+            $scope.PersonForm.login.$setUntouched();
+        }
+
+        $scope.blockBtnInstance = function(instance){
+            return  !instance || !instance.name || !instance.expiration || moment(instance.expiration).isBefore(moment(new Date()));
+        }
+
+        $scope.newInstance = function(){
+            var modalResult =$uibModal.open({
+                animation: true,
+                backdrop:'static',
+                templateUrl: 'app/modules/instance/views/InstanceModal.html',
+                controller: 'InstanceModalController',
+                resolve: {
+
+                },
+                size: 'sm'
+            })
+
+            modalResult.result.then(function(data){
+                var newInstance = angular.copy(data);
+                newInstance.oi = $scope.currentCompany.oi.value;
+                newInstance.expiration = moment(newInstance.expiration).format('DD/MM/YYYY')
+                if (newInstance.withRole){
+                    InstanceService.createInstanceWithRole(newInstance).then(function(data){
+                        console.log(data);
+                    })
+                } else {
+                    InstanceService.createInstance(newInstance).then(function(data){
+                        console.log(data);
+                    })
+                }
+
+            })
+
+        }
 
         function getTree() {
             JuridicaCompanyService.getTree().then(function (data) {

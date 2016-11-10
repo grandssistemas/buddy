@@ -43,6 +43,12 @@
             <artifactId>security-domain</artifactId>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>br.com.gumga</groupId>
+            <artifactId>security-gateway</artifactId>
+            <type>jar</type>
+        </dependency>
+
 
     </dependencies>
 </project>

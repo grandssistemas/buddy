@@ -1,0 +1,39 @@
+<gmd-input>
+    <div class="form-group gmd">
+        <input type="text" class="form-control gmd" ng-model="currentCompany.name" id="name"
+               required name="organizationName"
+               autocomplete="off">
+        <span class="bar"></span>
+        <label for="name" class="control-label" gumga-translate-tag="person.name">Nome/Razão
+            Social</label>
+    </div>
+</gmd-input>
+
+<div class="m-t-n-lg ">
+    <gmd-select ng-model="$parent.role"
+                options="roleCategories"
+                option="name"
+                placeholder="Selecione um tipo de Pessoa">
+    </gmd-select>
+</div>
+
+
+<div class="m-t">
+    <label gumga-translate-tag="person.father">Father</label>
+    <gumga-many-to-one
+            value="currentCompany.father"
+            search-method="getPerson(param)"
+            field="name"
+            authorize-add="false"
+            display-info="false"
+            disabled="!!currentCompany.id"
+            on-select="getFatherFat(value)">
+        <match>
+            <div>{{match.model.name}}, CNPJ: {{match.model.cnpj.value | cnpj}}</div>
+        </match>
+    </gumga-many-to-one>
+</div>
+
+<div class="row pull-right m-t">
+    <button type="button" class="btn gmd  btn-success" ng-click="update(currentCompany)">Criar Organização</button>
+</div>

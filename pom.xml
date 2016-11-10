@@ -247,6 +247,11 @@
                 <version>1.2.14-SNAPSHOT</version>
             </dependency>
             <dependency>
+                <groupId>br.com.gumga</groupId>
+                <artifactId>security-gateway</artifactId>
+                <version>1.2.14-SNAPSHOT</version>
+            </dependency>
+            <dependency>
                 <groupId>br.com.codein</groupId>
                 <artifactId>buddyperson-application</artifactId>
                 <version>${buddyperson.version}</version>

@@ -1,0 +1,33 @@
+<gmd-input>
+    <div class="form-group gmd">
+        <input type="text" class="form-control gmd" ng-model="currentUser.name" id="rolename"
+               required
+               autocomplete="off">
+        <span class="bar"></span>
+        <label for="rolename" class="control-label" gumga-translate-tag="role.name">Role Name</label>
+    </div>
+</gmd-input>
+
+<div class="m-t-n-lg">
+    <label gumga-translate-tag="role.instance">Instance</label>
+    <gumga-many-to-one
+            value="currentRole.instance"
+            search-method="getPerson(param)"
+            field="name"
+            authorize-add="false"
+            display-info="false"
+            disabled="!!currentCompany.id"
+            on-select="getFatherFat(value)">
+        <match>
+            <div>{{match.model.name}}</div>
+        </match>
+    </gumga-many-to-one>
+</div>
+
+<div class="m-t pull-left">
+    <button type="button" class="btn gmd  btn-primary">Mais informações</button>
+</div>
+
+<div class="m-t pull-right">
+    <button type="button" class="btn gmd  btn-success" ng-click="createRole(currentRole)">Criar Perfil</button>
+</div>
