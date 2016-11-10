@@ -5,8 +5,8 @@ define(['apiLocations'], function (APILocation) {
     function UserService(GumgaRest) {
         var service = new GumgaRest(APILocation.apiLocation + '/api/user');
 
-        service.saveUser = function(user){
-                service.extend('post','/create',user)
+        service.saveUser = function (user) {
+            return service.extend('post', '/create', user)
         };
 
         return service;

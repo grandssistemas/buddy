@@ -140,9 +140,14 @@
  "instance": {
    "expiration": "Data de Expiração",
    "new": "Nova Instância",
-   "name": "Nome da Instância"
+   "name": "Nome da Instância",
+   "withrole": "Criar perfis padrões"
  },
   "tree": {
     "filter": "Filtre a árvore"
+  },
+  "role": {
+    "name" : "Nome do Perfil",
+    "instance": "Instância"
   }
 }

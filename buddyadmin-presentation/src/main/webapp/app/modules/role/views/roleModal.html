@@ -1,7 +1,7 @@
 <div class="gumga-layout">
     <header>
         <nav class="navbar">
-            <span class="navbar-brand" gumga-translate-tag="instance.new">New Instance</span>
+            <span class="navbar-brand" gumga-translate-tag="role.new">New Role</span>
         </nav>
     </header>
 
@@ -14,7 +14,7 @@
                            required
                            autocomplete="off">
                     <span class="bar"></span>
-                    <label for="name" class="control-label" gumga-translate-tag="instance.name">Instance Name</label>
+                    <label for="name" class="control-label" gumga-translate-tag="role.name">Role Name</label>
                 </div>
             </gmd-input>
         </div>
@@ -41,17 +41,17 @@
                     <input type="checkbox" class="gmd" data-ng-model="entity.withRole">
                     <span class="box"></span>
                     Cria perfis padrões
-                </label>
+                </label>a
             </div>
         </div>
     </div>
 
 
 
-        <div class="row m-b-sm">
-            <button type="button" class="btn gmd btn-success pull-right m-r-lg" ng-click="create()" ng-disabled="blockBtnSave()">Salvar</button>
-            <button type="button" class="btn gmd btn-danger pull-right m-r" ng-click="cancel()">Cancelar</button>
-        </div>
+    <div class="row m-b-sm">
+        <button type="button" class="btn gmd btn-success pull-right m-r-lg" ng-click="create()" ng-disabled="blockBtnSave()">Salvar</button>
+        <button type="button" class="btn gmd btn-danger pull-right m-r" ng-click="cancel()">Cancelar</button>
+    </div>
 
 
 </div>

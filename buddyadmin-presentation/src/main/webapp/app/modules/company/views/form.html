@@ -2,11 +2,11 @@
 
     <div>
         <div class="row">
-            <div class="col-lg-4 panel gmd p-b" style="width: 32.5%; overflow:auto; max-height:250px" id="xxx">
-                <div class="m-t-lg">
+            <div class="col-lg-4 panel gmd p-b" style="width: 32.5%; overflow:auto; max-height:250px" id="treeDiv">
+                <div class="m-t-lg" ng-if="personTree.length">
                     <gmd-input>
                         <div class="form-group gmd m-b-none ">
-                            <input type="text" class="form-control gmd" ng-model="tree.search" id="treeSearch"
+                            <input type="text" name="treeSearch" class="form-control gmd" ng-model="tree.search" id="treeSearch"
                                    required
                                    autocomplete="off">
                             <span class="bar"></span>
@@ -28,14 +28,11 @@
                     Empresa: {{node.name}}
                 </treecontrol>
             </div>
-            <div class="col-lg-8 panel gmd p-b" style="left: 0.8%" buddy-resize dependents="['xxx']">
+            <div class="col-lg-8 panel gmd p-b" style="left: 0.8%" buddy-resize dependents="['treeDiv']">
                 <ul class=" nav nav-tabs gmd" role="tablist">
                     <li role="presentation" class="active"><a href="#organization" aria-controls="organization"
                                                               ng-click=" apply()" role="tab" data-toggle="tab">Organização</a>
                     </li>
-                    <li role="presentation" ng-if="currentCompany.id"><a href="#user" aria-controls="user" role="tab"
-                                                                         ng-click="  apply()"
-                                                                         data-toggle="tab">Usuários</a></li>
                     <li role="presentation" ng-if="currentCompany.id"><a href="#instance" aria-controls="user"
                                                                          ng-click=" apply()" role="tab"
                                                                          data-toggle="tab">Instâncias</a>
@@ -43,6 +40,9 @@
                     <li role="presentation" ng-if="currentCompany.id"><a href="#role" aria-controls="user" role="tab"
                                                                          ng-click=" apply()"
                                                                          data-toggle="tab">Perfis</a></li>
+                    <li role="presentation" ng-if="currentCompany.id"><a href="#user" aria-controls="user" role="tab"
+                                                                         ng-click="  apply()"
+                                                                         data-toggle="tab">Usuários</a></li>
                 </ul>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active m-t-lg" id="organization">

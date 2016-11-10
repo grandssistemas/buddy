@@ -44,7 +44,9 @@ public class UserService {
         user = securityClient.saveUser(user);
         String id = stringUtils.extractOrgIdFromOi(organizationOi);
         this.addUserInOrganization(user, Long.valueOf(id));
-        this.addUserInRole(user,role);
+        if (role != null ){
+            this.addUserInRole(user,role);
+        }
         return user;
     }
 

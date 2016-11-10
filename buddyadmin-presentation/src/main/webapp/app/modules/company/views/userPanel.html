@@ -1,6 +1,6 @@
 <gmd-input>
     <div class="form-group gmd">
-        <input type="text" class="form-control gmd" ng-model="currentUser.name" id="username"
+        <input type="text" class="form-control gmd" ng-model="currentUser.name" name="username" id="username"
                required
                autocomplete="off">
         <span class="bar"></span>
@@ -10,7 +10,7 @@
 
 <gmd-input >
     <div class="form-group gmd m-t-n">
-        <input type="email" class="form-control gmd" ng-model="currentUser.email" id="login"
+        <input type="email" class="form-control gmd" ng-model="currentUser.email" name="login" id="login"
                required
                autocomplete="off">
         <span class="bar"></span>
@@ -35,7 +35,7 @@
 </div>
 
 <div class="m-t pull-right">
-    <button type="button" class="btn gmd  btn-success" ng-click="addUser(currentUser)">Adicionar Usuário</button>
+    <button type="button" class="btn gmd  btn-success" ng-disabled="blockBtnUser(currentUser)" ng-click="addUser(currentUser)">Adicionar Usuário</button>
 </div>
 <div class="m-t pull-left">
     <button type="button" class="btn gmd  btn-primary">Criar Perfil</button>

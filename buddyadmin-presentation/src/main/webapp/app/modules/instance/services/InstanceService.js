@@ -6,6 +6,14 @@ define(['apiLocations'], function (APILocation) {
         var service = new GumgaRest(APILocation.apiLocation + '/api/instance');
 
        
+        service.createInstance = function(instance){
+            return service.extend('post','/create',instance)
+        }
+
+        service.createInstanceWithRole = function(instance){
+            return service.extend('post','/createwithrole',instance)
+        }
+        
         return service;
     }
 

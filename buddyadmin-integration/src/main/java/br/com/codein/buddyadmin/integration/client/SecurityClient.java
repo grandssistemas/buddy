@@ -142,7 +142,7 @@ public class SecurityClient extends AbstractClient<Object> {
     public Software searchSoftware(QueryObject queryObject) {
         ResponseEntity<Object> response = this.search("/api/software/", queryObject);
         setModulesNull((LinkedHashMap) ((List) ((LinkedHashMap) response.getBody()).get("values")).get(0));
-        return translate(response, Software.class);
+        return translate(((List) ((LinkedHashMap) response.getBody()).get("values")).get(0), Software.class);
     }
 
     private void setModulesNull(LinkedHashMap<String, Object> software) {

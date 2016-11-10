@@ -44,6 +44,7 @@ public class InstanceService {
         Set<Software> softwareSet = new HashSet<>();
         softwareSet.add(softwareService.getSoftwareByName(Softwares.BUDDY_ADMIN.getSoftwareName()));
         softwareSet.add(softwareService.getSoftwareByName(Softwares.SECURITY.getSoftwareName()));
+        softwareSet.add(softwareService.getSoftwareByName(Softwares.FASHION_MANAGER.getSoftwareName()));
 
         result.setSoftwares(softwareSet);
         return securityClient.saveInstance(result);

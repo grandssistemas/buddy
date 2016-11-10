@@ -3,16 +3,18 @@ define(['angular'], function (angular) {
 
     CompanyFormController.$inject = [
         'JuridicaCompanyService', 'entity', '$scope', 'CompanyService',
-        'RoleService', 'GumgaAlert','$timeout', 'UserService', '$uibModal'
+        'RoleService', 'GumgaAlert','$timeout', 'UserService', '$uibModal',
+        'InstanceService','moment'
     ];
 
     function CompanyFormController(JuridicaCompanyService, entity, $scope, CompanyService,
-                                   RoleService,  GumgaAlert,$timeout,UserService, $uibModal) {
+                                   RoleService,  GumgaAlert,$timeout,UserService, $uibModal,
+                                    InstanceService,moment) {
 
         $scope.currentCompany = angular.copy(entity.data);
-        // $scope.currentCompany.id = 1;
         $scope.continue = {};
         $scope.currentUser = {}
+        $scope.instance = {};
         $scope.isIntegration = true;
 
         $scope.tree = {}
@@ -100,14 +102,26 @@ define(['angular'], function (angular) {
         });
 
         $scope.clean = function () {
-            $scope.currentCompany = {}
+            $scope.PersonForm.treeSearch.$setUntouched();
+            $scope.cleanOrganization();
+            $scope.cleanUser();
+        }
+
+        $scope.cleanOrganization = function(){
+            $scope.currentCompany = {};
             $scope.currentNode = {};
+            $scope.PersonForm.organizationName.$setUntouched();
             $scope.role = null;
         }
 
         $scope.blockBtnSave = function () {
             return !$scope.currentCompany.name || !$scope.role;
         };
+
+
+        $scope.blockBtnUser = function(user){
+            return !user.name || !user.email;
+        }
 
         $scope.addUser = function(user){
             var userToAdd = angular.copy(user);
@@ -116,6 +130,15 @@ define(['angular'], function (angular) {
             UserService.saveUser(userToAdd).then(function(data){
                 console.log(data);
             })
+        }
+        $scope.cleanUser = function(){
+            $scope.currentUser = {}
+            $scope.PersonForm.username.$setUntouched();
+            $scope.PersonForm.login.$setUntouched();
+        }
+
+        $scope.blockBtnInstance = function(instance){
+            return  !instance || !instance.name || !instance.expiration || moment(instance.expiration).isBefore(moment(new Date()));
         }
 
         $scope.newInstance = function(){
@@ -131,7 +154,19 @@ define(['angular'], function (angular) {
             })
 
             modalResult.result.then(function(data){
-                console.log(data);
+                var newInstance = angular.copy(data);
+                newInstance.oi = $scope.currentCompany.oi.value;
+                newInstance.expiration = moment(newInstance.expiration).format('DD/MM/YYYY')
+                if (newInstance.withRole){
+                    InstanceService.createInstanceWithRole(newInstance).then(function(data){
+                        console.log(data);
+                    })
+                } else {
+                    InstanceService.createInstance(newInstance).then(function(data){
+                        console.log(data);
+                    })
+                }
+
             })
 
         }

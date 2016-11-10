@@ -1,7 +1,7 @@
 <gmd-input>
     <div class="form-group gmd">
         <input type="text" class="form-control gmd" ng-model="currentCompany.name" id="name"
-               required
+               required name="organizationName"
                autocomplete="off">
         <span class="bar"></span>
         <label for="name" class="control-label" gumga-translate-tag="person.name">Nome/Razão
@@ -18,7 +18,6 @@
 </div>
 
 
-
 <div class="m-t">
     <label gumga-translate-tag="person.father">Father</label>
     <gumga-many-to-one
@@ -33,4 +32,8 @@
             <div>{{match.model.name}}, CNPJ: {{match.model.cnpj.value | cnpj}}</div>
         </match>
     </gumga-many-to-one>
+</div>
+
+<div class="row pull-right m-t">
+    <button type="button" class="btn gmd  btn-success" ng-click="update(currentCompany)">Criar Organização</button>
 </div>
