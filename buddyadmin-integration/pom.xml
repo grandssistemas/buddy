@@ -79,6 +79,11 @@
             <type>jar</type>
         </dependency>
 
+        <dependency>
+            <groupId>br.com.codein</groupId>
+            <artifactId>buddyperson-domain</artifactId>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/net.sf.barcode4j/barcode4j -->
         <dependency>
             <groupId>net.sf.barcode4j</groupId>

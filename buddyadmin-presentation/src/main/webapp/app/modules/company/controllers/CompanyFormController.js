@@ -141,6 +141,21 @@ define(['angular'], function (angular) {
             return  !instance || !instance.name || !instance.expiration || moment(instance.expiration).isBefore(moment(new Date()));
         }
 
+        $scope.createInstance = function(data){
+            var newInstance = angular.copy(data);
+            newInstance.oi = $scope.currentCompany.oi.value;
+            newInstance.expiration = moment(newInstance.expiration).format('DD/MM/YYYY')
+            if (newInstance.withRole){
+                InstanceService.createInstanceWithRole(newInstance).then(function(data){
+                    console.log(data);
+                })
+            } else {
+                InstanceService.createInstance(newInstance).then(function(data){
+                    console.log(data);
+                })
+            }
+        }
+
         $scope.newInstance = function(){
             var modalResult =$uibModal.open({
                 animation: true,
@@ -154,18 +169,7 @@ define(['angular'], function (angular) {
             })
 
             modalResult.result.then(function(data){
-                var newInstance = angular.copy(data);
-                newInstance.oi = $scope.currentCompany.oi.value;
-                newInstance.expiration = moment(newInstance.expiration).format('DD/MM/YYYY')
-                if (newInstance.withRole){
-                    InstanceService.createInstanceWithRole(newInstance).then(function(data){
-                        console.log(data);
-                    })
-                } else {
-                    InstanceService.createInstance(newInstance).then(function(data){
-                        console.log(data);
-                    })
-                }
+                $scope.createInstance(data);
 
             })
 
