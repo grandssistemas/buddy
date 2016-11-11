@@ -2,10 +2,14 @@ package br.com.codein.buddyadmin.application.service;
 
 
 import br.com.codein.buddyadmin.integration.client.SecurityClient;
+import br.com.codein.buddyadmin.integration.client.fashionmanager.JuridicaClient;
 import br.com.codein.buddyperson.application.service.person.PersonService;
+import br.com.codein.buddyperson.domain.person.Juridica;
 import br.com.codein.buddyperson.domain.person.Person;
 import br.com.codein.buddyperson.domain.person.enums.RoleCategory;
 import br.com.gumga.security.domain.model.institutional.Organization;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import gumga.framework.core.GumgaThreadScope;
 import gumga.framework.domain.domains.GumgaBoolean;
 import org.hibernate.Hibernate;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -28,6 +33,9 @@ public class CompanyService {
 
     @Autowired
     private PersonService personService;
+
+    @Autowired
+    private JuridicaClient juridicaClient;
 
     @Transactional
     public Organization newOrganization(Person person){
@@ -50,6 +58,10 @@ public class CompanyService {
         }
 
         personService.changeOrganization(personWithFather,result.getHierarchyCode());
+
+        if (person.containRoleWithCategory(RoleCategory.COMPANY)){
+            exportPerson(person);
+        }
         return result;
     }
 
@@ -99,5 +111,20 @@ public class CompanyService {
 
     public Organization getOrganization(Long id){
         return securityClient.getOrganization(id);
+    }
+
+
+    public void exportPerson(Person p){
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        Juridica juridica = null;
+        try {
+            String personWithoutId = mapper.writeValueAsString(p).replaceAll("(\"id\":null|\"id\":[0-9]*)[,]*","");
+            juridica = mapper.readValue(personWithoutId,Juridica.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Juridica s = juridicaClient.save(juridica);
     }
 }
