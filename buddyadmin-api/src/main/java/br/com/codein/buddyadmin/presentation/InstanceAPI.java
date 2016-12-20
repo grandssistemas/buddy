@@ -4,16 +4,16 @@ import br.com.codein.buddyadmin.application.service.InstanceService;
 import br.com.gumga.security.domain.model.instance.Instance;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import gumga.framework.core.QueryObject;
+import gumga.framework.core.SearchResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/instance")
@@ -44,5 +44,11 @@ public class InstanceAPI {
         Date expiration = mapper.readValue(params.get("expiration").toString(),Date.class);
         String organizationOi = params.get("oi").asText();
         return instanceService.createInstanceWithRole(name,expiration,organizationOi);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public SearchResult<Instance> search(QueryObject param){
+        List<Instance> result = instanceService.search(param);
+        return new SearchResult<Instance>(param,result.size(),result);
     }
 }

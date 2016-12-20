@@ -12,11 +12,13 @@ import br.com.gumga.security.gateway.RoleAndList;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import gumga.framework.core.GumgaThreadScope;
 import gumga.framework.core.QueryObject;
+import gumga.framework.core.SearchResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -93,7 +95,7 @@ public class SecurityClient extends AbstractClient<Object> {
         if (organization.getId() == null) {
             throw new OrganizationException("Invalid organization. Id doesn't have an ID.");
         }
-        this.get("/api/gumga-security/add-user-organization/".concat(user.getId().toString()).concat("/").concat(organization.getId().toString()));
+        this.get("/api/gumga-security/simple-add-user-organization/".concat(user.getId().toString()).concat("/").concat(organization.getId().toString()));
 
     }
 
@@ -173,6 +175,12 @@ public class SecurityClient extends AbstractClient<Object> {
                 setModulesNull((LinkedHashMap<String, Object>) soft));
         return translate(response.getBody(), Instance.class);
     }
+
+    public List<Instance> searchInstance(QueryObject queryObject) {
+        ResponseEntity<Object> response = this.search("/api/instance/", queryObject);
+        CollectionType type = createListType(Instance.class);
+        return translate((((LinkedHashMap) response.getBody()).get("values")), type);
+    }
     //</editor-fold>
 
     //<editor-fold desc="Role">
@@ -214,6 +222,12 @@ public class SecurityClient extends AbstractClient<Object> {
             throw new OrganizationException("Invalid role. Id doesn't have an ID.");
         }
         this.get("/api/gumga-security/remove-user-role/".concat(user.getId().toString()).concat("/").concat(role.getId().toString()));
+    }
+
+    public List<Role> searchRole(QueryObject queryObject) {
+        ResponseEntity<Object> response = this.search("/api/role/", queryObject);
+        CollectionType type = createListType(Role.class);
+        return translate((((LinkedHashMap) response.getBody()).get("values")), type);
     }
 
 

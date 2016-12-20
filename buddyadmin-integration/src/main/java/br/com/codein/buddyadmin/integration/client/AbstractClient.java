@@ -90,15 +90,17 @@ public abstract class AbstractClient<T>{
 
         UriComponentsBuilder builder =
                 UriComponentsBuilder.fromHttpUrl(this.url.concat(url))
-                .queryParam("q",q.getQ())
-                .queryParam("aq",q.getAq())
-                .queryParam("searchFields",String.join(",",q.getSearchFields()))
-                .queryParam("sortDir",q.getSortDir())
-                .queryParam("sortField",q.getSortField())
-                .queryParam("pageSize",q.getPageSize())
-                .queryParam("start",q.getStart())
-                .queryParam("currentPage",q.getCurrentPage());
+                        .queryParam("aq",q.getAq())
+                        .queryParam("sortDir",q.getSortDir())
+                        .queryParam("sortField",q.getSortField())
+                        .queryParam("pageSize",q.getPageSize())
+                        .queryParam("start",q.getStart())
+                        .queryParam("currentPage",q.getCurrentPage());
 
+        if (!(q.getQ().isEmpty() ||q.getSearchFields().length == 0)){
+            builder.queryParam("q",q.getQ());
+            builder.queryParam("searchFields", q.getSearchFields() == null ? "" : String.join(",",q.getSearchFields()));
+        }
 
         return this.restTemplate.exchange(builder.build().toUriString(), HttpMethod.GET, (HttpEntity<?>) this.requestEntity, objectClass, new HashMap());
     }

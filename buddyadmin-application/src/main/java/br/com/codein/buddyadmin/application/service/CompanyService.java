@@ -59,9 +59,9 @@ public class CompanyService {
 
         personService.changeOrganization(personWithFather,result.getHierarchyCode());
 
-        if (person.containRoleWithCategory(RoleCategory.COMPANY)){
-            exportPerson(person);
-        }
+//        if (person.containRoleWithCategory(RoleCategory.COMPANY)){
+//            exportPerson(person);
+//        }
         return result;
     }
 

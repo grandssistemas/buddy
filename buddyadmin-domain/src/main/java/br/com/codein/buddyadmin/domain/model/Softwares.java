@@ -4,9 +4,10 @@ package br.com.codein.buddyadmin.domain.model;
  * Created by luizaugusto on 08/11/16.
  */
 public enum Softwares {
-    BUDDY_ADMIN("Buddy Admin","br.com.codein.buddyadmin"),
+    BUDDY_ADMIN("Admin","br.com.codein.buddyadmin"),
     FASHION_MANAGER("Fashion Manager","Fashion Manager"),
-    SECURITY("Segurança","br.com.gumga.security")
+    SECURITY("Segurança","br.com.gumga.security"),
+    RUPTURA("Ruptura","br.com.sgsistemas.ruptura")
 
     ;
 

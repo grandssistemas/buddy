@@ -6,11 +6,15 @@ import br.com.codein.buddyadmin.integration.client.SecurityClient;
 import br.com.gumga.security.domain.model.instance.Instance;
 import br.com.gumga.security.domain.model.institutional.Organization;
 import br.com.gumga.security.domain.model.softwarehouse.Software;
+import gumga.framework.core.QueryObject;
+import gumga.framework.core.SearchResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Query;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -45,6 +49,7 @@ public class InstanceService {
         softwareSet.add(softwareService.getSoftwareByName(Softwares.BUDDY_ADMIN.getSoftwareName()));
         softwareSet.add(softwareService.getSoftwareByName(Softwares.SECURITY.getSoftwareName()));
         softwareSet.add(softwareService.getSoftwareByName(Softwares.FASHION_MANAGER.getSoftwareName()));
+        softwareSet.add(softwareService.getSoftwareByName(Softwares.RUPTURA.getSoftwareName()));
 
         result.setSoftwares(softwareSet);
         return securityClient.saveInstance(result);
@@ -58,5 +63,13 @@ public class InstanceService {
 
     public Instance getInstance(Long instanceId) {
         return securityClient.getInstance(instanceId);
+    }
+
+    public List<Instance> search(QueryObject param) {
+
+        if (param.getSearchFields() == null){
+            param.setSearchFields("name");
+        }
+        return securityClient.searchInstance(param);
     }
 }

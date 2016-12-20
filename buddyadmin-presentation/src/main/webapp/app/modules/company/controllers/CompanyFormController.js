@@ -4,16 +4,17 @@ define(['angular'], function (angular) {
     CompanyFormController.$inject = [
         'JuridicaCompanyService', 'entity', '$scope', 'CompanyService',
         'RoleService', 'GumgaAlert','$timeout', 'UserService', '$uibModal',
-        'InstanceService','moment'
+        'InstanceService','moment','SecurityRoleService'
     ];
 
     function CompanyFormController(JuridicaCompanyService, entity, $scope, CompanyService,
                                    RoleService,  GumgaAlert,$timeout,UserService, $uibModal,
-                                    InstanceService,moment) {
+                                    InstanceService,moment,SecurityRoleService) {
 
         $scope.currentCompany = angular.copy(entity.data);
         $scope.continue = {};
         $scope.currentUser = {}
+        $scope.currentRole = {}
         $scope.instance = {};
         $scope.isIntegration = true;
 
@@ -102,16 +103,28 @@ define(['angular'], function (angular) {
         });
 
         $scope.clean = function () {
+            document.getElementById('orgTab').click();
             $scope.PersonForm.treeSearch.$setUntouched();
-            $scope.cleanOrganization();
-            $scope.cleanUser();
-        }
+            cleanOrganization();
+            cleanUser();
+            cleanInstance();
+            cleanRole();
+        };
 
-        $scope.cleanOrganization = function(){
+        function cleanOrganization(){
             $scope.currentCompany = {};
             $scope.currentNode = {};
             $scope.PersonForm.organizationName.$setUntouched();
-            $scope.role = null;
+            $scope.role = {};
+        };
+        function cleanInstance(){
+            $scope.instance = {}
+            $scope.PersonForm.instanceName.$setUntouched();
+        }
+
+        function cleanRole(){
+            $scope.currentRole = {}
+            $scope.PersonForm.roleName.$setUntouched();
         }
 
         $scope.blockBtnSave = function () {
@@ -126,17 +139,26 @@ define(['angular'], function (angular) {
         $scope.addUser = function(user){
             var userToAdd = angular.copy(user);
             userToAdd.oi = $scope.currentCompany.oi.value;
-            userToAdd.role = null;
+            userToAdd.role = user.role;
             UserService.saveUser(userToAdd).then(function(data){
                 console.log(data);
             })
         }
-        $scope.cleanUser = function(){
+        function cleanUser(){
             $scope.currentUser = {}
             $scope.PersonForm.username.$setUntouched();
             $scope.PersonForm.login.$setUntouched();
         }
 
+        $scope.searchRole = function(param){
+            var hql = "obj.instance.id = " + $scope.currentUser.instance.id;
+            if (param){
+                hql = hql + " and obj.name like '%"+ param + "%'"
+            }
+            return SecurityRoleService.getAdvancedSearch(hql).then(function(data){
+                return data.data.values;
+            });
+        }
         $scope.blockBtnInstance = function(instance){
             return  !instance || !instance.name || !instance.expiration || moment(instance.expiration).isBefore(moment(new Date()));
         }
@@ -156,6 +178,17 @@ define(['angular'], function (angular) {
             }
         }
 
+        $scope.searchInstance = function(param){
+            var hql = "obj.organization.id = " + $scope.currentCompany.oi.value.replace(".","");
+            if (param){
+                hql = hql + " and obj.name like '%"+ param + "%'"
+            }
+            return InstanceService.getAdvancedSearch(hql).then(function(data){
+                return data.data.values;
+            });
+        }
+
+
         $scope.newInstance = function(){
             var modalResult =$uibModal.open({
                 animation: true,
@@ -173,6 +206,15 @@ define(['angular'], function (angular) {
 
             })
 
+        }
+
+        $scope.createRole = function(curRole){
+            var newRole = {};
+            newRole.name = curRole.name;
+            newRole.instanceId = curRole.instance.id;
+            SecurityRoleService.create(newRole).then(function(data){
+                console.log(data);
+            })
         }
 
         function getTree() {

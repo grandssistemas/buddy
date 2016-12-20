@@ -6,6 +6,7 @@ import br.com.gumga.security.domain.model.instance.Instance;
 import br.com.gumga.security.domain.model.instance.OperationEspecification;
 import br.com.gumga.security.domain.model.instance.Role;
 import br.com.gumga.security.gateway.RoleAndList;
+import gumga.framework.core.QueryObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,5 +61,10 @@ public class SecurityRoleService {
 
     public Role getRole(Long roleId) {
         return securityClient.getRole(roleId);
+    }
+
+    public List<Role> search(QueryObject param) {
+
+        return securityClient.searchRole(param);
     }
 }
