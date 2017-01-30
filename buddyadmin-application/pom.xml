@@ -48,7 +48,20 @@
             <artifactId>security-gateway</artifactId>
             <type>jar</type>
         </dependency>
-
-
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+            <version>2.23</version>
+        </dependency>
+        <dependency>
+            <groupId>org.w3c</groupId>
+            <artifactId>dom</artifactId>
+            <version>2.3.0-jaxb-1.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
+        </dependency>
     </dependencies>
 </project>
