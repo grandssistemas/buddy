@@ -11,10 +11,6 @@ import javax.persistence.SequenceGenerator;
 /**
  * Created by gelatti on 30/01/17.
  */
-@GumgaMultitenancy
-@SequenceGenerator(name = GumgaModel.SEQ_NAME, sequenceName = "SEQ_COMPANYDOCUMENT")
-@Entity
-@Audited
 public class CompanyDocument extends GumgaModel<Long> {
 
     @Column(unique = true)

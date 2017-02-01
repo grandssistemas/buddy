@@ -1,0 +1,18 @@
+[
+  {
+    "type": "item",
+    "label": "Home",
+    "state": "welcome",
+    "key": "CRUD-BASE",
+    "icon": "",
+    "children": []
+  },
+  {
+    "type": "item",
+    "label": "Pessoa",
+    "state": "company.insert",
+    "key": "CRUD-Person",
+    "icon": "",
+    "children": []
+  }
+]

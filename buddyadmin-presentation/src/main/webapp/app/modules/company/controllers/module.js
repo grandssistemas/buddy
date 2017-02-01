@@ -6,6 +6,5 @@ define(function (require) {
     return angular
             .module('app.company.controllers', ['app.company.services','ui.router'])
             .controller('CompanyFormController', require('app/modules/company/controllers/CompanyFormController'))
-            .controller('CompanyListController', require('app/modules/company/controllers/CompanyListController'))
-            .controller('PersonFormController', require('bower_components/buddy-person-front/app/modules/person/controllers/PersonFormController'));
+            .controller('CompanyListController', require('app/modules/company/controllers/CompanyListController'));
 });

@@ -1,0 +1,78 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    
+    <changeSet author="Bruno Gelatti" id="BA-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="gumga_log" columnName="ip"/>
+        </preConditions>
+        <renameColumn newColumnName="gumga_ip"
+                      oldColumnName="ip"
+                      tableName="gumga_log"/>
+    </changeSet>
+    <changeSet author="Bruno Gelatti" id="BA-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="gumga_log" columnName="method"/>
+        </preConditions>
+        <renameColumn newColumnName="gumga_method"
+                      oldColumnName="method"
+                      tableName="gumga_log"/>
+    </changeSet>
+    <changeSet author="Bruno Gelatti" id="BA-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="gumga_log" columnName="operarationkey"/>
+        </preConditions>
+        <renameColumn newColumnName="gumga_operation"
+                      oldColumnName="operarationkey"
+                      tableName="gumga_log"/>
+    </changeSet>
+    <changeSet author="Bruno Gelatti" id="BA-4" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="gumga_log" columnName="organization"/>
+        </preConditions>
+        <renameColumn newColumnName="gumga_organization"
+                      oldColumnName="organization"
+                      tableName="gumga_log"/>
+    </changeSet>
+    <changeSet author="Bruno Gelatti" id="BA-5" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="gumga_log" columnName="organizationcode"/>
+        </preConditions>
+        <renameColumn newColumnName="gumga_organization_code"
+                      oldColumnName="organizationcode"
+                      tableName="gumga_log"/>
+    </changeSet>
+    <changeSet author="Bruno Gelatti" id="BA-6" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="gumga_log" columnName="quando"/>
+        </preConditions>
+        <renameColumn newColumnName="gumga_moment"
+                      oldColumnName="quando"
+                      tableName="gumga_log"/>
+    </changeSet>
+    <changeSet author="Bruno Gelatti" id="BA-7" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="gumga_log" columnName="software"/>
+        </preConditions>
+        <renameColumn newColumnName="gumga_software"
+                      oldColumnName="software"
+                      tableName="gumga_log"/>
+    </changeSet>
+    <changeSet author="Bruno Gelatti" id="BA-8" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="seqrev"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="seqrev"/>
+    </changeSet>
+    <changeSet author="Bruno Gelatti" id="BA-9" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="gumga_log" columnName="endpoint"/>
+        </preConditions>
+        <renameColumn newColumnName="gumga_endpoint"
+                      oldColumnName="endpoint"
+                      tableName="gumga_log"/>
+    </changeSet>
+</databaseChangeLog>
