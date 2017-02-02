@@ -2,14 +2,34 @@ define(['angular'], function (angular) {
 
 
     CompanyFormController.$inject = [
-        'JuridicaCompanyService', 'entity', '$scope', 'CompanyService',
-        'RoleService', 'GumgaAlert','$timeout', 'UserService', '$uibModal',
-        'InstanceService','moment','SecurityRoleService'
+        'JuridicaCompanyService',
+        'entity',
+        '$scope',
+        'CompanyService',
+        'RoleService',
+        'GumgaAlert',
+        '$timeout',
+        'UserService',
+        '$uibModal',
+        'InstanceService',
+        'moment',
+        'SecurityRoleService',
+        'CompanyDocumentService'
     ];
 
-    function CompanyFormController(JuridicaCompanyService, entity, $scope, CompanyService,
-                                   RoleService,  GumgaAlert,$timeout,UserService, $uibModal,
-                                    InstanceService,moment,SecurityRoleService) {
+    function CompanyFormController(JuridicaCompanyService,
+                                   entity,
+                                   $scope,
+                                   CompanyService,
+                                   RoleService,
+                                   GumgaAlert,
+                                   $timeout,
+                                   UserService,
+                                   $uibModal,
+                                   InstanceService,
+                                   moment,
+                                   SecurityRoleService,
+                                   CompanyDocumentService) {
 
         $scope.currentCompany = angular.copy(entity.data);
         $scope.continue = {};
@@ -17,9 +37,16 @@ define(['angular'], function (angular) {
         $scope.currentRole = {}
         $scope.instance = {};
         $scope.isIntegration = true;
-
-        $scope.tree = {}
-
+        $scope.codeCaptcha = '';
+        $scope.tree = {};
+        $scope.getCaptcha = function () {
+            CompanyDocumentService.getCaptcha().then(function (data) {
+                console.log(data);
+                $scope.captcha = data.data.captcha;
+                $scope.cookie = data.data.cookie;
+            });
+        };
+        $scope.getCaptcha();
 
         RoleService.findAll().then(function (data) {
             $scope.roleCategories = data.data;
@@ -52,28 +79,8 @@ define(['angular'], function (angular) {
 
         $scope.update = function (entity) {
             if (validRecord(entity)) {
-                fillPerson(entity);
-                var father = entity.father;
-                var toUpdate = entity;
-                if (!entity.id && father) {
-                    father.branches = father.branches || [];
-                    father.branches.push(entity);
-                    toUpdate = father;
-                }
-                delete entity.father;
-
-                JuridicaCompanyService.update(toUpdate).then(function (data) {
-                    if (!entity.id) {
-                        var newCompany = data.data.data.name === entity.name ? data.data.data : getBranchByName(data.data.data,entity.name);
-                        CompanyService.createOrganization(newCompany).then(function(){
-                            resetState();
-                        });
-                    } else{
-                        resetState();
-                    }
-                })
-
-
+                $scope.codeCaptcha = document.getElementById('captcha').value;//tive que fazer pois não estava funcionando pelo ng-model
+                fillPerson(entity, $scope.codeCaptcha, $scope.cookie);
             }
 
         };
@@ -115,6 +122,7 @@ define(['angular'], function (angular) {
             $scope.currentCompany = {};
             $scope.currentNode = {};
             $scope.PersonForm.organizationName.$setUntouched();
+            $scope.PersonForm.captchaCnpj.$setUntouched();
             $scope.role = {};
         };
         function cleanInstance(){
@@ -287,6 +295,10 @@ define(['angular'], function (angular) {
                     GumgaAlert.createDangerMessage('Erro no Cadastro', 'Tipo de empresa inválido.');
                     return false;
             }
+            if ($scope.captchaCnpj === '') {
+                GumgaAlert.createDangerMessage('Erro na Consulta', 'Por favor digite a captcha para consulta CNPJ.');
+                return false;
+            }
             return true;
         }
 
@@ -296,47 +308,65 @@ define(['angular'], function (angular) {
             })[0];
         }
 
-        function fillPerson(entity) {
-
-
+        function fillPerson(entity, captcha, cookie) {
             if (!entity.id) {
+                CompanyDocumentService.buscaCNPJ(entity.cnpj.value, captcha, cookie).then(function (data) {
+                    console.log(data);
+                    entity.active = {value: true};
+                    entity.addressList = [{
+                        "address": {
+                            "zipCode": data.data.cep,
+                            "premisseType": " ",
+                            "premisse": data.data.logradouro,
+                            "number": data.data.numero,
+                            "information": data.data.complemento,
+                            "neighbourhood": data.data.bairro,
+                            "localization": data.data.cidade,
+                            "state": data.data.uf,
+                            "country": "Brasil"
+                        },
+                        "primary": true
+                    }];
+                    entity.name = data.data.razaoSocial;
+                    entity.nickname = data.data.nomeFantasia;
+                    entity.phones = [{
+                        "description": "COMERCIAL", "phone": {"value": data.data.telefone}, "primary": true,
+                        "carrier": null, "information": null,
+                    }];
+                    entity.emails = [{
+                        "email": {"value": data.data.email}, "primary": true
+                    }];
+                    entity.type = 'Juridica'
+                    entity.attributeValues = [];
+                    entity.branches = [];
+                    entity.relationships = [];
+                    entity.socialNetworks = [];
+                    entity.cnaes = [];
+                    entity.roles = [{
+                        active: true,
+                        role: $scope.role
+                    }];
+                    console.log(entity);
+                    var father = entity.father;
+                    var toUpdate = entity;
+                    if (!entity.id && father) {
+                        father.branches = father.branches || [];
+                        father.branches.push(entity);
+                        toUpdate = father;
+                    }
+                    delete entity.father;
 
-                entity.active = {value: true};
-                entity.addressList = [{
-                    "address": {
-                        "zipCode": " ",
-                        "premisseType": " ",
-                        "premisse": "",
-                        "number": "",
-                        "information": "",
-                        "neighbourhood": "",
-                        "localization": "",
-                        "state": "",
-                        "country": ""
-                    },
-                    "primary": true
-                }];
-                entity.phones = [{
-                    "description": "CELULAR", "phone": {"value": ""}, "primary": true,
-                    "carrier": null, "information": null,
-                }];
-                entity.emails = [{
-                    "email": {"value": ""}, "primary": true
-                }];
-                entity.nickname = entity.name;
-
-                entity.type = 'Juridica'
-
-                entity.attributeValues = [];
-                entity.branches = [];
-                entity.relationships = [];
-                entity.socialNetworks = [];
-                entity.cnaes = [];
-                entity.roles = [{
-                    active: true,
-                    role: $scope.role
-                }];
-
+                    JuridicaCompanyService.update(toUpdate).then(function (data) {
+                        if (!entity.id) {
+                            var newCompany = data.data.data.name === entity.name ? data.data.data : getBranchByName(data.data.data,entity.name);
+                            CompanyService.createOrganization(newCompany).then(function(){
+                                resetState();
+                            });
+                        } else{
+                            resetState();
+                        }
+                    })
+                });
             }
         }
     }

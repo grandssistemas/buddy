@@ -1,15 +1,30 @@
 <gmd-input>
     <div class="form-group gmd">
-        <input type="text" class="form-control gmd" ng-model="currentCompany.name" id="name"
+        <input type="text" class="form-control gmd" ng-model="currentCompany.cnpj.value" id="name"
                required name="organizationName"
                autocomplete="off">
         <span class="bar"></span>
-        <label for="name" class="control-label" gumga-translate-tag="person.name">Nome/Razão
-            Social</label>
+        <label for="name" class="control-label">CNPJ</label>
     </div>
 </gmd-input>
 
-<div class="m-t-n-lg ">
+<gmd-input>
+    <div class="row">
+        <div class="col-lg-4">
+            <img ng-src="{{captcha}}" alt="">
+            <i class="material-icons cursor-pointer" style="color: #2196f3" ng-click="getCaptcha()">refresh</i>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <input type="text" class="form-control gmd" id="captcha" autocomplete="off" name="captchaCnpj"/>
+                <span class="bar"></span>
+                <label for="captcha" class="control-label">CAPTCHA</label>
+            </div>
+        </div>
+    </div>
+</gmd-input>
+
+<div class="m-t-n-lg">
     <gmd-select ng-model="$parent.role"
                 options="roleCategories"
                 option="name"

@@ -13,6 +13,7 @@
         <hibernate.version>4.3.1.Final</hibernate.version>
         <buddyperson.version>1.2</buddyperson.version>
         <buddycharacteristic.version>1.1</buddycharacteristic.version>
+        <fiscalgroup.version>1.0</fiscalgroup.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -290,6 +291,23 @@
                 <groupId>br.com.codein</groupId>
                 <artifactId>buddycharacteristic-gateway</artifactId>
                 <version>${buddycharacteristic.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>br.com.codein</groupId>
+                <artifactId>fiscalgroup-application</artifactId>
+                <version>${fiscalgroup.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.codein</groupId>
+                <artifactId>fiscalgroup-api</artifactId>
+                <version>${fiscalgroup.version}</version>
+                <type>war</type>
+            </dependency>
+            <dependency>
+                <groupId>br.com.codein</groupId>
+                <artifactId>fiscalgroup-gateway</artifactId>
+                <version>${fiscalgroup.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

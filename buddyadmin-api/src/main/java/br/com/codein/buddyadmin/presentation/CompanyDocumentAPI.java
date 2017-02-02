@@ -26,7 +26,7 @@ public class CompanyDocumentAPI {
         return companyDocumentService.generateCaptcha();
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/buscacnpj")
     public CompanyDocument handlingCPNJ(@RequestParam("cnpj") String cnpj, @RequestParam("captcha") String captcha, @RequestParam("cookie") String cookie)
             throws IOException {
         return companyDocumentService.handlingCNPJ(cnpj, captcha, cookie);

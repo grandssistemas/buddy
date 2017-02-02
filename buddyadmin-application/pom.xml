@@ -32,6 +32,11 @@
             <artifactId>buddyperson-application</artifactId>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>br.com.codein</groupId>
+            <artifactId>fiscalgroup-application</artifactId>
+            <type>jar</type>
+        </dependency>
         <!-- DEPENDENCIAS do Framework GUMGA    -->
         <dependency>
             <groupId>gumga.framework</groupId>
