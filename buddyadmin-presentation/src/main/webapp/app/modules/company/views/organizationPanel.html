@@ -1,15 +1,14 @@
 <gmd-input>
-    <div class="form-group gmd">
-        <input type="text" class="form-control gmd" ng-model="currentCompany.cnpj.value" id="name"
-               required name="organizationName"
-               autocomplete="off">
-        <span class="bar"></span>
-        <label for="name" class="control-label">CNPJ</label>
-    </div>
-</gmd-input>
-
-<gmd-input>
     <div class="row">
+        <div class="col-lg-4">
+            <div class="form-group gmd">
+                <input type="text" class="form-control gmd" ng-model="currentCompany.cnpj.value" id="name"
+                       required name="organizationName"
+                       autocomplete="off">
+                <span class="bar"></span>
+                <label for="name" class="control-label">CNPJ</label>
+            </div>
+        </div>
         <div class="col-lg-4">
             <img ng-src="{{captcha}}" alt="">
             <i class="material-icons cursor-pointer" style="color: #2196f3" ng-click="getCaptcha()">refresh</i>

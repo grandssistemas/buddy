@@ -41,7 +41,6 @@ define(['angular'], function (angular) {
         $scope.tree = {};
         $scope.getCaptcha = function () {
             CompanyDocumentService.getCaptcha().then(function (data) {
-                console.log(data);
                 $scope.captcha = data.data.captcha;
                 $scope.cookie = data.data.cookie;
             });
@@ -52,10 +51,10 @@ define(['angular'], function (angular) {
             $scope.roleCategories = data.data;
         })
 
-        $scope.apply = function(){
-            $timeout(function(){
+        $scope.apply = function () {
+            $timeout(function () {
                 $scope.a = !$scope.a;
-            },10)
+            }, 10)
         }
 
 
@@ -85,7 +84,7 @@ define(['angular'], function (angular) {
 
         };
 
-        function resetState(){
+        function resetState() {
             getTree()
             $scope.clean();
         }
@@ -118,19 +117,19 @@ define(['angular'], function (angular) {
             cleanRole();
         };
 
-        function cleanOrganization(){
+        function cleanOrganization() {
             $scope.currentCompany = {};
             $scope.currentNode = {};
             $scope.PersonForm.organizationName.$setUntouched();
-            $scope.PersonForm.captchaCnpj.$setUntouched();
+            document.getElementById('captcha').value = '';
             $scope.role = {};
         };
-        function cleanInstance(){
+        function cleanInstance() {
             $scope.instance = {}
             $scope.PersonForm.instanceName.$setUntouched();
         }
 
-        function cleanRole(){
+        function cleanRole() {
             $scope.currentRole = {}
             $scope.PersonForm.roleName.$setUntouched();
         }
@@ -140,87 +139,85 @@ define(['angular'], function (angular) {
         };
 
 
-        $scope.blockBtnUser = function(user){
+        $scope.blockBtnUser = function (user) {
             return !user.name || !user.email;
         }
 
-        $scope.addUser = function(user){
+        $scope.addUser = function (user) {
             var userToAdd = angular.copy(user);
             userToAdd.oi = $scope.currentCompany.oi.value;
             userToAdd.role = user.role;
-            UserService.saveUser(userToAdd).then(function(data){
+            UserService.saveUser(userToAdd).then(function (data) {
                 console.log(data);
             })
         }
-        function cleanUser(){
+        function cleanUser() {
             $scope.currentUser = {}
             $scope.PersonForm.username.$setUntouched();
             $scope.PersonForm.login.$setUntouched();
         }
 
-        $scope.searchRole = function(param){
+        $scope.searchRole = function (param) {
             var hql = "obj.instance.id = " + $scope.currentUser.instance.id;
-            if (param){
-                hql = hql + " and obj.name like '%"+ param + "%'"
+            if (param) {
+                hql = hql + " and obj.name like '%" + param + "%'"
             }
-            return SecurityRoleService.getAdvancedSearch(hql).then(function(data){
+            return SecurityRoleService.getAdvancedSearch(hql).then(function (data) {
                 return data.data.values;
             });
         }
-        $scope.blockBtnInstance = function(instance){
-            return  !instance || !instance.name || !instance.expiration || moment(instance.expiration).isBefore(moment(new Date()));
+        $scope.blockBtnInstance = function (instance) {
+            return !instance || !instance.name || !instance.expiration || moment(instance.expiration).isBefore(moment(new Date()));
         }
 
-        $scope.createInstance = function(data){
+        $scope.createInstance = function (data) {
             var newInstance = angular.copy(data);
             newInstance.oi = $scope.currentCompany.oi.value;
             newInstance.expiration = moment(newInstance.expiration).format('DD/MM/YYYY')
-            if (newInstance.withRole){
-                InstanceService.createInstanceWithRole(newInstance).then(function(data){
+            if (newInstance.withRole) {
+                InstanceService.createInstanceWithRole(newInstance).then(function (data) {
                     console.log(data);
                 })
             } else {
-                InstanceService.createInstance(newInstance).then(function(data){
+                InstanceService.createInstance(newInstance).then(function (data) {
                     console.log(data);
                 })
             }
         }
 
-        $scope.searchInstance = function(param){
-            var hql = "obj.organization.id = " + $scope.currentCompany.oi.value.replace(".","");
-            if (param){
-                hql = hql + " and obj.name like '%"+ param + "%'"
+        $scope.searchInstance = function (param) {
+            var hql = "obj.organization.id = " + $scope.currentCompany.oi.value.replace(".", "");
+            if (param) {
+                hql = hql + " and obj.name like '%" + param + "%'"
             }
-            return InstanceService.getAdvancedSearch(hql).then(function(data){
+            return InstanceService.getAdvancedSearch(hql).then(function (data) {
                 return data.data.values;
             });
         }
 
 
-        $scope.newInstance = function(){
-            var modalResult =$uibModal.open({
+        $scope.newInstance = function () {
+            var modalResult = $uibModal.open({
                 animation: true,
-                backdrop:'static',
+                backdrop: 'static',
                 templateUrl: 'app/modules/instance/views/InstanceModal.html',
                 controller: 'InstanceModalController',
-                resolve: {
-
-                },
+                resolve: {},
                 size: 'sm'
             })
 
-            modalResult.result.then(function(data){
+            modalResult.result.then(function (data) {
                 $scope.createInstance(data);
 
             })
 
         }
 
-        $scope.createRole = function(curRole){
+        $scope.createRole = function (curRole) {
             var newRole = {};
             newRole.name = curRole.name;
             newRole.instanceId = curRole.instance.id;
-            SecurityRoleService.create(newRole).then(function(data){
+            SecurityRoleService.create(newRole).then(function (data) {
                 console.log(data);
             })
         }
@@ -233,7 +230,7 @@ define(['angular'], function (angular) {
 
         function getRoleCategories(person) {
             var result = [];
-            if (person.roles){
+            if (person.roles) {
                 person.roles.forEach(
                     function (associative) {
                         if (associative.active) {
@@ -272,7 +269,7 @@ define(['angular'], function (angular) {
                     }
                     break;
                 case "COMPANY":
-                    if (!entity.father ){
+                    if (!entity.father) {
                         GumgaAlert.createDangerMessage('Erro no Cadastro', 'Uma empresa deve estar ligada à alguma entidade.');
                         return false;
                     }
@@ -282,7 +279,7 @@ define(['angular'], function (angular) {
                     }
                     break;
                 case "AGGREGATOR":
-                    if (!entity.father ){
+                    if (!entity.father) {
                         GumgaAlert.createDangerMessage('Erro no Cadastro', 'Uma Matriz Agregadora deve estar ligada à alguma entidade.');
                         return false;
                     }
@@ -302,8 +299,8 @@ define(['angular'], function (angular) {
             return true;
         }
 
-        function getBranchByName(person,name){
-            return person.branches.filter(function(branch){
+        function getBranchByName(person, name) {
+            return person.branches.filter(function (branch) {
                 return branch.name === name;
             })[0];
         }
@@ -311,61 +308,63 @@ define(['angular'], function (angular) {
         function fillPerson(entity, captcha, cookie) {
             if (!entity.id) {
                 CompanyDocumentService.buscaCNPJ(entity.cnpj.value, captcha, cookie).then(function (data) {
-                    console.log(data);
-                    entity.active = {value: true};
-                    entity.addressList = [{
-                        "address": {
-                            "zipCode": data.data.cep,
-                            "premisseType": " ",
-                            "premisse": data.data.logradouro,
-                            "number": data.data.numero,
-                            "information": data.data.complemento,
-                            "neighbourhood": data.data.bairro,
-                            "localization": data.data.cidade,
-                            "state": data.data.uf,
-                            "country": "Brasil"
-                        },
-                        "primary": true
-                    }];
-                    entity.name = data.data.razaoSocial;
-                    entity.nickname = data.data.nomeFantasia;
-                    entity.phones = [{
-                        "description": "COMERCIAL", "phone": {"value": data.data.telefone}, "primary": true,
-                        "carrier": null, "information": null,
-                    }];
-                    entity.emails = [{
-                        "email": {"value": data.data.email}, "primary": true
-                    }];
-                    entity.type = 'Juridica'
-                    entity.attributeValues = [];
-                    entity.branches = [];
-                    entity.relationships = [];
-                    entity.socialNetworks = [];
-                    entity.cnaes = [];
-                    entity.roles = [{
-                        active: true,
-                        role: $scope.role
-                    }];
-                    console.log(entity);
-                    var father = entity.father;
-                    var toUpdate = entity;
-                    if (!entity.id && father) {
-                        father.branches = father.branches || [];
-                        father.branches.push(entity);
-                        toUpdate = father;
-                    }
-                    delete entity.father;
-
-                    JuridicaCompanyService.update(toUpdate).then(function (data) {
-                        if (!entity.id) {
-                            var newCompany = data.data.data.name === entity.name ? data.data.data : getBranchByName(data.data.data,entity.name);
-                            CompanyService.createOrganization(newCompany).then(function(){
-                                resetState();
-                            });
-                        } else{
-                            resetState();
+                    if (data.data.razaoSocial !== null) {
+                        entity.active = {value: true};
+                        entity.addressList = [{
+                            "address": {
+                                "zipCode": data.data.cep,
+                                "premisseType": " ",
+                                "premisse": data.data.logradouro,
+                                "number": data.data.numero,
+                                "information": data.data.complemento,
+                                "neighbourhood": data.data.bairro,
+                                "localization": data.data.cidade,
+                                "state": data.data.uf,
+                                "country": "Brasil"
+                            },
+                            "primary": true
+                        }];
+                        entity.name = data.data.razaoSocial;
+                        entity.nickname = data.data.nomeFantasia;
+                        entity.phones = [{
+                            "description": "COMERCIAL", "phone": {"value": data.data.telefone}, "primary": true,
+                            "carrier": null, "information": null,
+                        }];
+                        entity.emails = [{
+                            "email": {"value": data.data.email}, "primary": true
+                        }];
+                        entity.type = 'Juridica'
+                        entity.attributeValues = [];
+                        entity.branches = [];
+                        entity.relationships = [];
+                        entity.socialNetworks = [];
+                        entity.cnaes = [];
+                        entity.roles = [{
+                            active: true,
+                            role: $scope.role
+                        }];
+                        var father = entity.father;
+                        var toUpdate = entity;
+                        if (!entity.id && father) {
+                            father.branches = father.branches || [];
+                            father.branches.push(entity);
+                            toUpdate = father;
                         }
-                    })
+                        delete entity.father;
+
+                        JuridicaCompanyService.update(toUpdate).then(function (data) {
+                            if (!entity.id) {
+                                var newCompany = data.data.data.name === entity.name ? data.data.data : getBranchByName(data.data.data, entity.name);
+                                CompanyService.createOrganization(newCompany).then(function () {
+                                    resetState();
+                                });
+                            } else {
+                                resetState();
+                            }
+                        })
+                    } else {
+                        GumgaAlert.createDangerMessage('Erro na Consulta', 'Por favor verifique o captcha e o CNPJ.');
+                    }
                 });
             }
         }
