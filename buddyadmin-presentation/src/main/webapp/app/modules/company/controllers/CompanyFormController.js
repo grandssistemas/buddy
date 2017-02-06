@@ -104,17 +104,28 @@ define(['angular'], function (angular) {
         $scope.$watch('currentNode', function (data) {
             if (data) {
                 $scope.currentCompany = angular.copy(data);
+
+                if (data.roles) {
+                    $scope.$broadcast('role', data.roles[0].role);
+                } else {
+                    $scope.$broadcast('role', {});
+                }
                 $scope.$broadcast('companyChange', $scope.currentCompany);
             }
         });
 
+        $scope.$on('role', function (ev, data) {
+            console.log(data);
+            $scope.role = data;
+        });
+
         $scope.clean = function () {
-            document.getElementById('orgTab').click();
-            $scope.PersonForm.treeSearch.$setUntouched();
             cleanOrganization();
             cleanUser();
             cleanInstance();
             cleanRole();
+            document.getElementById('orgTab').click();
+            $scope.PersonForm.treeSearch.$setUntouched();
         };
 
         function cleanOrganization() {
@@ -296,6 +307,10 @@ define(['angular'], function (angular) {
                 GumgaAlert.createDangerMessage('Erro na Consulta', 'Por favor digite a captcha para consulta CNPJ.');
                 return false;
             }
+            if ((entity.name === '' || !entity.name) && !entity.cnpj) {
+                GumgaAlert.createDangerMessage('Erro na Cadastro', 'Por favor digite uma Razão Social ou um CNPJ.');
+                return false;
+            }
             return true;
         }
 
@@ -307,65 +322,120 @@ define(['angular'], function (angular) {
 
         function fillPerson(entity, captcha, cookie) {
             if (!entity.id) {
-                CompanyDocumentService.buscaCNPJ(entity.cnpj.value, captcha, cookie).then(function (data) {
-                    if (data.data.razaoSocial !== null) {
-                        entity.active = {value: true};
-                        entity.addressList = [{
-                            "address": {
-                                "zipCode": data.data.cep,
-                                "premisseType": " ",
-                                "premisse": data.data.logradouro,
-                                "number": data.data.numero,
-                                "information": data.data.complemento,
-                                "neighbourhood": data.data.bairro,
-                                "localization": data.data.cidade,
-                                "state": data.data.uf,
-                                "country": "Brasil"
-                            },
-                            "primary": true
-                        }];
-                        entity.name = data.data.razaoSocial;
-                        entity.nickname = data.data.nomeFantasia;
-                        entity.phones = [{
-                            "description": "COMERCIAL", "phone": {"value": data.data.telefone}, "primary": true,
-                            "carrier": null, "information": null,
-                        }];
-                        entity.emails = [{
-                            "email": {"value": data.data.email}, "primary": true
-                        }];
-                        entity.type = 'Juridica'
-                        entity.attributeValues = [];
-                        entity.branches = [];
-                        entity.relationships = [];
-                        entity.socialNetworks = [];
-                        entity.cnaes = [];
-                        entity.roles = [{
-                            active: true,
-                            role: $scope.role
-                        }];
-                        var father = entity.father;
-                        var toUpdate = entity;
-                        if (!entity.id && father) {
-                            father.branches = father.branches || [];
-                            father.branches.push(entity);
-                            toUpdate = father;
-                        }
-                        delete entity.father;
-
-                        JuridicaCompanyService.update(toUpdate).then(function (data) {
-                            if (!entity.id) {
-                                var newCompany = data.data.data.name === entity.name ? data.data.data : getBranchByName(data.data.data, entity.name);
-                                CompanyService.createOrganization(newCompany).then(function () {
-                                    resetState();
-                                });
-                            } else {
-                                resetState();
+                if (entity.cnpj && captcha !== '') {
+                    CompanyDocumentService.buscaCNPJ(entity.cnpj.value, captcha, cookie).then(function (data) {
+                        if (data.data.razaoSocial !== null) {
+                            entity.active = {value: true};
+                            entity.addressList = [{
+                                "address": {
+                                    "zipCode": data.data.cep,
+                                    "premisseType": " ",
+                                    "premisse": data.data.logradouro,
+                                    "number": data.data.numero,
+                                    "information": data.data.complemento,
+                                    "neighbourhood": data.data.bairro,
+                                    "localization": data.data.cidade,
+                                    "state": data.data.uf,
+                                    "country": "Brasil"
+                                },
+                                "primary": true
+                            }];
+                            entity.name = data.data.razaoSocial;
+                            entity.nickname = data.data.nomeFantasia;
+                            entity.phones = [{
+                                "description": "COMERCIAL", "phone": {"value": data.data.telefone}, "primary": true,
+                                "carrier": null, "information": null,
+                            }];
+                            entity.emails = [{
+                                "email": {"value": data.data.email}, "primary": true
+                            }];
+                            entity.type = 'Juridica'
+                            entity.attributeValues = [];
+                            entity.branches = [];
+                            entity.relationships = [];
+                            entity.socialNetworks = [];
+                            entity.cnaes = [];
+                            entity.roles = [{
+                                active: true,
+                                role: $scope.role
+                            }];
+                            var father = entity.father;
+                            var toUpdate = entity;
+                            if (!entity.id && father) {
+                                father.branches = father.branches || [];
+                                father.branches.push(entity);
+                                toUpdate = father;
                             }
-                        })
-                    } else {
-                        GumgaAlert.createDangerMessage('Erro na Consulta', 'Por favor verifique o captcha e o CNPJ.');
+                            delete entity.father;
+
+                            JuridicaCompanyService.update(toUpdate).then(function (data) {
+                                if (!entity.id) {
+                                    var newCompany = data.data.data.name === entity.name ? data.data.data : getBranchByName(data.data.data, entity.name);
+                                    CompanyService.createOrganization(newCompany).then(function () {
+                                        resetState();
+                                    });
+                                } else {
+                                    resetState();
+                                }
+                            })
+                        } else {
+                            GumgaAlert.createDangerMessage('Erro na Consulta', 'Por favor verifique o captcha e o CNPJ.');
+                        }
+                    });
+                } else {
+                    entity.active = {value: true};
+                    entity.addressList = [{
+                        "address": {
+                            "zipCode": '',
+                            "premisseType": '',
+                            "premisse": '',
+                            "number": '',
+                            "information": '',
+                            "neighbourhood": '',
+                            "localization": '',
+                            "state": '',
+                            "country": ''
+                        },
+                        "primary": true
+                    }];
+                    entity.nickname = entity.name;
+                    entity.phones = [{
+                        "description": "COMERCIAL", "phone": {"value": ''}, "primary": true,
+                        "carrier": null, "information": null,
+                    }];
+                    entity.emails = [{
+                        "email": {"value": ''}, "primary": true
+                    }];
+                    entity.type = 'Juridica'
+                    entity.attributeValues = [];
+                    entity.branches = [];
+                    entity.relationships = [];
+                    entity.socialNetworks = [];
+                    entity.cnaes = [];
+                    entity.roles = [{
+                        active: true,
+                        role: $scope.role
+                    }];
+                    var father = entity.father;
+                    var toUpdate = entity;
+                    if (!entity.id && father) {
+                        father.branches = father.branches || [];
+                        father.branches.push(entity);
+                        toUpdate = father;
                     }
-                });
+                    delete entity.father;
+
+                    JuridicaCompanyService.update(toUpdate).then(function (data) {
+                        if (!entity.id) {
+                            var newCompany = data.data.data.name === entity.name ? data.data.data : getBranchByName(data.data.data, entity.name);
+                            CompanyService.createOrganization(newCompany).then(function () {
+                                resetState();
+                            });
+                        } else {
+                            resetState();
+                        }
+                    });
+                }
             }
         }
     }
