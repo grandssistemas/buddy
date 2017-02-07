@@ -33,15 +33,15 @@ define(['angular'], function (angular) {
 
         $scope.currentCompany = angular.copy(entity.data);
         $scope.continue = {};
-        $scope.currentUser = {}
-        $scope.currentRole = {}
+        $scope.currentUser = {};
+        $scope.currentRole = {};
         $scope.instance = {};
         $scope.isIntegration = true;
         $scope.codeCaptcha = '';
         $scope.tree = {};
         $scope.getCaptcha = function () {
             CompanyDocumentService.getCaptcha().then(function (data) {
-                $scope.captcha = data.data.captcha;
+                $scope.captchaImg = data.data.captcha;
                 $scope.cookie = data.data.cookie;
             });
         };
@@ -49,18 +49,19 @@ define(['angular'], function (angular) {
 
         RoleService.findAll().then(function (data) {
             $scope.roleCategories = data.data;
-        })
+        });
 
         $scope.apply = function () {
             $timeout(function () {
                 $scope.a = !$scope.a;
             }, 10)
-        }
+        };
 
 
         $scope.change = function () {
             CompanyService.changeOrganization(8);
-        }
+        };
+
         $scope.getPerson = function (param) {
             param = param || '';
             return JuridicaCompanyService.getAdvancedSearchWithoutTenancy('(lower(obj.name) like lower(\'%' + param + '%\'))').then(function (data) {
@@ -85,21 +86,21 @@ define(['angular'], function (angular) {
         };
 
         function resetState() {
-            getTree()
-            $scope.clean();
+            getTree();
+            $scope.cleanAll();
         }
 
         $scope.selectNode = function (node, $parentNode) {
             node.father = $parentNode;
             $scope.role = node.roles[0].role;
-        }
+        };
 
         $scope.treeOptions = {
             nodeChildren: "branches",
             isLeaf: function (node) {
                 return (node.branches.length === 0);
             }
-        }
+        };
 
         $scope.$watch('currentNode', function (data) {
             if (data) {
@@ -115,33 +116,40 @@ define(['angular'], function (angular) {
         });
 
         $scope.$on('role', function (ev, data) {
-            console.log(data);
             $scope.role = data;
         });
 
-        $scope.clean = function () {
+        $scope.cleanAll = function () {
             cleanOrganization();
             cleanUser();
             cleanInstance();
             cleanRole();
-            document.getElementById('orgTab').click();
-            $scope.PersonForm.treeSearch.$setUntouched();
+            if ($scope.PersonForm.treeSearch) {
+                $scope.PersonForm.treeSearch.$setUntouched();
+            }
+            $scope.getCaptcha();
+
+            $timeout(function () {
+                document.getElementById('orgTab').click();
+            });
         };
 
         function cleanOrganization() {
             $scope.currentCompany = {};
             $scope.currentNode = {};
-            $scope.PersonForm.organizationName.$setUntouched();
             document.getElementById('captcha').value = '';
+            document.getElementById('name').value = '';
+            document.getElementById('cnpj').value = '';
             $scope.role = {};
-        };
+        }
+
         function cleanInstance() {
-            $scope.instance = {}
+            $scope.instance = {};
             $scope.PersonForm.instanceName.$setUntouched();
         }
 
         function cleanRole() {
-            $scope.currentRole = {}
+            $scope.currentRole = {};
             $scope.PersonForm.roleName.$setUntouched();
         }
 
@@ -152,7 +160,7 @@ define(['angular'], function (angular) {
 
         $scope.blockBtnUser = function (user) {
             return !user.name || !user.email;
-        }
+        };
 
         $scope.addUser = function (user) {
             var userToAdd = angular.copy(user);
@@ -161,9 +169,10 @@ define(['angular'], function (angular) {
             UserService.saveUser(userToAdd).then(function (data) {
                 console.log(data);
             })
-        }
+        };
+
         function cleanUser() {
-            $scope.currentUser = {}
+            $scope.currentUser = {};
             $scope.PersonForm.username.$setUntouched();
             $scope.PersonForm.login.$setUntouched();
         }
@@ -176,15 +185,16 @@ define(['angular'], function (angular) {
             return SecurityRoleService.getAdvancedSearch(hql).then(function (data) {
                 return data.data.values;
             });
-        }
+        };
+
         $scope.blockBtnInstance = function (instance) {
             return !instance || !instance.name || !instance.expiration || moment(instance.expiration).isBefore(moment(new Date()));
-        }
+        };
 
         $scope.createInstance = function (data) {
             var newInstance = angular.copy(data);
             newInstance.oi = $scope.currentCompany.oi.value;
-            newInstance.expiration = moment(newInstance.expiration).format('DD/MM/YYYY')
+            newInstance.expiration = moment(newInstance.expiration).format('DD/MM/YYYY');
             if (newInstance.withRole) {
                 InstanceService.createInstanceWithRole(newInstance).then(function (data) {
                     console.log(data);
@@ -194,7 +204,7 @@ define(['angular'], function (angular) {
                     console.log(data);
                 })
             }
-        }
+        };
 
         $scope.searchInstance = function (param) {
             var hql = "obj.organization.id = " + $scope.currentCompany.oi.value.replace(".", "");
@@ -204,7 +214,7 @@ define(['angular'], function (angular) {
             return InstanceService.getAdvancedSearch(hql).then(function (data) {
                 return data.data.values;
             });
-        }
+        };
 
 
         $scope.newInstance = function () {
@@ -215,14 +225,14 @@ define(['angular'], function (angular) {
                 controller: 'InstanceModalController',
                 resolve: {},
                 size: 'sm'
-            })
+            });
 
             modalResult.result.then(function (data) {
                 $scope.createInstance(data);
 
             })
 
-        }
+        };
 
         $scope.createRole = function (curRole) {
             var newRole = {};
@@ -231,7 +241,7 @@ define(['angular'], function (angular) {
             SecurityRoleService.create(newRole).then(function (data) {
                 console.log(data);
             })
-        }
+        };
 
         function getTree() {
             JuridicaCompanyService.getTree().then(function (data) {
@@ -344,12 +354,12 @@ define(['angular'], function (angular) {
                             entity.nickname = data.data.nomeFantasia;
                             entity.phones = [{
                                 "description": "COMERCIAL", "phone": {"value": data.data.telefone}, "primary": true,
-                                "carrier": null, "information": null,
+                                "carrier": null, "information": null
                             }];
                             entity.emails = [{
                                 "email": {"value": data.data.email}, "primary": true
                             }];
-                            entity.type = 'Juridica'
+                            entity.type = 'Juridica';
                             entity.attributeValues = [];
                             entity.branches = [];
                             entity.relationships = [];
@@ -401,12 +411,12 @@ define(['angular'], function (angular) {
                     entity.nickname = entity.name;
                     entity.phones = [{
                         "description": "COMERCIAL", "phone": {"value": ''}, "primary": true,
-                        "carrier": null, "information": null,
+                        "carrier": null, "information": null
                     }];
                     entity.emails = [{
                         "email": {"value": ''}, "primary": true
                     }];
-                    entity.type = 'Juridica'
+                    entity.type = 'Juridica';
                     entity.attributeValues = [];
                     entity.branches = [];
                     entity.relationships = [];
