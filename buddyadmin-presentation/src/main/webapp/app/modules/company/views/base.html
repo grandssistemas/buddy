@@ -1,15 +1,83 @@
-<gumga-nav 
-    multi-entity="true" 
-    put-url="http://www.gumga.com.br/security-api/publicoperations/token/" 
-    title="Person" 
-    state="login.log">
-</gumga-nav>
-<gumga-menu 
-    menu-url="gumga-menu.json" 
-    keys-url="keys.json"  
-    image="resources/images/gumga.png">
-</gumga-menu>
-<div class="gumga-container">
-    <h3 style="margin-top: 0" gumga-translate-tag="person.title"></h3>
-        <div class="col-md-12" ui-view></div>
+<div class="gumga-layout">
+    <header class="gl-header"  ng-controller="MenuController">
+        <div class="searchbar">
+            <div class="icon back">
+                <button type="button" data-ng-click="toggleSearch()">
+                    <i class="material-icons">arrow_back</i>
+                </button>
+            </div>
+            <div class="query">
+                <input type="text" class="form-control" placeholder="Pesquisar...">
+            </div>
+            <div class="icon search">
+                <button type="button">
+                    <i class="material-icons">search</i>
+                </button>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" data-ng-click="navCollapse()">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <a class="navbar-brand" data-ng-click="navCollapse()">
+                        Buddy Admin
+                    </a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <i class="material-icons">more_vert</i>
+                    </button>
+                    <button type="button" class="navbar-toggle" data-ng-click="toggleSearch()">
+                        <i class="material-icons">search</i>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                {{user.name}} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a ui-sref="login.log">Sair</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main ui-view style="background-color: #f5f5f5;"></main>
+
+    <nav class="gl-nav" ng-controller="MenuController">
+        <div class="navbar-header">
+            <a class="navbar-brand" data-ng-click="navCollapse()">
+                <i class="material-icons">menu</i>
+            </a>
+            <a class="navbar-brand" data-ng-click="navCollapse()">
+                Buddy Admin
+            </a>
+        </div>
+        <header>
+            <figure>
+                <img src="resources/images/gumga.png">
+            </figure>
+        </header>
+        <gl-menu menu="menu" keys="keys"></gl-menu>
+    </nav>
 </div>
+<!--<gumga-nav -->
+    <!--multi-entity="true" -->
+    <!--put-url="http://www.gumga.com.br/security-api/publicoperations/token/" -->
+    <!--title="Person" -->
+    <!--state="login.log">-->
+<!--</gumga-nav>-->
+<!--<gumga-menu -->
+    <!--menu-url="gumga-menu.json" -->
+    <!--keys-url="keys.json"  -->
+    <!--image="resources/images/gumga.png">-->
+<!--</gumga-menu>-->
+<!--<div class="gumga-container">-->
+    <!--<h3 style="margin-top: 0" gumga-translate-tag="person.title"></h3>-->
+        <!--<div class="col-md-12" ui-view></div>-->
+<!--</div>-->

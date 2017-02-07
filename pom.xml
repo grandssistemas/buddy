@@ -8,10 +8,12 @@
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <gumga.framework.version>1.2.12</gumga.framework.version>
+        <gumga.framework.version>1.2.17-SNAPSHOT</gumga.framework.version>
         <spring.version>4.2.6.RELEASE</spring.version>
         <hibernate.version>4.3.1.Final</hibernate.version>
-        <buddyperson.version>1.1</buddyperson.version>
+        <buddyperson.version>1.2</buddyperson.version>
+        <buddycharacteristic.version>1.1</buddycharacteristic.version>
+        <fiscalgroup.version>1.0</fiscalgroup.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -272,6 +274,40 @@
                 <groupId>br.com.codein</groupId>
                 <artifactId>buddyperson-gateway</artifactId>
                 <version>${buddyperson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>br.com.codein</groupId>
+                <artifactId>buddycharacteristic-application</artifactId>
+                <version>${buddycharacteristic.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.codein</groupId>
+                <artifactId>buddycharacteristic-api</artifactId>
+                <version>${buddycharacteristic.version}</version>
+                <type>war</type>
+            </dependency>
+            <dependency>
+                <groupId>br.com.codein</groupId>
+                <artifactId>buddycharacteristic-gateway</artifactId>
+                <version>${buddycharacteristic.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>br.com.codein</groupId>
+                <artifactId>fiscalgroup-application</artifactId>
+                <version>${fiscalgroup.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.codein</groupId>
+                <artifactId>fiscalgroup-api</artifactId>
+                <version>${fiscalgroup.version}</version>
+                <type>war</type>
+            </dependency>
+            <dependency>
+                <groupId>br.com.codein</groupId>
+                <artifactId>fiscalgroup-gateway</artifactId>
+                <version>${fiscalgroup.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

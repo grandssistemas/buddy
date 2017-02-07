@@ -23,15 +23,15 @@
     <link rel="stylesheet" href="resources/styles/InspiniaDatePicker/angular-datapicker.css"/>
 </head>
 <body style="background-color: whitesmoke">
-    <div class="loading">        
-    </div>
+<div class="loading">
+</div>
 
-    <div ui-view style="height: 100%" gumga-translate="pt-br">
-    </div>
+<div ui-view style="height: 100%" gumga-translate="pt-br">
+</div>
 
-    <script src="bower_components/requirejs/require.js"></script>
+<script src="bower_components/requirejs/require.js"></script>
 
-    <script src="app/config.js"></script>
+<script src="app/config.js"></script>
 <script>
     requirejs(['angular', 'app/app'], function (angular) {
         angular.bootstrap(document, ['app.core']);
@@ -45,24 +45,25 @@
     </div>
 
 </script>
-    <script type="text/ng-template" id="modalTemplate.html">
-        <div class="modal-header">
-            <h3 class="modal-title">{{title}}</h3>
-        </div>
-        <div class="modal-body">
-            Nome
-            <input type="text" ng-model="entity.nome" class="form-control"/>
-            Idade
-            <input type="text" ng-model="entity.idade" class="form-control" />
+<script type="text/ng-template" id="modalTemplate.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{title}}</h3>
+    </div>
+    <div class="modal-body">
+        Nome
+        <input type="text" ng-model="entity.nome" class="form-control"/>
+        Idade
+        <input type="text" ng-model="entity.idade" class="form-control"/>
 
-            <gumga-one-to-many children="entity.filhos" displayable-property="nome" name="Coisa" template-url="modalTemplate.html" controller="ModalController">
+        <gumga-one-to-many children="entity.filhos" displayable-property="nome" name="Coisa"
+                           template-url="modalTemplate.html" controller="ModalController">
 
-            </gumga-one-to-many>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        </div>
-    </script>
+        </gumga-one-to-many>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
 </body>
 </html>

@@ -26,10 +26,13 @@ requirejs.config({
         "moment-timezone": "bower_components/moment-timezone/builds/moment-timezone.min",
         "br-validations": "bower_components/br-validations/releases/br-validations",
         "tree-control": "bower_components/angular-tree-control/angular-tree-control",
-        "buddy-core": "bower_components/buddy-person-front/app/app",
+        "buddy-core": "bower_components/buddy-person-front/buddypersonfront.min",
         "inspinia-datepicker": "bower_components/angular-datepicker/dist/angular-datepicker",
         "angular-moment": "bower_components/angular-moment/angular-moment.min",
-        "angular-locale": "bower_components/angular-locale-pt-br/angular-locale_pt-br"
+        "angular-locale": "bower_components/angular-locale-pt-br/angular-locale_pt-br",
+        "characteristic": "bower_components/characteristic-front/characteristic.min",
+        "grands-core": "bower_components/grands-components/grands.min",
+        "api-locations-angular": "app/apiLocationsAngular",
     },
     shim: {
         "angular": {exports: "angular", deps: ["jquery"]},
@@ -49,7 +52,29 @@ requirejs.config({
         "inspinia": {deps: ['jquery']},
         "angular-locale": {deps: ['angular']},
         "tree-control": {deps: ['angular']},
-        "buddy-core":{deps:['angular','gumga-components','apiLocations']},
-        "gumga-layout":{deps:['angular']}
+        "buddy-core": {
+            deps: [
+                'angular',
+                'gumga-components',
+                'grands-core',
+                'br-validations',
+                'characteristic',
+                'angular-ui-router',
+                'angular-sanitize',
+                'apiLocations',
+                'ng-filter-br',
+                'angular-input-masks',
+                'string-mask',
+                'moment',
+                'inspinia-datepicker',
+                'angular-locale'
+            ]
+        },
+        "characteristic": {deps: ['angular', 'grands-core', 'gumga-components', 'angular-ui-router','api-locations-angular']},
+        "grands-core": {deps: ['angular']},
+        "gumga-layout":{deps:['angular']},
+        "api-locations-angular": {
+            deps: ['angular', 'apiLocations']
+        },
     }
 });

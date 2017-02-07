@@ -1,7 +1,6 @@
-<form name="PersonForm">
-
+<form name="PersonForm" novalidate>
     <div>
-        <div class="row">
+        <div class="row" style="padding-left: 2%; padding-right: 2%">
             <div class="col-lg-4 panel gmd p-b" style="width: 32.5%; overflow:auto; max-height:250px" id="treeDiv">
                 <div class="m-t-lg" ng-if="personTree.length">
                     <gmd-input>
@@ -29,7 +28,7 @@
                 </treecontrol>
             </div>
             <div class="col-lg-8 panel gmd p-b" style="left: 0.8%" buddy-resize dependents="['treeDiv']">
-                <ul class=" nav nav-tabs gmd" role="tablist">
+                <ul class="nav nav-tabs gmd" role="tablist">
                     <li role="presentation" class="active"><a href="#organization" aria-controls="organization" id="orgTab"
                                                               ng-click=" apply()" role="tab" data-toggle="tab">Organização</a>
                     </li>
@@ -46,17 +45,16 @@
                 </ul>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active m-t-lg" id="organization">
-                        <div ng-include src="'app/modules/company/views/organizationPanel.html'"></div>
+                        <div ng-include="'app/modules/company/views/organizationPanel.html'"/>
                     </div>
                     <div role="tabpanel" class="tab-pane m-t-lg" id="user">
-                        <div ng-include src="'app/modules/company/views/userPanel.html'"></div>
+                        <div ng-include="'app/modules/company/views/userPanel.html'"/>
                     </div>
                     <div role="tabpanel" class="tab-pane m-t-lg" id="instance">
-                        <div ng-include src="'app/modules/company/views/instancePanel.html'"></div>
+                        <div ng-include="'app/modules/company/views/instancePanel.html'"/>
                     </div>
                     <div role="tabpanel" class="tab-pane m-t-lg" id="role">
-
-                        <div ng-include src="'app/modules/company/views/rolePanel.html'"></div>
+                        <div ng-include="'app/modules/company/views/rolePanel.html'"/>
                     </div>
                 </div>
             </div>
@@ -83,7 +81,7 @@
                 ng-disabled="blockBtnSave()">
             <i class="material-icons">{{currentCompany.id? 'save' : 'add'}}</i>
         </button>
-        <button type="button" class="btn btn-warning gmd fab fixed" style="right: 95px" ng-click="clean()">
+        <button type="button" class="btn btn-warning gmd fab fixed" style="right: 95px" ng-click="cleanAll()">
             <i class="material-icons">clear</i>
         </button>
     </div>

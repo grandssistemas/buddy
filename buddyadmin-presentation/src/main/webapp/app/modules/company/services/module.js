@@ -5,5 +5,5 @@ define(function(require) {
    .service('CompanyPersonService', require('app/modules/company/services/CompanyPersonService'))
    .service('JuridicaCompanyService', require('app/modules/company/services/JuridicaCompanyService'))
    .service('IndividualCompanyService', require('app/modules/company/services/IndividualCompanyService'))
-   .service('RoleService', require('bower_components/buddy-person-front/app/modules/role/services/RoleService'));
+   .service('CompanyDocumentService', require('app/modules/company/services/CompanyDocumentService'));
 });

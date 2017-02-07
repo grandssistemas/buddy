@@ -1,13 +1,13 @@
 package br.com.codein.buddyadmin.seed;
 
-import br.com.codein.buddyperson.application.service.characteristic.CharacteristicService;
+import br.com.codein.buddycharacteristic.application.service.characteristic.CharacteristicService;
+import br.com.codein.buddycharacteristic.domain.characteristic.AssociativeCharacteristic;
+import br.com.codein.buddycharacteristic.domain.characteristic.Characteristic;
+import br.com.codein.buddycharacteristic.domain.characteristic.enums.CharacteristicOrigin;
+import br.com.codein.buddycharacteristic.domain.characteristic.enums.ValueTypeCharacteristic;
 import br.com.codein.buddyperson.application.service.person.RoleService;
-import br.com.codein.buddyperson.domain.characteristic.Characteristic;
-import br.com.codein.buddyperson.domain.characteristic.enums.CharacteristicOrigin;
-import br.com.codein.buddyperson.domain.characteristic.enums.ValueTypeCharacteristic;
 import br.com.codein.buddyperson.domain.person.GroupRoleAttribute;
 import br.com.codein.buddyperson.domain.person.Role;
-import br.com.codein.buddyperson.domain.person.RoleAttribute;
 import br.com.codein.buddyperson.domain.person.enums.RoleCategory;
 import gumga.framework.domain.seed.AppSeed;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +29,18 @@ public class RoleSeed implements AppSeed {
     @Override
     public void loadSeed() throws IOException {
         if (roleService.recoverByCategory(RoleCategory.OWNER).isEmpty())
-            generateRole(RoleCategory.OWNER);
+            generateRole(RoleCategory.OWNER, "#ff0000");
         if (roleService.recoverByCategory(RoleCategory.DISTRIBUTOR).isEmpty())
-            generateRole(RoleCategory.DISTRIBUTOR);
+            generateRole(RoleCategory.DISTRIBUTOR, "#00ff00");
         if (roleService.recoverByCategory(RoleCategory.REPRESENTATIVE).isEmpty())
-            generateRole(RoleCategory.REPRESENTATIVE);
+            generateRole(RoleCategory.REPRESENTATIVE, "#0000ff");
         if (roleService.recoverByCategory(RoleCategory.COMPANY).isEmpty())
-            generateRole(RoleCategory.COMPANY);
+            generateRole(RoleCategory.COMPANY, "#c283b5");
         if (roleService.recoverByCategory(RoleCategory.AGGREGATOR).isEmpty())
-            generateRole(RoleCategory.AGGREGATOR);
+            generateRole(RoleCategory.AGGREGATOR, "#26ffd2");
     }
 
-    public Role generateRole(RoleCategory cat){
+    public Role generateRole(RoleCategory cat, String color){
         Characteristic ch = new Characteristic();
         ch.setName("Nome");
         ch.setTipoDeValorCaracteristica(ValueTypeCharacteristic.TEXTO);
@@ -49,9 +49,9 @@ public class RoleSeed implements AppSeed {
 
         characteristicService.save(ch);
 
-        RoleAttribute att = new RoleAttribute();
-        att.setRequired(false);
-        att.setGenericRoleAttribute(ch);
+        AssociativeCharacteristic att = new AssociativeCharacteristic();
+        att.setIsRequired(false);
+        att.setCharacteristic(ch);
 
 
         GroupRoleAttribute gra = new GroupRoleAttribute();
@@ -62,7 +62,7 @@ public class RoleSeed implements AppSeed {
 
         role.setName(cat.getLabel());
         role.setCategory(cat);
-        role.setColor("#FFFFFF");
+        role.setColor(color);
         role.setGroupAttributes(Collections.singletonList(gra));
 
         roleService.save(role);
