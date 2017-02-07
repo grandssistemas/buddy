@@ -20,13 +20,15 @@
         </dependency>
         <!-- DEPENDENCIAS do Framework GUMGA    -->
         <dependency>
-            <groupId>gumga.framework</groupId>
+            <groupId>io.gumga</groupId>
             <artifactId>gumga-application</artifactId>
+            <version>1.4.2-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>gumga.framework</groupId>
+            <groupId>io.gumga</groupId>
             <artifactId>gumga-security</artifactId>
+            <version>1.4.2-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
         <dependency>

@@ -9,7 +9,7 @@ import br.com.codein.buddyperson.application.service.person.RoleService;
 import br.com.codein.buddyperson.domain.person.GroupRoleAttribute;
 import br.com.codein.buddyperson.domain.person.Role;
 import br.com.codein.buddyperson.domain.person.enums.RoleCategory;
-import gumga.framework.domain.seed.AppSeed;
+import io.gumga.domain.seed.AppSeed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

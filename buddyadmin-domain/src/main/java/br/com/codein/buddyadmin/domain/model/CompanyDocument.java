@@ -1,12 +1,8 @@
 package br.com.codein.buddyadmin.domain.model;
 
-import gumga.framework.domain.GumgaModel;
-import gumga.framework.domain.GumgaMultitenancy;
-import org.hibernate.envers.Audited;
+import io.gumga.domain.GumgaModel;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.SequenceGenerator;
 
 /**
  * Created by gelatti on 30/01/17.

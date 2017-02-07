@@ -1,6 +1,6 @@
 package br.com.codein.buddyadmin.seed;
 
-import gumga.framework.domain.seed.AppSeed;
+import io.gumga.domain.seed.AppSeed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationListener;

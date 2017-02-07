@@ -14,7 +14,8 @@ define(['angular'], function (angular) {
         'InstanceService',
         'moment',
         'SecurityRoleService',
-        'CompanyDocumentService'
+        'CompanyDocumentService',
+        'JuridicaService'
     ];
 
     function CompanyFormController(JuridicaCompanyService,
@@ -29,7 +30,8 @@ define(['angular'], function (angular) {
                                    InstanceService,
                                    moment,
                                    SecurityRoleService,
-                                   CompanyDocumentService) {
+                                   CompanyDocumentService,
+                                   JuridicaService) {
 
         $scope.currentCompany = angular.copy(entity.data);
         $scope.continue = {};
@@ -49,6 +51,10 @@ define(['angular'], function (angular) {
 
         RoleService.findAll().then(function (data) {
             $scope.roleCategories = data.data;
+        });
+
+        JuridicaService.getSegments().then(function (data) {
+            console.log(data);
         });
 
         $scope.apply = function () {

@@ -5,8 +5,8 @@ import br.com.codein.buddyadmin.integration.client.SecurityClient;
 import br.com.gumga.security.domain.model.instance.Role;
 import br.com.gumga.security.domain.model.institutional.Organization;
 import br.com.gumga.security.domain.model.institutional.User;
-import gumga.framework.core.GumgaThreadScope;
-import gumga.framework.domain.domains.GumgaBoolean;
+import io.gumga.core.GumgaThreadScope;
+import io.gumga.domain.domains.GumgaBoolean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

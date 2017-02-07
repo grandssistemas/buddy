@@ -2,7 +2,7 @@ package br.com.codein.buddyadmin.application.service;
 
 import br.com.codein.buddyadmin.integration.client.SecurityClient;
 import br.com.gumga.security.domain.model.softwarehouse.Software;
-import gumga.framework.core.QueryObject;
+import io.gumga.core.QueryObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

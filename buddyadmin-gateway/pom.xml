@@ -20,8 +20,9 @@
         </dependency>
         <!-- DEPENDENCIAS do Framework GUMGA    -->
         <dependency>
-            <groupId>gumga.framework</groupId>
+            <groupId>io.gumga</groupId>
             <artifactId>gumga-presentation</artifactId>
+            <version>1.4.2-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
     </dependencies>
