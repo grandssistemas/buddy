@@ -1,5 +1,6 @@
 package br.com.codein.buddyadmin.integration.client.fashionmanager;
 
+
 import br.com.codein.buddyperson.domain.person.Juridica;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
