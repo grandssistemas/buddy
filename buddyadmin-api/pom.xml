@@ -55,6 +55,19 @@
             <groupId>br.com.gumga</groupId>
             <artifactId>security-domain</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>br.com.codein</groupId>
+            <artifactId>product-gateway</artifactId>
+            <version>1.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>br.com.codein</groupId>
+            <artifactId>product-api</artifactId>
+            <version>1.0</version>
+            <type>jar</type>
+        </dependency>
         <!-- DEPENDENCIAS em geral-->
     </dependencies>
     <build>

@@ -85,7 +85,7 @@ public class Application {
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("gumga.framework.domain","br.com.codein");
+        factory.setPackagesToScan("io.gumga.domain","br.com.codein");
         factory.setDataSource(dataSource);
 
         factory.setJpaProperties(properties);
