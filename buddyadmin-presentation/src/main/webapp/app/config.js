@@ -33,6 +33,7 @@ requirejs.config({
         "characteristic": "bower_components/characteristic-front/characteristic.min",
         "grands-core": "bower_components/grands-components/grands.min",
         "api-locations-angular": "app/apiLocationsAngular",
+        "product": "bower_components/product-front/product.min"
     },
     shim: {
         "angular": {exports: "angular", deps: ["jquery"]},
@@ -76,5 +77,6 @@ requirejs.config({
         "api-locations-angular": {
             deps: ['angular', 'apiLocations']
         },
+        "product": {deps: ['angular', 'grands-core', 'gumga-components', 'angular-ui-router','api-locations-angular','characteristic']}
     }
 });
