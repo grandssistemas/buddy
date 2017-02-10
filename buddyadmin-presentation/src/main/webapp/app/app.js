@@ -21,7 +21,8 @@ define(['angular',
     'app/modules/role/module',
     'app/modules/company/module',
     'app/directives/module',
-    'product'], function(angular,moment) {
+    'product',
+    'api-variables'], function(angular,moment) {
     //FIMREQUIRE
     window.moment = moment;
   angular.module('app.core', [
@@ -40,7 +41,7 @@ define(['angular',
       , 'buddy.core'
       , 'buddyadmin.core'
       , 'datePicker'
-      ,'product.core'
+      , 'product.core'
   //FIMINJECTIONS
     ])
     .config(function($stateProvider, $urlRouterProvider, $httpProvider, $injector, GumgaAlertProvider) {
