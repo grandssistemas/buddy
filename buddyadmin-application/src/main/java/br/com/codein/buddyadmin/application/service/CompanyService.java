@@ -11,6 +11,7 @@ import br.com.gumga.security.domain.model.institutional.Organization;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.gumga.core.GumgaThreadScope;
+import io.gumga.domain.GumgaTenancyUtils;
 import io.gumga.domain.domains.GumgaBoolean;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,8 @@ public class CompanyService {
             result =securityClient.saveOrganization(newOrganization);
         }
 
-        personService.changeOrganization(personWithFather,result.getHierarchyCode());
+        GumgaTenancyUtils.changeOi(result.getHierarchyCode(), personWithFather);
+        personService.save(personWithFather);
 
 //        if (person.containRoleWithCategory(RoleCategory.COMPANY)){
 //            exportPerson(person);
