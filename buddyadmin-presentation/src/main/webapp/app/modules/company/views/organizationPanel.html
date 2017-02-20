@@ -36,7 +36,7 @@
     </gmd-input>
 </div>
 
-<div class="row m-l">
+<div class="row m-l m-r">
     <div class="m-t-n-lg">
         <label>Selecione um tipo de pessoa</label>
         <div ng-repeat="roles in roleCategories track by $index">
@@ -47,6 +47,16 @@
                     {{roles.name}}
                 </label>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="row m-l m-r m-t">
+    <label>Selecione o(s) segmento(s) da empresa</label>
+    <div ng-repeat="seg in segments track by $index">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 m-t" style="text-align: center; padding-left: 0px">
+            <grands-check-button value="seg.value" label="{{seg.label}}"
+                                 click="changeSegment($index)"/>
         </div>
     </div>
 </div>

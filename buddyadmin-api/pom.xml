@@ -25,8 +25,9 @@
         </dependency>
         <!-- DEPENDENCIAS do Framework GUMGA    -->
         <dependency>
-            <groupId>gumga.framework</groupId>
+            <groupId>io.gumga</groupId>
             <artifactId>gumga-domain</artifactId>
+            <version>1.4.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>br.com.codein</groupId>
@@ -48,6 +49,23 @@
         <dependency>
             <groupId>br.com.codein</groupId>
             <artifactId>fiscalgroup-gateway</artifactId>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>br.com.gumga</groupId>
+            <artifactId>security-domain</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.codein</groupId>
+            <artifactId>product-gateway</artifactId>
+            <version>1.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>br.com.codein</groupId>
+            <artifactId>product-api</artifactId>
+            <version>1.0</version>
             <type>jar</type>
         </dependency>
         <!-- DEPENDENCIAS em geral-->

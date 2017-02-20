@@ -4,8 +4,8 @@ import br.com.codein.buddyadmin.application.service.InstanceService;
 import br.com.gumga.security.domain.model.instance.Instance;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import gumga.framework.core.QueryObject;
-import gumga.framework.core.SearchResult;
+import io.gumga.core.QueryObject;
+import io.gumga.core.SearchResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

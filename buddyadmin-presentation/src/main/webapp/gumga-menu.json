@@ -6,15 +6,22 @@
     "icon": "glyphicon glyphicon-home",
     "filhos": []
   },
-    {
-        "label": "Person",
-        "URL": "company.insert",
-        "key": "CRUD-Person",
-        "icon": "glyphicon glyphicon-user",
-        "icon_color": "",
-        "imageUrl": "",
-        "imageWidth": "",
-        "imageHeight": "",
-        "filhos": []
-    }
+  {
+    "label": "Person",
+    "URL": "company.insert",
+    "key": "CRUD-Person",
+    "icon": "glyphicon glyphicon-user",
+    "icon_color": "",
+    "imageUrl": "",
+    "imageWidth": "",
+    "imageHeight": "",
+    "filhos": []
+  },
+  {
+    "label": "Department",
+    "URL": "categorization.tree",
+    "key": "CRUD-ProductStructure",
+    "icon": "",
+    "filhos": []
+  }
 ]

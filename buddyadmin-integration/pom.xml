@@ -25,8 +25,9 @@
         </dependency>
         <!-- DEPENDENCIAS do Framework GUMGA    -->
         <dependency>
-            <groupId>gumga.framework</groupId>
+            <groupId>io.gumga</groupId>
             <artifactId>gumga-domain</artifactId>
+            <version>1.4.2-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
         <!-- DEPENDENCIAS test   -->
@@ -34,11 +35,6 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>1.10.19</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -55,11 +51,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

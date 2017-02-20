@@ -14,5 +14,13 @@
     "key": "CRUD-Person",
     "icon": "",
     "children": []
+  },
+  {
+    "type": "item",
+    "label": "Departamento",
+    "state": "categorization.tree",
+    "key": "CRUD-ProductStructure",
+    "icon": "",
+    "children": []
   }
 ]

@@ -14,7 +14,8 @@ define(['angular'], function (angular) {
         'InstanceService',
         'moment',
         'SecurityRoleService',
-        'CompanyDocumentService'
+        'CompanyDocumentService',
+        'JuridicaService'
     ];
 
     function CompanyFormController(JuridicaCompanyService,
@@ -29,7 +30,8 @@ define(['angular'], function (angular) {
                                    InstanceService,
                                    moment,
                                    SecurityRoleService,
-                                   CompanyDocumentService) {
+                                   CompanyDocumentService,
+                                   JuridicaService) {
 
         $scope.currentCompany = angular.copy(entity.data);
         $scope.continue = {};
@@ -45,11 +47,22 @@ define(['angular'], function (angular) {
                 $scope.cookie = data.data.cookie;
             });
         };
+        setSegments();
         $scope.getCaptcha();
+
 
         RoleService.findAll().then(function (data) {
             $scope.roleCategories = data.data;
         });
+
+        function setSegments () {
+            JuridicaService.getSegments().then(function (data) {
+                $scope.segments = data.data;
+                $scope.segments.forEach(function (seg) {
+                    seg.value = false;
+                });
+            });
+        }
 
         $scope.apply = function () {
             $timeout(function () {
@@ -105,7 +118,11 @@ define(['angular'], function (angular) {
         $scope.$watch('currentNode', function (data) {
             if (data) {
                 $scope.currentCompany = angular.copy(data);
-
+                if ($scope.currentCompany.segments) {
+                    $scope.segments.forEach(function (seg) {
+                        seg.value = $scope.currentCompany.segments.indexOf(seg.key) >= 0;
+                    });
+                }
                 if (data.roles) {
                     $scope.$broadcast('role', data.roles[0].role);
                 } else {
@@ -128,7 +145,7 @@ define(['angular'], function (angular) {
                 $scope.PersonForm.treeSearch.$setUntouched();
             }
             $scope.getCaptcha();
-
+            setSegments();
             $timeout(function () {
                 document.getElementById('orgTab').click();
             });
@@ -330,11 +347,22 @@ define(['angular'], function (angular) {
             })[0];
         }
 
+        $scope.changeSegment = function (index) {
+            $scope.segments[index].value = !$scope.segments[index].value;
+        };
+
         function fillPerson(entity, captcha, cookie) {
             if (!entity.id) {
                 if (entity.cnpj && captcha !== '') {
                     CompanyDocumentService.buscaCNPJ(entity.cnpj.value, captcha, cookie).then(function (data) {
                         if (data.data.razaoSocial !== null) {
+                            var segments = [];
+                            $scope.segments.forEach(function (seg) {
+                                if (seg.value) {
+                                    segments.push(seg.key);
+                                }
+                            });
+                            entity.segments = segments;
                             entity.active = {value: true};
                             entity.addressList = [{
                                 "address": {
@@ -346,7 +374,10 @@ define(['angular'], function (angular) {
                                     "neighbourhood": data.data.bairro,
                                     "localization": data.data.cidade,
                                     "state": data.data.uf,
-                                    "country": "Brasil"
+                                    "country": "Brasil",
+                                    "latitude": 0,
+                                    "longitude": 0,
+                                    "formalCode": ""
                                 },
                                 "primary": true
                             }];
@@ -393,6 +424,13 @@ define(['angular'], function (angular) {
                         }
                     });
                 } else {
+                    var segments = [];
+                    $scope.segments.forEach(function (seg) {
+                        if (seg.value) {
+                            segments.push(seg.key);
+                        }
+                    });
+                    entity.segments = segments;
                     entity.active = {value: true};
                     entity.addressList = [{
                         "address": {
@@ -404,7 +442,10 @@ define(['angular'], function (angular) {
                             "neighbourhood": '',
                             "localization": '',
                             "state": '',
-                            "country": ''
+                            "country": '',
+                            "latitude": 0,
+                            "longitude": 0,
+                            "formalCode": ""
                         },
                         "primary": true
                     }];
@@ -448,6 +489,7 @@ define(['angular'], function (angular) {
                 }
             }
         }
+        console.log($scope);
     }
 
     return CompanyFormController;

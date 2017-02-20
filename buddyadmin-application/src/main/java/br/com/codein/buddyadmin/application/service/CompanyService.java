@@ -10,8 +10,9 @@ import br.com.codein.buddyperson.domain.person.enums.RoleCategory;
 import br.com.gumga.security.domain.model.institutional.Organization;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import gumga.framework.core.GumgaThreadScope;
-import gumga.framework.domain.domains.GumgaBoolean;
+import io.gumga.core.GumgaThreadScope;
+import io.gumga.domain.GumgaTenancyUtils;
+import io.gumga.domain.domains.GumgaBoolean;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,8 @@ public class CompanyService {
 
     @Autowired
     private JuridicaClient juridicaClient;
+    @Autowired
+    private InstanceService instanceService;
 
     @Transactional
     public Organization newOrganization(Person person){
@@ -57,11 +60,14 @@ public class CompanyService {
             result =securityClient.saveOrganization(newOrganization);
         }
 
-        personService.changeOrganization(personWithFather,result.getHierarchyCode());
+        GumgaTenancyUtils.changeOi(result.getHierarchyCode(), personWithFather);
+        personService.save(personWithFather);
 
-//        if (person.containRoleWithCategory(RoleCategory.COMPANY)){
-//            exportPerson(person);
-//        }
+        instanceService.createInstance(result);
+
+        if (person.containRoleWithCategory(RoleCategory.COMPANY)){
+            exportPerson(person);
+        }
         return result;
     }
 

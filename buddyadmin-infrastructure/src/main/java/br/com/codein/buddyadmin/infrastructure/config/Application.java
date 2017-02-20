@@ -1,8 +1,8 @@
 package br.com.codein.buddyadmin.infrastructure.config;
 
-import gumga.framework.application.GumgaRepositoryFactoryBean;
-import gumga.framework.application.spring.config.DatabaseConfigSupport;
-import gumga.framework.core.GumgaValues;
+import io.gumga.application.GumgaRepositoryFactoryBean;
+import io.gumga.application.spring.config.DatabaseConfigSupport;
+import io.gumga.core.GumgaValues;
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -21,8 +21,8 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = {"br.com.codein", "gumga.framework"})
-@EnableJpaRepositories(repositoryFactoryBeanClass = GumgaRepositoryFactoryBean.class, basePackages = {"br.com.codein", "gumga.framework"})
+@ComponentScan(basePackages = {"br.com.codein", "io.gumga"})
+@EnableJpaRepositories(repositoryFactoryBeanClass = GumgaRepositoryFactoryBean.class, basePackages = {"br.com.codein", "io.gumga"})
 @EnableTransactionManagement(proxyTargetClass = true)
 public class Application {
 
@@ -85,7 +85,7 @@ public class Application {
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("gumga.framework.domain","br.com.codein");
+        factory.setPackagesToScan("io.gumga.domain","br.com.codein");
         factory.setDataSource(dataSource);
 
         factory.setJpaProperties(properties);
