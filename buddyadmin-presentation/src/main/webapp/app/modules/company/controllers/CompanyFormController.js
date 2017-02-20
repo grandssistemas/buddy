@@ -382,6 +382,7 @@ define(['angular'], function (angular) {
                                 "primary": true
                             }];
                             entity.name = data.data.razaoSocial;
+                            entity.nickname = data.data.nomeFantasia;
                             entity.phones = [{
                                 "description": "COMERCIAL", "phone": {"value": data.data.telefone}, "primary": true,
                                 "carrier": null, "information": null

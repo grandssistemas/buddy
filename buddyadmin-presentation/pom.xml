@@ -12,12 +12,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <packaging>war</packaging>
-    <dependencies> 
-        <dependency> <!--Deixar aqui enquanto está usando o gerador, depois retirar para obter um war bem menor-->
-            <groupId>br.com.codein</groupId>
-            <artifactId>buddyadmin-domain</artifactId>
-        </dependency>
-    </dependencies>
     <build>
         <plugins>
             <plugin>

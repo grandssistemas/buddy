@@ -37,6 +37,8 @@ public class CompanyService {
 
     @Autowired
     private JuridicaClient juridicaClient;
+    @Autowired
+    private InstanceService instanceService;
 
     @Transactional
     public Organization newOrganization(Person person){
@@ -61,9 +63,11 @@ public class CompanyService {
         GumgaTenancyUtils.changeOi(result.getHierarchyCode(), personWithFather);
         personService.save(personWithFather);
 
-//        if (person.containRoleWithCategory(RoleCategory.COMPANY)){
-//            exportPerson(person);
-//        }
+        instanceService.createInstance(result);
+
+        if (person.containRoleWithCategory(RoleCategory.COMPANY)){
+            exportPerson(person);
+        }
         return result;
     }
 

@@ -1,21 +1,16 @@
 package br.com.codein.buddyadmin.application.service;
 
 import br.com.codein.buddyadmin.application.utils.StringUtils;
-import br.com.codein.buddyadmin.domain.model.Softwares;
 import br.com.codein.buddyadmin.integration.client.SecurityClient;
 import br.com.gumga.security.domain.model.instance.Instance;
 import br.com.gumga.security.domain.model.institutional.Organization;
-import br.com.gumga.security.domain.model.softwarehouse.Software;
 import io.gumga.core.QueryObject;
-import io.gumga.core.SearchResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Query;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class InstanceService {
@@ -35,6 +30,18 @@ public class InstanceService {
     @Autowired
     private SecurityRoleService securityRoleService;
 
+    public Instance createInstance(Organization org){
+        Instance result = new Instance();
+
+        result.setName("Instancia do "+ org.getName());
+        result.setExpiration(Date.from( new Date().toInstant().plus(60, ChronoUnit.DAYS)));
+
+        result.setSoftwares(softwareService.getAll());
+        Instance created = securityClient.saveInstance(result);
+        securityRoleService.createRole(created, "Papel padrão da " + result.getName());
+        return this.getInstance(created.getId());
+    }
+
     public Instance createInstance(String name, Date expiration, String organizationOi) {
 
         Instance result = new Instance();
@@ -45,13 +52,7 @@ public class InstanceService {
         Organization org = companyService.getOrganization(Long.valueOf(id));
         result.setOrganization(org);
 
-        Set<Software> softwareSet = new HashSet<>();
-        softwareSet.add(softwareService.getSoftwareByName(Softwares.BUDDY_ADMIN.getSoftwareName()));
-        softwareSet.add(softwareService.getSoftwareByName(Softwares.SECURITY.getSoftwareName()));
-        softwareSet.add(softwareService.getSoftwareByName(Softwares.FASHION_MANAGER.getSoftwareName()));
-        softwareSet.add(softwareService.getSoftwareByName(Softwares.RUPTURA.getSoftwareName()));
-
-        result.setSoftwares(softwareSet);
+        result.setSoftwares(softwareService.getAll());
         return securityClient.saveInstance(result);
     }
 
