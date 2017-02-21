@@ -20,6 +20,9 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 	@Autowired
 	@Qualifier("roleSeed")
 	private RoleSeed roleSeed;
+	@Autowired
+	@Qualifier("characteristicSeed")
+	private CharacteristicSeed characteristicSeed;
 
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (started.get()) return;
@@ -39,6 +42,7 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 	private List<AppSeed> seeds() {
 		List<AppSeed> list = new LinkedList<>();
 		list.add(roleSeed);
+		list.add(characteristicSeed);
 		return list;
 	}
 

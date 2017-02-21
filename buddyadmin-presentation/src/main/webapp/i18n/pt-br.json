@@ -207,5 +207,17 @@
     "openXML": "Abrir XML",
     "signUp": "Cadastrar",
     "addAll": "Adicionar Todos"
+  },
+  "product": {
+    "characteristic": "Caracteristica"
+  },
+  "grandslist": {
+    "newdepartment": "Novo Departamento",
+    "editdepartment": "Editar Departamento",
+    "newcategory": "Nova Categoria",
+    "editcategory": "Editar Categoria",
+    "newproductType": "Novo Tipo",
+    "editproductType": "Editar Tipo",
+    "characteristic": "Característica"
   }
 }

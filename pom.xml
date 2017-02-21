@@ -14,7 +14,7 @@
         <buddyperson.version>1.2</buddyperson.version>
         <buddycharacteristic.version>1.1</buddycharacteristic.version>
         <fiscalgroup.version>1.0</fiscalgroup.version>
-        <product.version>1.0</product.version>
+        <department.version>1.0</department.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -313,19 +313,19 @@
 
             <dependency>
                 <groupId>br.com.codein</groupId>
-                <artifactId>product-application</artifactId>
-                <version>${product.version}</version>
+                <artifactId>department-application</artifactId>
+                <version>${department.version}</version>
             </dependency>
             <dependency>
                 <groupId>br.com.codein</groupId>
-                <artifactId>product-api</artifactId>
-                <version>${product.version}</version>
+                <artifactId>department-api</artifactId>
+                <version>${department.version}</version>
                 <type>war</type>
             </dependency>
             <dependency>
                 <groupId>br.com.codein</groupId>
-                <artifactId>product-gateway</artifactId>
-                <version>${product.version}</version>
+                <artifactId>department-gateway</artifactId>
+                <version>${department.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
