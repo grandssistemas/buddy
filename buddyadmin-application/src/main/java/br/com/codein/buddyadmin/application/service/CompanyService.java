@@ -2,11 +2,14 @@ package br.com.codein.buddyadmin.application.service;
 
 
 import br.com.codein.buddyadmin.integration.client.SecurityClient;
+import br.com.codein.buddyadmin.integration.client.fashionmanager.DepartmentClient;
 import br.com.codein.buddyadmin.integration.client.fashionmanager.JuridicaClient;
 import br.com.codein.buddyperson.application.service.person.PersonService;
 import br.com.codein.buddyperson.domain.person.Juridica;
 import br.com.codein.buddyperson.domain.person.Person;
 import br.com.codein.buddyperson.domain.person.enums.RoleCategory;
+import br.com.codein.department.application.service.DepartmentService;
+import br.com.codein.department.domain.model.department.Department;
 import br.com.gumga.security.domain.model.institutional.Organization;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,10 +23,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -34,9 +34,13 @@ public class CompanyService {
 
     @Autowired
     private PersonService personService;
+    @Autowired
+    private DepartmentService departmentService;
 
     @Autowired
     private JuridicaClient juridicaClient;
+    @Autowired
+    private DepartmentClient departmentClient;
     @Autowired
     private InstanceService instanceService;
 
@@ -67,8 +71,25 @@ public class CompanyService {
 
         if (person.containRoleWithCategory(RoleCategory.COMPANY)){
             exportPerson(person);
+            exportDepartment(person);
         }
         return result;
+    }
+
+    private void exportDepartment(Person person) {
+        List<Department> departments = departmentService.getFatArray(person.getDepartments());
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        List<Department> departmentList = new ArrayList<>();
+        for (Department department : departments) {
+            try {
+                String departmentWithoutId = mapper.writeValueAsString(department).replaceAll("(\"id\":null|\"id\":[0-9]*)[,]*","");
+                departmentList.add(mapper.readValue(departmentWithoutId,Department.class));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        List<Department> list = departmentClient.save(departmentList);
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)

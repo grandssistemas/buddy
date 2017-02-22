@@ -107,5 +107,10 @@
             <artifactId>security-gateway</artifactId>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>br.com.codein</groupId>
+            <artifactId>department-domain</artifactId>
+            <version>RELEASE</version>
+        </dependency>
     </dependencies>
 </project>
