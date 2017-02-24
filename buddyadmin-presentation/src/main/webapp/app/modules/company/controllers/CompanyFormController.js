@@ -15,7 +15,8 @@ define(['angular'], function (angular) {
         'moment',
         'SecurityRoleService',
         'CompanyDocumentService',
-        'JuridicaService'
+        'JuridicaService',
+        'DepartmentService'
     ];
 
     function CompanyFormController(JuridicaCompanyService,
@@ -31,7 +32,8 @@ define(['angular'], function (angular) {
                                    moment,
                                    SecurityRoleService,
                                    CompanyDocumentService,
-                                   JuridicaService) {
+                                   JuridicaService,
+                                   DepartmentService) {
 
         $scope.currentCompany = angular.copy(entity.data);
         $scope.continue = {};
@@ -48,7 +50,17 @@ define(['angular'], function (angular) {
             });
         };
         setSegments();
+        setDepartmens();
         $scope.getCaptcha();
+
+        function setDepartmens () {
+            DepartmentService.getAll().then(function (data) {
+                $scope.departments = data.data.values;
+                $scope.departments.forEach(function (dep) {
+                    dep.value = false;
+                });
+            });
+        }
 
 
         RoleService.findAll().then(function (data) {
@@ -123,6 +135,15 @@ define(['angular'], function (angular) {
                         seg.value = $scope.currentCompany.segments.indexOf(seg.key) >= 0;
                     });
                 }
+                if ($scope.currentCompany.departments) {
+                    $scope.departments.forEach(function (dep) {
+                        $scope.currentCompany.departments.forEach(function (depScope) {
+                            if (dep.id === depScope.id) {
+                                dep.value = true;
+                            }
+                        });
+                    });
+                }
                 if (data.roles) {
                     $scope.$broadcast('role', data.roles[0].role);
                 } else {
@@ -146,6 +167,7 @@ define(['angular'], function (angular) {
             }
             $scope.getCaptcha();
             setSegments();
+            setDepartmens();
             $timeout(function () {
                 document.getElementById('orgTab').click();
             });
@@ -351,6 +373,10 @@ define(['angular'], function (angular) {
             $scope.segments[index].value = !$scope.segments[index].value;
         };
 
+        $scope.changeDepartment = function (index) {
+            $scope.departments[index].value = !$scope.departments[index].value;
+        };
+
         function fillPerson(entity, captcha, cookie) {
             if (!entity.id) {
                 if (entity.cnpj && captcha !== '') {
@@ -362,7 +388,14 @@ define(['angular'], function (angular) {
                                     segments.push(seg.key);
                                 }
                             });
+                            var departments = [];
+                            $scope.departments.forEach(function (dep) {
+                                if (dep.value) {
+                                    departments.push(dep);
+                                }
+                            });
                             entity.segments = segments;
+                            entity.departments = departments;
                             entity.active = {value: true};
                             entity.addressList = [{
                                 "address": {
@@ -430,7 +463,14 @@ define(['angular'], function (angular) {
                             segments.push(seg.key);
                         }
                     });
+                    var departments = [];
+                    $scope.departments.forEach(function (dep) {
+                        if (dep.value) {
+                            departments.push(dep);
+                        }
+                    });
                     entity.segments = segments;
+                    entity.departments = departments;
                     entity.active = {value: true};
                     entity.addressList = [{
                         "address": {
@@ -489,7 +529,6 @@ define(['angular'], function (angular) {
                 }
             }
         }
-        console.log($scope);
     }
 
     return CompanyFormController;

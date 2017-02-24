@@ -1,7 +1,7 @@
 <form name="PersonForm" novalidate>
     <div>
         <div class="row" style="padding-left: 2%; padding-right: 2%">
-            <div class="col-lg-4 panel gmd p-b" style="width: 32.5%; overflow:auto; max-height:250px" id="treeDiv">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 panel gmd p-b" style="overflow:auto; max-height:250px" id="treeDiv">
                 <div class="m-t-lg" ng-if="personTree.length">
                     <gmd-input>
                         <div class="form-group gmd m-b-none ">
@@ -27,7 +27,7 @@
                     Empresa: {{node.name}}
                 </treecontrol>
             </div>
-            <div class="col-lg-8 panel gmd p-b" style="left: 0.8%" buddy-resize dependents="['treeDiv']">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 panel gmd p-b" style="left: 0.8%;margin-bottom: 70px" buddy-resize dependents="['treeDiv']">
                 <ul class="nav nav-tabs gmd" role="tablist">
                     <li role="presentation" class="active"><a href="#organization" aria-controls="organization" id="orgTab"
                                                               ng-click=" apply()" role="tab" data-toggle="tab">Organização</a>
@@ -75,14 +75,14 @@
 
             </div>
         </div>
-
-
-        <button type="button" class="btn gmd fab btn-success fixed" ng-click="update(currentCompany)"
-                ng-disabled="blockBtnSave()">
-            <i class="material-icons">{{currentCompany.id? 'save' : 'add'}}</i>
-        </button>
-        <button type="button" class="btn btn-warning gmd fab fixed" style="right: 95px" ng-click="cleanAll()">
-            <i class="material-icons">clear</i>
-        </button>
     </div>
 </form>
+<footer class="gl-footer fixed" style="padding-bottom: 60px; padding: 4px; height: 60px">
+    <button type="button" class="btn gmd fab btn-success pull-right" ng-click="update(currentCompany)"
+            ng-disabled="blockBtnSave()" style="margin-left: 10px">
+        <i class="material-icons">{{currentCompany.id? 'save' : 'add'}}</i>
+    </button>
+    <button type="button" class="btn btn-warning gmd fab pull-right" style="right: 95px" ng-click="cleanAll()">
+        <i class="material-icons">clear</i>
+    </button>
+</footer>

@@ -61,6 +61,16 @@
     </div>
 </div>
 
+<div class="row m-l m-r m-t">
+    <label>Selecione o(s) departamento(s) da empresa</label>
+    <div ng-repeat="dep in departments track by $index">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 m-t" style="text-align: center; padding-left: 0px">
+            <grands-check-button value="dep.value" label="{{dep.name}}"
+                                 click="changeDepartment($index)"/>
+        </div>
+    </div>
+</div>
+
 <div class="row m-l m-r">
     <div class="m-t">
         <label gumga-translate-tag="person.father">Father</label>
