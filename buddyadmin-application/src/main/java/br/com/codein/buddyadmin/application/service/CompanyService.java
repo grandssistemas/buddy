@@ -14,8 +14,10 @@ import br.com.gumga.security.domain.model.institutional.Organization;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.gumga.core.GumgaThreadScope;
+import io.gumga.domain.GumgaMultitenancy;
 import io.gumga.domain.GumgaTenancyUtils;
 import io.gumga.domain.domains.GumgaBoolean;
+import io.gumga.domain.repository.GumgaMultitenancyUtil;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,14 +72,47 @@ public class CompanyService {
         instanceService.createInstance(result);
 
         if (person.containRoleWithCategory(RoleCategory.COMPANY)){
-            exportPerson(person);
-            exportDepartment(person);
+            List<Department> list = exportDepartment(person);
+            exportPerson(person, list);
         }
         return result;
     }
 
-    private void exportDepartment(Person person) {
+    private void changeDepartmentOi(List<Department> departments, String oi) {
+        departments.forEach(department -> {
+            GumgaTenancyUtils.changeOi(oi, department);
+            if (department.getCharacteristics() != null) {
+                department.getCharacteristics().forEach(characteristic -> {
+                    GumgaTenancyUtils.changeOi(oi, characteristic);
+                });
+            }
+            if (department.getCategories() != null) {
+                department.getCategories().forEach(category -> {
+                    GumgaTenancyUtils.changeOi(oi, category);
+                    if (category.getCharacteristics() != null) {
+                        category.getCharacteristics().forEach(characteristic -> {
+                            GumgaTenancyUtils.changeOi(oi, characteristic);
+                        });
+                    }
+                    if (category.getProductTypes() != null) {
+                        category.getProductTypes().forEach(pt -> {
+                            GumgaTenancyUtils.changeOi(oi, pt);
+                            if (pt.getCharacteristics() != null) {
+                                pt.getCharacteristics().forEach(associativeCharacteristic -> {
+                                    GumgaTenancyUtils.changeOi(oi, associativeCharacteristic);
+                                    GumgaTenancyUtils.changeOi(oi, associativeCharacteristic.getCharacteristic());
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    private List<Department> exportDepartment(Person person) {
         List<Department> departments = departmentService.getFatArray(person.getDepartments());
+        changeDepartmentOi(departments, person.getOi().getValue());
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         List<Department> departmentList = new ArrayList<>();
@@ -89,7 +124,7 @@ public class CompanyService {
                 e.printStackTrace();
             }
         }
-        List<Department> list = departmentClient.save(departmentList);
+        return departmentClient.save(departmentList);
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
@@ -141,7 +176,7 @@ public class CompanyService {
     }
 
 
-    public void exportPerson(Person p){
+    public void exportPerson(Person p, List<Department> departments){
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -152,6 +187,7 @@ public class CompanyService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        juridica.setDepartments(departments);
         Juridica s = juridicaClient.save(juridica);
     }
 }
