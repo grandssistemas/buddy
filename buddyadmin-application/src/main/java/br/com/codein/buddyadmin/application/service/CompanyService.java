@@ -188,6 +188,7 @@ public class CompanyService {
             e.printStackTrace();
         }
         juridica.setDepartments(departments);
+        juridica.setOrganizationCode(juridica.getOi().getValue());
         Juridica s = juridicaClient.save(juridica);
     }
 }
