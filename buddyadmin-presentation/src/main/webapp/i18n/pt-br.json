@@ -219,5 +219,27 @@
     "newproductType": "Novo Tipo",
     "editproductType": "Editar Tipo",
     "characteristic": "Característica"
+  },
+  "characteristic": {
+    "menulabel": "Caracteristica",
+    "id": "ID",
+    "name": "Nome",
+    "tipodevalorcaracteristica": "Tipo de Valor",
+    "values": "Valores",
+    "tamvalue": "Valor",
+    "listlabel": "Caracteristícas",
+    "tamsys": "Sistema de medida",
+    "isgrid": "Grade"
+  },
+  "newcharacteristic": {
+    "sizetype": "Tipo de Tamanho",
+    "values": "Valores",
+    "value": "Valor",
+    "newcharbtn": "Nova Caracteristica",
+    "required": "Requerido",
+    "column": "Coluna",
+    "row": "Linha",
+    "classoptions": "Opções de Classes",
+    "valuestype": "Tipo dos Valores"
   }
 }

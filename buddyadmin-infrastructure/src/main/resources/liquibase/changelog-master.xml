@@ -20,7 +20,7 @@
     <property name="varchar_3000" value="java.sql.Types.VARCHAR(3000)" />
     <property name="varchar_4000" value="java.sql.Types.VARCHAR(4000)" />
     <property name="boolean" value="java.sql.Types.BOOLEAN"  />
-    <include file="classpath:liquibase/buddyperson-changelog-master.xml"/>
     <include file="classpath:liquibase/product-changelog-master.xml"/>
+    <include file="classpath:liquibase/buddyperson-changelog-master.xml"/>
     <include file="v1.1.0-SNAPSHOT-changelog.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

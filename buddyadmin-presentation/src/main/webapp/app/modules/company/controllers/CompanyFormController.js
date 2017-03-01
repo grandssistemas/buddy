@@ -246,6 +246,7 @@ define(['angular'], function (angular) {
         };
 
         $scope.searchInstance = function (param) {
+            console.log($scope.currentCompany);
             var hql = "obj.organization.id = " + $scope.currentCompany.oi.value.replace(".", "");
             if (param) {
                 hql = hql + " and obj.name like '%" + param + "%'"

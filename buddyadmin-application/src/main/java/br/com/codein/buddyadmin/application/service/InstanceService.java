@@ -35,7 +35,7 @@ public class InstanceService {
 
         result.setName("Instancia do "+ org.getName());
         result.setExpiration(Date.from( new Date().toInstant().plus(60, ChronoUnit.DAYS)));
-
+        result.setOrganization(org);
         result.setSoftwares(softwareService.getAll());
         Instance created = securityClient.saveInstance(result);
         securityRoleService.createRole(created, "Papel padrão da " + result.getName());
