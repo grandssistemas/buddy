@@ -1,12 +1,14 @@
 package br.com.codein.buddyadmin.application.service;
 
 
+import br.com.codein.buddyadmin.infrastructure.config.ApplicationConstants;
 import br.com.codein.buddyadmin.integration.client.SecurityClient;
 import br.com.codein.buddyadmin.integration.client.fashionmanager.DepartmentClient;
 import br.com.codein.buddyadmin.integration.client.fashionmanager.JuridicaClient;
 import br.com.codein.buddyperson.application.service.person.PersonService;
-import br.com.codein.buddyperson.domain.person.Juridica;
-import br.com.codein.buddyperson.domain.person.Person;
+import br.com.codein.buddyperson.application.service.person.RoleService;
+import br.com.codein.buddyperson.domain.person.*;
+import br.com.codein.buddyperson.domain.person.enums.PhoneType;
 import br.com.codein.buddyperson.domain.person.enums.RoleCategory;
 import br.com.codein.department.application.service.DepartmentService;
 import br.com.codein.department.domain.model.department.Department;
@@ -14,9 +16,13 @@ import br.com.gumga.security.domain.model.institutional.Organization;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.gumga.core.GumgaThreadScope;
+import io.gumga.core.GumgaValues;
 import io.gumga.domain.GumgaMultitenancy;
 import io.gumga.domain.GumgaTenancyUtils;
+import io.gumga.domain.domains.GumgaAddress;
 import io.gumga.domain.domains.GumgaBoolean;
+import io.gumga.domain.domains.GumgaEMail;
+import io.gumga.domain.domains.GumgaPhoneNumber;
 import io.gumga.domain.repository.GumgaMultitenancyUtil;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,18 +39,32 @@ public class CompanyService {
 
     @Autowired
     private SecurityClient securityClient;
-
     @Autowired
     private PersonService personService;
     @Autowired
     private DepartmentService departmentService;
-
     @Autowired
     private JuridicaClient juridicaClient;
     @Autowired
     private DepartmentClient departmentClient;
     @Autowired
     private InstanceService instanceService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private static GumgaValues gumgaValues;
+
+    private static Properties properties;
+
+    private static Properties getProperties() {
+        if(gumgaValues == null)
+            gumgaValues = new ApplicationConstants();
+
+        if(properties == null)
+            properties = gumgaValues.getCustomFileProperties();
+
+        return properties;
+    }
 
     @Transactional
     public Organization newOrganization(Person person){
@@ -63,7 +83,7 @@ public class CompanyService {
         if (needToCreateSubOrganization(personWithFather)){
             result = createSubOrganization(personWithFather, newOrganization);
         } else {
-            result =securityClient.saveOrganization(newOrganization);
+            result = securityClient.saveOrganization(newOrganization);
         }
 
         GumgaTenancyUtils.changeOi(result.getHierarchyCode(), personWithFather);
@@ -190,5 +210,49 @@ public class CompanyService {
         juridica.setDepartments(departments);
         juridica.setOrganizationCode(juridica.getOi().getValue());
         Juridica s = juridicaClient.save(juridica);
+    }
+
+    @Transactional
+    public void verifyExistSH() {
+        Juridica person = (Juridica) personService.getSoftwareHouse();
+        if (person == null) {
+            person = new Juridica();
+            person.setName(getProperties().getProperty("sh.name"));
+            person.setActive(new GumgaBoolean(true));
+            person.setNickname(person.getName());
+            person.setAttributeValues(new ArrayList<>());
+            person.setBranches(new ArrayList<>());
+            person.setRelationships(new ArrayList<>());
+            person.setSocialNetworks(new ArrayList<>());
+            person.setCnaes(new ArrayList<>());
+            List<Address> addresses = new ArrayList<>();
+            Address address = new Address();
+            address.setPrimary(true);
+            address.setAddress(new GumgaAddress("", "", "", "", "", "", "", "", "", new Double(0), new Double(0), ""));
+            addresses.add(address);
+            person.setAddressList(addresses);
+            List<Phone> phones = new ArrayList<>();
+            Phone phone = new Phone();
+            phone.setPrimary(true);
+            phone.setCarrier(null);
+            phone.setDescription(PhoneType.COMERCIAL);
+            phone.setInformation(null);
+            phone.setPhone(new GumgaPhoneNumber(""));
+            phones.add(phone);
+            person.setPhones(phones);
+            List<Email> emails = new ArrayList<>();
+            Email email = new Email();
+            email.setPrimary(true);
+            email.setEmail(new GumgaEMail(getProperties().getProperty("sh.email")));
+            emails.add(email);
+            person.setEmails(emails);
+            Set<AssociativeRole> associativeRoles = new HashSet<>();
+            AssociativeRole associativeRole = new AssociativeRole();
+            associativeRole.setActive(true);
+            associativeRole.setRole(roleService.recoverByCategory(RoleCategory.OWNER).get(0));
+            associativeRoles.add(associativeRole);
+            person.setRoles(associativeRoles);
+            personService.save(person);
+        }
     }
 }

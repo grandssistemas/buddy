@@ -14,6 +14,10 @@ define(['apiLocations'], function(APILocation) {
             return Service.extend('get','/changeorganization/' + id)
         };
 
+        Service.verifyExistSh = function() {
+        	return Service.extend('post', '/verifyexistsh');
+		};
+
     	return Service;
     }
 

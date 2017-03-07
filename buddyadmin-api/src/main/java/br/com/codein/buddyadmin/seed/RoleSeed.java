@@ -32,8 +32,6 @@ public class RoleSeed implements AppSeed {
             generateRole(RoleCategory.OWNER, "#ff0000");
         if (roleService.recoverByCategory(RoleCategory.DISTRIBUTOR).isEmpty())
             generateRole(RoleCategory.DISTRIBUTOR, "#00ff00");
-        if (roleService.recoverByCategory(RoleCategory.REPRESENTATIVE).isEmpty())
-            generateRole(RoleCategory.REPRESENTATIVE, "#0000ff");
         if (roleService.recoverByCategory(RoleCategory.COMPANY).isEmpty())
             generateRole(RoleCategory.COMPANY, "#c283b5");
         if (roleService.recoverByCategory(RoleCategory.AGGREGATOR).isEmpty())

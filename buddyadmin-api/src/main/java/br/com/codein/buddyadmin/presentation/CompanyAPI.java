@@ -18,10 +18,16 @@ public class CompanyAPI {
     @Autowired
     private CompanyService companyService;
 
-    @Transactional(readOnly = true)
+    @Transactional
     @RequestMapping(value="/addorganization", method = RequestMethod.POST)
     public Organization addOrganization(@RequestBody Person p){
         return companyService.newOrganization(p);
+    }
+
+    @Transactional
+    @RequestMapping(value="/verifyexistsh", method = RequestMethod.POST)
+    public void verifyExistSh(){
+        companyService.verifyExistSH();
     }
 
 
