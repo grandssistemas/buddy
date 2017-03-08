@@ -79,16 +79,16 @@ public class CompanyService {
         newOrganization.setMainUser(securityClient.getUserByEmail(GumgaThreadScope.login.get()));
 
         Organization result;
-        Person personWithFather = personService.loadFatWithFather(person);
-        if (needToCreateSubOrganization(personWithFather)){
-            result = createSubOrganization(personWithFather, newOrganization);
+//        Person personWithFather = personService.loadFatWithFather(person);
+        person = personService.loadFatWithFather(person);
+        if (needToCreateSubOrganization(person)){
+            result = createSubOrganization(person, newOrganization);
         } else {
             result = securityClient.saveOrganization(newOrganization);
         }
 
-        GumgaTenancyUtils.changeOi(result.getHierarchyCode(), personWithFather);
-        personService.save(personWithFather);
-
+        GumgaTenancyUtils.changeOi(result.getHierarchyCode(), person);
+        personService.save(person);
         instanceService.createInstance(result);
 
         if (person.containRoleWithCategory(RoleCategory.COMPANY)){
@@ -131,20 +131,24 @@ public class CompanyService {
     }
 
     private List<Department> exportDepartment(Person person) {
-        List<Department> departments = departmentService.getFatArray(person.getDepartments());
-        changeDepartmentOi(departments, person.getOi().getValue());
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        List<Department> departmentList = new ArrayList<>();
-        for (Department department : departments) {
-            try {
-                String departmentWithoutId = mapper.writeValueAsString(department).replaceAll("(\"id\":null|\"id\":[0-9]*)[,]*","");
-                departmentList.add(mapper.readValue(departmentWithoutId,Department.class));
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (!person.getDepartments().isEmpty()) {
+            List<Department> departments = departmentService.getFatArray(person.getDepartments());
+            changeDepartmentOi(departments, person.getOi().getValue());
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            List<Department> departmentList = new ArrayList<>();
+            for (Department department : departments) {
+                try {
+                    String departmentWithoutId = mapper.writeValueAsString(department).replaceAll("(\"id\":null|\"id\":[0-9]*)[,]*", "");
+                    departmentList.add(mapper.readValue(departmentWithoutId, Department.class));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            return departmentClient.save(departmentList);
+        } else {
+            return null;
         }
-        return departmentClient.save(departmentList);
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
@@ -214,9 +218,9 @@ public class CompanyService {
 
     @Transactional
     public void verifyExistSH() {
-        Juridica person = (Juridica) personService.getSoftwareHouse();
-        if (person == null) {
-            person = new Juridica();
+        List<Person> persons = personService.findByRoleCategory(RoleCategory.OWNER);
+        if (persons.isEmpty()) {
+            Juridica person = new Juridica();
             person.setName(getProperties().getProperty("sh.name"));
             person.setActive(new GumgaBoolean(true));
             person.setNickname(person.getName());

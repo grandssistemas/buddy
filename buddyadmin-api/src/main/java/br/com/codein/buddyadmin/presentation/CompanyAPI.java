@@ -18,7 +18,6 @@ public class CompanyAPI {
     @Autowired
     private CompanyService companyService;
 
-    @Transactional
     @RequestMapping(value="/addorganization", method = RequestMethod.POST)
     public Organization addOrganization(@RequestBody Person p){
         return companyService.newOrganization(p);
