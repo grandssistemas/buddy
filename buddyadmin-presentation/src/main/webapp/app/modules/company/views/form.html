@@ -24,7 +24,7 @@
                         selected-node="currentNode"
                         filter-comparator="false"
                         filter-expression="tree.search">
-                    Empresa: {{node.name}}
+                    {{node.roles[0].role.name}}: {{node.name}}
                 </treecontrol>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 panel gmd p-b" style="left: 0.8%;margin-bottom: 70px" buddy-resize dependents="['treeDiv']">
@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <div class="m-t panel gmd" ng-if="currentCompany.id">
+        <div class="m-t panel gmd" ng-if="currentCompany.id" style="margin-bottom: 80px">
             <div class="panel-heading">
                 <a ng-click="detailsExpanded = !detailsExpanded" class="hover-no-underline" style="cursor: pointer ">
                     <i class="material-icons" style="vertical-align: bottom">{{detailsExpanded? "expand_less" :

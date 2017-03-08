@@ -62,9 +62,8 @@ define(['angular'], function (angular) {
             });
         }
 
-
-        RoleService.findAll().then(function (data) {
-            $scope.roleCategories = data.data;
+        RoleService.getAdvancedSearch('obj.category != \'OWNER\'').then(function (data) {
+            $scope.roleCategories = data.data.values;
         });
 
         function setSegments () {
@@ -311,21 +310,9 @@ define(['angular'], function (angular) {
 
         function validRecord(entity) {
             switch ($scope.role.category) {
-                case "OWNER":
-                    if (entity.father) {
-                        GumgaAlert.createDangerMessage('Erro no Cadastro', 'Uma empresa do tipo \'DONO\' não pode ter registro pai.');
-                        return false;
-                    }
-                    break;
                 case "DISTRIBUTOR":
                     if (!entity.father || !containRoles(['OWNER'], entity.father)) {
                         GumgaAlert.createDangerMessage('Erro no Cadastro', 'Um distribuidor deve estar ligado à uma empresa do tipo \'DONO\'.');
-                        return false;
-                    }
-                    break;
-                case "REPRESENTATIVE":
-                    if (!entity.father || !containRoles(['REPRESENTATIVE', 'DISTRIBUTOR'], entity.father)) {
-                        GumgaAlert.createDangerMessage('Erro no Cadastro', 'Um representante deve estar ligado à uma empresa revendedor ou à outro representante');
                         return false;
                     }
                     break;
@@ -334,18 +321,10 @@ define(['angular'], function (angular) {
                         GumgaAlert.createDangerMessage('Erro no Cadastro', 'Uma empresa deve estar ligada à alguma entidade.');
                         return false;
                     }
-                    if (containRoles('OWNER', entity.father)) {
-                        GumgaAlert.createDangerMessage('Erro no Cadastro', 'Uma empresa não pode estar ligada diretamente à uma entidade do tipo \'DONO\'.');
-                        return false;
-                    }
                     break;
                 case "AGGREGATOR":
                     if (!entity.father) {
-                        GumgaAlert.createDangerMessage('Erro no Cadastro', 'Uma Matriz Agregadora deve estar ligada à alguma entidade.');
-                        return false;
-                    }
-                    if (containRoles('OWNER', entity.father)) {
-                        GumgaAlert.createDangerMessage('Erro no Cadastro', 'Uma matriz agregadora não pode estar ligada diretamente à uma entidade do tipo \'DONO\'.');
+                        GumgaAlert.createDangerMessage('Erro no Cadastro', 'Um Grupo Economico deve estar ligada à alguma entidade.');
                         return false;
                     }
                     break;
@@ -434,6 +413,7 @@ define(['angular'], function (angular) {
                                 active: true,
                                 role: $scope.role
                             }];
+                            entity.billAddressList = [];
                             var father = entity.father;
                             var toUpdate = entity;
                             if (!entity.id && father) {
@@ -504,6 +484,7 @@ define(['angular'], function (angular) {
                     entity.relationships = [];
                     entity.socialNetworks = [];
                     entity.cnaes = [];
+                    entity.billAddressList = [];
                     entity.roles = [{
                         active: true,
                         role: $scope.role
