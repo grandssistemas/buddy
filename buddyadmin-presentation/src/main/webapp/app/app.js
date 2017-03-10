@@ -142,9 +142,44 @@ define(['angular',
                         return config;
                     },
                     'responseError': function (rejection) {
-                        var $state = $injector.get('$state');
-                        GumgaAlertProvider.createDangerMessage(rejection.data.response, rejection.statusText);
-                        rejection.status === 403 && ($state.go('login.log'));
+                        // var $state = $injector.get('$state');
+                        // GumgaAlertProvider.createDangerMessage(rejection.data.response, rejection.statusText);
+                        // rejection.status === 403 && ($state.go('login.log'));
+                        // return $q.reject(rejection);
+                        if (rejection.status === 403) {
+                            var state = $injector.get('$state');
+                            GumgaAlertProvider.createDangerMessage('Usuário ',
+                                'Sua sessão expirou ou você não tem acesso a esta funcionalidade, faça login e tente novamente.',
+                                'errors', {
+                                    timer: 9999999
+                                });
+                            state.go('login.log');
+                            return $q.reject(rejection);
+                        }
+                        if (rejection.status === 409 && rejection.data.data && rejection.data.data.SQLState === '23503') {
+                            var state = rejection.data.data.SQLState,
+                                message = $filter('gumgaTranslate')(state, 'errors');
+                            GumgaAlertProvider.createDangerMessage('Conflito',
+                                message,
+                                'errors', {
+                                    timer: 9999999
+                                });
+                            return $q.reject(rejection);
+                        }
+                        if (rejection.data && rejection.data.details && rejection.data.details.indexOf('notooltip;;') > -1) {
+                            return $q.reject(rejection);
+                        }
+                        if (rejection.data && rejection.data.details && rejection.data.details.indexOf(';;') > -1) {
+                            GumgaAlertProvider.createDangerMessage('ERRO AO REALIZAR O METODO ' + rejection.config.method + ' (' + rejection.status + ')',
+                                $filter('gumgaTranslate')(rejection.data.details.split(';;')[0], 'errors'), {
+                                    timer: 9999999
+                                });
+                            return $q.reject(rejection);
+                        }
+                        GumgaAlertProvider.createDangerMessage('ERRO AO REALIZAR O METODO ' + rejection.config.method + ' (' + rejection.status + ')',
+                            rejection.config.url, 'errors', {
+                                timer: 9999999
+                            });
                         return $q.reject(rejection);
                     }
                 };
