@@ -22,13 +22,13 @@
         <dependency>
             <groupId>io.gumga</groupId>
             <artifactId>gumga-application</artifactId>
-            <version>1.4.2-SNAPSHOT</version>
+            <version>1.5.4</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.gumga</groupId>
             <artifactId>gumga-security</artifactId>
-            <version>1.4.2-SNAPSHOT</version>
+            <version>1.5.4</version>
             <type>jar</type>
         </dependency>
         <dependency>
