@@ -241,5 +241,11 @@
     "row": "Linha",
     "classoptions": "Opções de Classes",
     "valuestype": "Tipo dos Valores"
+  },
+  "errors": {
+    "twd01": "Essa consulta não permite ser feito no nível de Tipo de Produto",
+    "twd02": "Impossível deletar esta Categoria pois ela ja está em uso.",
+    "twd03": "Impossível deletar este Departamento pois ela ja está em uso.",
+    "twd04": "Impossível deletar este Tipo de Produto pois ela ja está em uso."
   }
 }
