@@ -27,7 +27,7 @@
         <dependency>
             <groupId>io.gumga</groupId>
             <artifactId>gumga-domain</artifactId>
-            <version>1.4.2-SNAPSHOT</version>
+            <version>1.5.4</version>
             <type>jar</type>
         </dependency>
         <!-- DEPENDENCIAS test   -->
