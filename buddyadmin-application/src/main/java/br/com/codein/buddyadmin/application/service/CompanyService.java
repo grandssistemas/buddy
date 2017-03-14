@@ -79,8 +79,14 @@ public class CompanyService {
         newOrganization.setMainUser(securityClient.getUserByEmail(GumgaThreadScope.login.get()));
 
         Organization result;
-//        Person personWithFather = personService.loadFatWithFather(person);
         person = personService.loadFatWithFather(person);
+        person.getRoles().forEach(roles -> {
+            roles.getRole().getGroupAttributes().forEach(groupRoleAttribute -> {
+                if (groupRoleAttribute.getAttributes() == null) {
+                    groupRoleAttribute.setAttributes(new ArrayList<>());
+                }
+            });
+        });
         if (needToCreateSubOrganization(person)){
             result = createSubOrganization(person, newOrganization);
         } else {
