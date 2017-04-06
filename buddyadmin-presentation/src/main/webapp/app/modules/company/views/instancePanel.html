@@ -1,0 +1,47 @@
+<div class="row m-t-lg">
+    <div class="col-md-12">
+        <gmd-input>
+            <div class="form-group gmd">
+                <input type="text" class="form-control gmd" ng-model="instance.name" id="instanceName"
+                       required name="instanceName"
+                       autocomplete="off">
+                <span class="bar"></span>
+                <label for="instanceName" class="control-label" gumga-translate-tag="instance.name">Instance Name</label>
+            </div>
+        </gmd-input>
+    </div>
+</div>
+
+<div class="row m-t-n">
+    <div class="col-md-12 m-t-n-lg">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" class="gmd" data-ng-model="instance.withRole">
+                <span class="box"></span>
+                Cria perfis padrões
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 m-t-sm  m-b-lg">
+        <label gumga-translate-tag="instance.expiration">Expiration Date</label>
+        <div class="input-group date">
+            <input id="expiration" type="text" class="form-control"
+                   date-time ng-model="instance.expiration" view="date"
+                   min-view="date" format="dd/MM/yyyy"
+                   ng-blur="checkDate('expiration')"
+                   auto-close="true">
+            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="m-t pull-left">
+    <button type="button" class="btn gmd  btn-primary">Mais informações</button>
+</div>
+<div class="m-t pull-right">
+    <button type="button" class="btn gmd  btn-success" ng-disabled="blockBtnInstance(instance)" ng-click="createInstance(instance)">Criar Instância</button>
+</div>

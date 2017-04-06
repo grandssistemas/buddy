@@ -2,6 +2,7 @@
   "CRUD-BASE",
   "CUSTOMFIELDS",
   "TAGS",
-  "CONFIGURATION"
-,"CRUD-Person"
+  "CONFIGURATION",
+  "CRUD-Person",
+  "CRUD-ProductStructure"
 ]

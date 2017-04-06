@@ -20,13 +20,15 @@
         </dependency>
         <!-- DEPENDENCIAS do Framework GUMGA    -->
         <dependency>
-            <groupId>gumga.framework</groupId>
+            <groupId>io.gumga</groupId>
             <artifactId>gumga-application</artifactId>
+            <version>1.5.4</version>
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>gumga.framework</groupId>
+            <groupId>io.gumga</groupId>
             <artifactId>gumga-security</artifactId>
+            <version>1.5.4</version>
             <type>jar</type>
         </dependency>
         <dependency>
@@ -79,6 +81,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.33</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.5.1</version>
         </dependency>
     </dependencies>
 </project>

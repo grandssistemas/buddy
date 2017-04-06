@@ -1,6 +1,6 @@
 package br.com.codein.buddyadmin.api;
 
-import gumga.framework.security.ApiOperationTranslator;
+import io.gumga.security.ApiOperationTranslator;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
