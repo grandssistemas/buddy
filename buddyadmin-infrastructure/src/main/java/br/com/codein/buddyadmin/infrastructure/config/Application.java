@@ -32,6 +32,7 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.application.service.storage",
         "br.com.mobiage.mobiage.application.service.dfe",
         "br.com.mobiage.mobiage.application.service.certificado",
+        "br.com.mobiage.mobiage.application.service.paymenttype",
         "br.com.mobiage.integration",
         "io.gumga"
 })
@@ -45,6 +46,7 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.application.repository.department",
         "br.com.mobiage.mobiage.application.repository.storage",
         "br.com.mobiage.mobiage.application.repository.certificado",
+        "br.com.mobiage.mobiage.application.repository.paymenttype",
         "io.gumga"
 })
 @EnableTransactionManagement(proxyTargetClass = true)
@@ -121,6 +123,7 @@ public class Application {
                 "br.com.mobiage.mobiage.domain.model.marking",
                 "br.com.mobiage.mobiage.domain.model.department",
                 "br.com.mobiage.mobiage.domain.model.storage",
+                "br.com.mobiage.mobiage.domain.model.paymenttype",
                 "br.com.mobiage.mobiage.domain.model.certificado"
         );
         factory.setDataSource(dataSource);
