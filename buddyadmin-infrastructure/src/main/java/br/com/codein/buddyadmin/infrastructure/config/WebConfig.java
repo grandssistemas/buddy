@@ -34,7 +34,18 @@ import java.util.List;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"br.com.codein", "io.gumga"})
+//@ComponentScan(basePackages = {
+//        "br.com.codein",
+//        "io.gumga"
+//        ,"br.com.mobiage.mobiage.application"
+//        "br.com.mobiage.mobiage.application.service.person",
+//        "br.com.mobiage.mobiage.application.service.fiscalgroup",
+//        "br.com.mobiage.mobiage.application.service.configuration",
+//        "br.com.mobiage.mobiage.application.service.characteristic",
+//        "br.com.mobiage.mobiage.application.service.marking",
+//        "br.com.mobiage.mobiage.application.service.department",
+//        "br.com.mobiage.mobiage.application.service.storage"
+//})
 @Import(Application.class)
 public class WebConfig extends WebMvcConfigurerAdapter implements WebApplicationInitializer {
 
@@ -102,7 +113,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements WebApplication
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(gumgaRequestFilter()); 
+        registry.addInterceptor(gumgaRequestFilter());
     }
 
 }

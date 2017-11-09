@@ -1,10 +1,10 @@
 package br.com.codein.buddyadmin.seed;
 
-import br.com.codein.buddycharacteristic.application.service.characteristic.CharacteristicService;
-import br.com.codein.buddycharacteristic.domain.characteristic.Characteristic;
-import br.com.codein.buddycharacteristic.domain.characteristic.OptionValueCharacteristic;
-import br.com.codein.buddycharacteristic.domain.characteristic.enums.CharacteristicOrigin;
-import br.com.codein.buddycharacteristic.domain.characteristic.enums.ValueTypeCharacteristic;
+import br.com.mobiage.mobiage.application.service.characteristic.CharacteristicService;
+import br.com.mobiage.mobiage.domain.model.characteristic.Characteristic;
+import br.com.mobiage.mobiage.domain.model.characteristic.OptionValueCharacteristic;
+import br.com.mobiage.mobiage.domain.model.characteristic.enums.CharacteristicOrigin;
+import br.com.mobiage.mobiage.domain.model.characteristic.enums.ValueTypeCharacteristic;
 import io.gumga.domain.seed.AppSeed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

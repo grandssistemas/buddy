@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Properties;
 
 @Component
-public class SecurityClient extends AbstractClient<Object> {
+public class SecurityBuddyClient extends AbstractClient<Object> {
 
 
     @Autowired
@@ -33,7 +33,7 @@ public class SecurityClient extends AbstractClient<Object> {
 
     private Properties properties;
 
-    public SecurityClient() {
+    public SecurityBuddyClient() {
         super();
         this.url = getProperties().getProperty("security.url") +
                 "/security-api";

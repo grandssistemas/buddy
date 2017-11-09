@@ -1,8 +1,8 @@
 package br.com.codein.buddyadmin.presentation;
 
 
-import br.com.codein.buddyadmin.application.service.CompanyService;
-import br.com.codein.buddyperson.domain.person.Person;
+import br.com.codein.buddyadmin.application.service.CompanyBuddyService;
+import br.com.mobiage.mobiage.domain.model.person.Person;
 import br.com.gumga.security.domain.model.institutional.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class CompanyAPI {
 
     @Autowired
-    private CompanyService companyService;
+    private CompanyBuddyService companyBuddyService;
 
     @RequestMapping(value="/addorganization", method = RequestMethod.POST)
     public Organization addOrganization(@RequestBody Person p){
-        return companyService.newOrganization(p);
+        return companyBuddyService.newOrganization(p);
     }
 
     @Transactional
     @RequestMapping(value="/verifyexistsh", method = RequestMethod.POST)
     public void verifyExistSh(){
-        companyService.verifyExistSH();
+        companyBuddyService.verifyExistSH();
     }
 
 

@@ -1,6 +1,6 @@
 package br.com.codein.buddyadmin.application.service;
 
-import br.com.codein.buddyadmin.domain.model.CompanyDocument;
+import br.com.codein.buddyadmin.domain.model.CompanyDocumentBuddy;
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.DomNodeList;
@@ -28,7 +28,7 @@ import java.util.Map;
  * Created by gelatti on 30/01/17.
  */
 @Service
-public class CompanyDocumentService {
+public class CompanyDocumentBuddyService {
 
     private static RestTemplate restTemplate = new RestTemplate();
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; rv:32.0) Gecko/20100101 Firefox/32.0";
@@ -38,7 +38,7 @@ public class CompanyDocumentService {
     private static final String GERA_CAPTCHA = BASE.concat("/pessoajuridica/cnpj/cnpjreva/captcha/gerarCaptcha.asp");
     private static final String VALIDACAO = "http://www.receita.fazenda.gov.br/pessoajuridica/cnpj/cnpjreva/valida.asp";
 
-    public CompanyDocument handlingCNPJ(String cnpj, String captcha, String cookie) throws MalformedURLException {
+    public CompanyDocumentBuddy handlingCNPJ(String cnpj, String captcha, String cookie) throws MalformedURLException {
         cookie = cookie.split(";")[0];
         WebClient client = new WebClient(BrowserVersion.FIREFOX_38);
         WebRequest request;
@@ -68,7 +68,7 @@ public class CompanyDocumentService {
 
         try {
             HtmlPage page = client.getPage(request);
-            CompanyDocument company = new CompanyDocument();
+            CompanyDocumentBuddy company = new CompanyDocumentBuddy();
             company.setNumeroInscricao(cnpj);
             return createCompanyByHTML(company, page, cookie);
         } catch (IOException | FailingHttpStatusCodeException ex) {
@@ -76,7 +76,7 @@ public class CompanyDocumentService {
         }
     }
 
-    public CompanyDocument createCompanyByHTML(CompanyDocument company, HtmlPage page, String cookie){
+    public CompanyDocumentBuddy createCompanyByHTML(CompanyDocumentBuddy company, HtmlPage page, String cookie){
         DomNodeList<DomElement> tdList = page.getElementsByTagName("td");
         for (DomElement td : tdList) {
             Iterator<HtmlElement> itFont = td.getElementsByTagName("font").iterator();

@@ -1,7 +1,7 @@
 package br.com.codein.buddyadmin.presentation;
 
-import br.com.codein.buddyadmin.application.service.CompanyDocumentService;
-import br.com.codein.buddyadmin.domain.model.CompanyDocument;
+import br.com.codein.buddyadmin.application.service.CompanyDocumentBuddyService;
+import br.com.codein.buddyadmin.domain.model.CompanyDocumentBuddy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,16 +19,16 @@ import java.util.Map;
 public class CompanyDocumentAPI {
 
     @Autowired
-    private CompanyDocumentService companyDocumentService;
+    private CompanyDocumentBuddyService companyDocumentBuddyService;
 
     @RequestMapping(value = "/generate-captcha", method = RequestMethod.GET)
     public Map generateCaptcha() throws IOException {
-        return companyDocumentService.generateCaptcha();
+        return companyDocumentBuddyService.generateCaptcha();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/buscacnpj")
-    public CompanyDocument handlingCPNJ(@RequestParam("cnpj") String cnpj, @RequestParam("captcha") String captcha, @RequestParam("cookie") String cookie)
+    public CompanyDocumentBuddy handlingCPNJ(@RequestParam("cnpj") String cnpj, @RequestParam("captcha") String captcha, @RequestParam("cookie") String cookie)
             throws IOException {
-        return companyDocumentService.handlingCNPJ(cnpj, captcha, cookie);
+        return companyDocumentBuddyService.handlingCNPJ(cnpj, captcha, cookie);
     }
 }

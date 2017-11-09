@@ -8,13 +8,14 @@
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <io.gumga.version>1.5.4</io.gumga.version>
+        <io.gumga.version>1.5.22</io.gumga.version>
         <spring.version>4.2.6.RELEASE</spring.version>
         <hibernate.version>4.3.1.Final</hibernate.version>
-        <buddyperson.version>1.2</buddyperson.version>
-        <buddycharacteristic.version>1.1</buddycharacteristic.version>
-        <fiscalgroup.version>1.0</fiscalgroup.version>
-        <department.version>1.0</department.version>
+        <mobiage.version>0.1</mobiage.version>
+        <security.version>1.5.33</security.version>
+        <!--<buddycharacteristic.version>1.1</buddycharacteristic.version>-->
+        <!--<fiscalgroup.version>1.0</fiscalgroup.version>-->
+        <!--<department.version>1.0</department.version>-->
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -240,92 +241,129 @@
                 <version>2.4</version>
             </dependency>
             <dependency>
-                <groupId>br.com.codein</groupId>
-                <artifactId>buddyperson-domain</artifactId>
-                <version>${buddyperson.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>br.com.gumga</groupId>
                 <artifactId>security-domain</artifactId>
-                <version>1.2.19-SNAPSHOT</version>
+                <version>${security.version}</version>
             </dependency>
             <dependency>
                 <groupId>br.com.gumga</groupId>
                 <artifactId>security-gateway</artifactId>
-                <version>1.2.19-SNAPSHOT</version>
+                <version>${security.version}</version>
+            </dependency>
+
+
+
+            <!--<dependency>-->
+                <!--<groupId>br.com.codein</groupId>-->
+                <!--<artifactId>buddyperson-domain</artifactId>-->
+                <!--<version>${buddyperson.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>br.com.codein</groupId>-->
+                <!--<artifactId>buddyperson-application</artifactId>-->
+                <!--<version>${buddyperson.version}</version>-->
+                <!--<exclusions>-->
+                    <!--<exclusion>-->
+                        <!--<groupId>br.com.codein</groupId>-->
+                        <!--<artifactId>buddyadmin-infrastructure</artifactId>-->
+                    <!--</exclusion>-->
+                <!--</exclusions>-->
+            <!--</dependency>-->
+
+            <!--<dependency>-->
+                <!--<groupId>br.com.codein</groupId>-->
+                <!--<artifactId>buddyperson-api</artifactId>-->
+                <!--<version>${buddyperson.version}</version>-->
+                <!--<type>war</type>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>br.com.codein</groupId>-->
+                <!--<artifactId>buddyperson-gateway</artifactId>-->
+                <!--<version>${buddyperson.version}</version>-->
+            <!--</dependency>-->
+
+            <!--<dependency>-->
+                <!--<groupId>br.com.codein</groupId>-->
+                <!--<artifactId>buddycharacteristic-application</artifactId>-->
+                <!--<version>${buddycharacteristic.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>br.com.codein</groupId>-->
+                <!--<artifactId>buddycharacteristic-api</artifactId>-->
+                <!--<version>${buddycharacteristic.version}</version>-->
+                <!--<type>war</type>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>br.com.codein</groupId>-->
+                <!--<artifactId>buddycharacteristic-gateway</artifactId>-->
+                <!--<version>${buddycharacteristic.version}</version>-->
+            <!--</dependency>-->
+
+            <!--<dependency>-->
+                <!--<groupId>br.com.codein</groupId>-->
+                <!--<artifactId>fiscalgroup-application</artifactId>-->
+                <!--<version>${fiscalgroup.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>br.com.codein</groupId>-->
+                <!--<artifactId>fiscalgroup-api</artifactId>-->
+                <!--<version>${fiscalgroup.version}</version>-->
+                <!--<type>war</type>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>br.com.codein</groupId>-->
+                <!--<artifactId>fiscalgroup-gateway</artifactId>-->
+                <!--<version>${fiscalgroup.version}</version>-->
+            <!--</dependency>-->
+
+            <!--<dependency>-->
+                <!--<groupId>br.com.codein</groupId>-->
+                <!--<artifactId>department-application</artifactId>-->
+                <!--<version>${department.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>br.com.codein</groupId>-->
+                <!--<artifactId>department-api</artifactId>-->
+                <!--<version>${department.version}</version>-->
+                <!--<type>war</type>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>br.com.codein</groupId>-->
+                <!--<artifactId>department-gateway</artifactId>-->
+                <!--<version>${department.version}</version>-->
+            <!--</dependency>-->
+
+            <dependency>
+                <groupId>br.com.mobiage</groupId>
+                <artifactId>mobiage-domain</artifactId>
+                <version>${mobiage.version}</version>
             </dependency>
             <dependency>
-                <groupId>br.com.codein</groupId>
-                <artifactId>buddyperson-application</artifactId>
-                <version>${buddyperson.version}</version>
+                <groupId>br.com.mobiage</groupId>
+                <artifactId>mobiage-application</artifactId>
+                <version>${mobiage.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>br.com.codein</groupId>
-                        <artifactId>buddyadmin-infrastructure</artifactId>
+                        <groupId>br.com.mobiage</groupId>
+                        <artifactId>mobiage-infrastructure</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency>
-                <groupId>br.com.codein</groupId>
-                <artifactId>buddyperson-api</artifactId>
-                <version>${buddyperson.version}</version>
-                <type>war</type>
-            </dependency>
-            <dependency>
-                <groupId>br.com.codein</groupId>
-                <artifactId>buddyperson-gateway</artifactId>
-                <version>${buddyperson.version}</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>br.com.mobiage</groupId>-->
+                <!--<artifactId>mobiage-api</artifactId>-->
+                <!--<version>${mobiage.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>br.com.mobiage</groupId>-->
+                <!--<artifactId>mobiage-gateway</artifactId>-->
+                <!--<version>${mobiage.version}</version>-->
+            <!--</dependency>-->
 
             <dependency>
-                <groupId>br.com.codein</groupId>
-                <artifactId>buddycharacteristic-application</artifactId>
-                <version>${buddycharacteristic.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>br.com.codein</groupId>
-                <artifactId>buddycharacteristic-api</artifactId>
-                <version>${buddycharacteristic.version}</version>
-                <type>war</type>
-            </dependency>
-            <dependency>
-                <groupId>br.com.codein</groupId>
-                <artifactId>buddycharacteristic-gateway</artifactId>
-                <version>${buddycharacteristic.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>br.com.codein</groupId>
-                <artifactId>fiscalgroup-application</artifactId>
-                <version>${fiscalgroup.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>br.com.codein</groupId>
-                <artifactId>fiscalgroup-api</artifactId>
-                <version>${fiscalgroup.version}</version>
-                <type>war</type>
-            </dependency>
-            <dependency>
-                <groupId>br.com.codein</groupId>
-                <artifactId>fiscalgroup-gateway</artifactId>
-                <version>${fiscalgroup.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>br.com.codein</groupId>
-                <artifactId>department-application</artifactId>
-                <version>${department.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>br.com.codein</groupId>
-                <artifactId>department-api</artifactId>
-                <version>${department.version}</version>
-                <type>war</type>
-            </dependency>
-            <dependency>
-                <groupId>br.com.codein</groupId>
-                <artifactId>department-gateway</artifactId>
-                <version>${department.version}</version>
+                <groupId>commons-digester</groupId>
+                <artifactId>commons-digester</artifactId>
+                <version>2.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

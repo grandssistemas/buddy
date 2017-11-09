@@ -1,6 +1,6 @@
 package br.com.codein.buddyadmin.integration.client.fashionmanager;
 
-import br.com.codein.department.domain.model.department.Department;
+import br.com.mobiage.mobiage.domain.model.department.Department;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 

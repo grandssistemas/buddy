@@ -1,6 +1,6 @@
 package br.com.codein.buddyadmin.application.service;
 
-import br.com.codein.buddyadmin.integration.client.SecurityClient;
+import br.com.codein.buddyadmin.integration.client.SecurityBuddyClient;
 import br.com.gumga.security.domain.model.instance.AddRemove;
 import br.com.gumga.security.domain.model.instance.Instance;
 import br.com.gumga.security.domain.model.instance.OperationEspecification;
@@ -21,7 +21,7 @@ import java.util.List;
 public class SecurityRoleService {
 
     @Autowired
-    private SecurityClient securityClient;
+    private SecurityBuddyClient securityBuddyClient;
 
     @Autowired
     private InstanceService instanceService;
@@ -54,17 +54,17 @@ public class SecurityRoleService {
         RoleAndList roleAndList = new RoleAndList();
         roleAndList.setRole(role);
         roleAndList.setOperationsEspecifications(esp);
-        return securityClient.saveRoleAndList(roleAndList);
+        return securityBuddyClient.saveRoleAndList(roleAndList);
 
     }
 
 
     public Role getRole(Long roleId) {
-        return securityClient.getRole(roleId);
+        return securityBuddyClient.getRole(roleId);
     }
 
     public List<Role> search(QueryObject param) {
 
-        return securityClient.searchRole(param);
+        return securityBuddyClient.searchRole(param);
     }
 }

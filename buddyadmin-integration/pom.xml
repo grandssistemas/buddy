@@ -27,7 +27,7 @@
         <dependency>
             <groupId>io.gumga</groupId>
             <artifactId>gumga-domain</artifactId>
-            <version>1.5.4</version>
+            <version>${io.gumga.version}</version>
             <type>jar</type>
         </dependency>
         <!-- DEPENDENCIAS test   -->
@@ -71,8 +71,8 @@
         </dependency>
 
         <dependency>
-            <groupId>br.com.codein</groupId>
-            <artifactId>buddyperson-domain</artifactId>
+            <groupId>br.com.mobiage</groupId>
+            <artifactId>mobiage-domain</artifactId>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.sf.barcode4j/barcode4j -->
@@ -107,10 +107,10 @@
             <artifactId>security-gateway</artifactId>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>br.com.codein</groupId>
-            <artifactId>department-domain</artifactId>
-            <version>RELEASE</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>br.com.codein</groupId>-->
+            <!--<artifactId>department-domain</artifactId>-->
+            <!--<version>RELEASE</version>-->
+        <!--</dependency>-->
     </dependencies>
 </project>

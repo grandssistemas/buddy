@@ -25,28 +25,29 @@
         <dependency>
             <groupId>br.com.codein</groupId>
             <artifactId>buddyadmin-integration</artifactId>
-            <version>0.1</version>
+            <!--<version>0.1</version>-->
         </dependency>
+
         <dependency>
-            <groupId>br.com.codein</groupId>
-            <artifactId>buddyperson-application</artifactId>
+            <groupId>br.com.mobiage</groupId>
+            <artifactId>mobiage-application</artifactId>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>br.com.codein</groupId>
-            <artifactId>fiscalgroup-application</artifactId>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>br.com.codein</groupId>
-            <artifactId>department-application</artifactId>
-            <type>jar</type>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>br.com.codein</groupId>-->
+            <!--<artifactId>fiscalgroup-application</artifactId>-->
+            <!--<type>jar</type>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>br.com.codein</groupId>-->
+            <!--<artifactId>department-application</artifactId>-->
+            <!--<type>jar</type>-->
+        <!--</dependency>-->
         <!-- DEPENDENCIAS do Framework GUMGA    -->
         <dependency>
             <groupId>io.gumga</groupId>
             <artifactId>gumga-domain</artifactId>
-            <version>1.5.4</version>
+            <version>${io.gumga.version}</version>
             <type>jar</type>
         </dependency>
         <dependency>

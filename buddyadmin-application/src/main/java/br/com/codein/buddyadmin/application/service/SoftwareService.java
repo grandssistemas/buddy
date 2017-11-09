@@ -1,7 +1,7 @@
 package br.com.codein.buddyadmin.application.service;
 
 import br.com.codein.buddyadmin.domain.model.Softwares;
-import br.com.codein.buddyadmin.integration.client.SecurityClient;
+import br.com.codein.buddyadmin.integration.client.SecurityBuddyClient;
 import br.com.gumga.security.domain.model.softwarehouse.Software;
 import io.gumga.core.QueryObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.Set;
 public class SoftwareService {
 
     @Autowired
-    private SecurityClient securityClient;
+    private SecurityBuddyClient securityBuddyClient;
 
 
     public Set<Software> getAll(){
@@ -36,6 +36,6 @@ public class SoftwareService {
         q.setSortField("id");
 
 
-       return securityClient.searchSoftware(q);
+       return securityBuddyClient.searchSoftware(q);
     }
 }
