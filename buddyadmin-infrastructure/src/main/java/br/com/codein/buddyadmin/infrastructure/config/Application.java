@@ -33,6 +33,10 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.application.service.dfe",
         "br.com.mobiage.mobiage.application.service.certificado",
         "br.com.mobiage.mobiage.application.service.paymenttype",
+        "br.com.mobiage.mobiage.application.service.operation",
+        "br.com.mobiage.mobiage.application.service.product",
+        "br.com.mobiage.mobiage.application.service.businessrule",
+        "br.com.mobiage.mobiage.application.service.tributador",
         "br.com.mobiage.integration",
         "io.gumga"
 })
@@ -47,6 +51,10 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.application.repository.storage",
         "br.com.mobiage.mobiage.application.repository.certificado",
         "br.com.mobiage.mobiage.application.repository.paymenttype",
+        "br.com.mobiage.mobiage.application.repository.operation",
+        "br.com.mobiage.mobiage.application.repository.product",
+        "br.com.mobiage.mobiage.application.repository.businessrule",
+        "br.com.mobiage.mobiage.application.repository.tributador",
         "io.gumga"
 })
 @EnableTransactionManagement(proxyTargetClass = true)
@@ -124,6 +132,10 @@ public class Application {
                 "br.com.mobiage.mobiage.domain.model.department",
                 "br.com.mobiage.mobiage.domain.model.storage",
                 "br.com.mobiage.mobiage.domain.model.paymenttype",
+                "br.com.mobiage.mobiage.domain.model.operation",
+                "br.com.mobiage.mobiage.domain.model.businessrule",
+                "br.com.mobiage.mobiage.domain.model.product",
+                "br.com.mobiage.mobiage.domain.model.tributador",
                 "br.com.mobiage.mobiage.domain.model.certificado"
         );
         factory.setDataSource(dataSource);
