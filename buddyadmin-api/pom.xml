@@ -35,6 +35,19 @@
             <artifactId>security-domain</artifactId>
         </dependency>
 
+
+        <dependency>
+            <groupId>br.com.mobiage</groupId>
+            <artifactId>mobiage-application</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>br.com.mobiage</groupId>
+                    <artifactId>mobiage-infrastructure</artifactId>
+                </exclusion>
+            </exclusions>
+            <type>jar</type>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

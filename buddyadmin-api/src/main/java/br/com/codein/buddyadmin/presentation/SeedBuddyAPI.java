@@ -4,6 +4,7 @@ import br.com.codein.buddyadmin.application.service.SeedBuddyService;
 import br.com.mobiage.mobiage.application.service.seed.SeedService;
 import br.com.mobiage.mobiage.domain.model.businessrule.BusinessRule;
 import br.com.mobiage.mobiage.domain.model.characteristic.Characteristic;
+import br.com.mobiage.mobiage.domain.model.department.Department;
 import br.com.mobiage.mobiage.domain.model.fiscal.PersonGroup;
 import br.com.mobiage.mobiage.domain.model.invoice.Prod;
 import br.com.mobiage.mobiage.domain.model.operation.Operation;
@@ -85,6 +86,12 @@ public class SeedBuddyAPI {
     public List<TaxationGroup> seedTaxationGroup(@RequestBody List<TaxationGroup> entities){
         return service.saveTaxationGroup(entities);
     }
+
+    @RequestMapping(value = "/department",method = RequestMethod.POST)
+    public List<Department> seedDepartment(@RequestBody List<Department> entities){
+        return service.saveDepartment(entities);
+    }
+
 
     @RequestMapping(value = "/product",method = RequestMethod.POST)
     public List<Product> seedProduct(@RequestBody List<Product> entities){

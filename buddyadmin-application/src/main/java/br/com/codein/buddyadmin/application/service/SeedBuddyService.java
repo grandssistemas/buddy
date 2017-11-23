@@ -188,7 +188,7 @@ public class SeedBuddyService {
         all.put("individuals",individualService.findAllFat());
         all.put("juridicas",juridicaService.findAllFat());
         all.put("productGroups",productGroupService.findAll());
-        all.put("formulas",formulaService.findAll());
+        all.put("formulas",formulaService.findAll().getValues());
         all.put("taxationGroups",taxationGroupService.findAllFat());
         all.put("departments",departmentService.findAllFat());
         all.put("products",productService.findAllFat());
