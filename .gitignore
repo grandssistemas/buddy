@@ -13,4 +13,4 @@
 /**/src/main/resources/rebel.xml
 *.iml
 /buddyadmin-application/br.com.codein.buddyadmin.domain.model.*/
-/buddyadmin-application/br.com.codein.buddyperson.domain.*/
+/buddyadmin-application/br.com.mobiage.mobiage.domain.model.*/

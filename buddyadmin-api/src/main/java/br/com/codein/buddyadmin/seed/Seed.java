@@ -1,5 +1,9 @@
 package br.com.codein.buddyadmin.seed;
 
+import br.com.mobiage.mobiage.application.service.characteristic.CharacteristicService;
+import br.com.mobiage.mobiage.domain.model.operation.Operation;
+import br.com.mobiage.mobiage.domain.model.operation.OperationType;
+import br.com.mobiage.mobiage.domain.model.product.Product;
 import io.gumga.domain.seed.AppSeed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,12 +21,53 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 
 	private AtomicBoolean started = new AtomicBoolean(false);
 
+//	@Autowired
+//	@Qualifier("roleSeed")
+//	private RoleSeed roleSeed;
+//	@Autowired
+//	@Qualifier("characteristicSeed")
+//	private CharacteristicSeed characteristicSeed;
+
+	@Autowired
+	@Qualifier("paymentTypeSeed")
+	private PaymentTypeSeed paymentTypeSeed;
+	@Autowired
+	@Qualifier("personGroupSeed")
+	private PersonGroupSeed personGroupSeed;
+	@Autowired
+	@Qualifier("productGroupSeed")
+	private ProductGroupSeed productGroupSeed;
+	@Autowired
+	@Qualifier("operationTypeSeed")
+	private OperationTypeSeed operationTypeSeed;
+	@Autowired
+	@Qualifier("businessRuleSeed")
+	private BusinessRuleSeed businessRuleSeed;
+	@Autowired
+	@Qualifier("formulaSeed")
+	private FormulaSeed formulaSeed;
+	@Autowired
+	@Qualifier("taxationGroupSeed")
+	private TaxationGroupSeed taxationGroupSeed;
+	@Autowired
+	@Qualifier("characteristicSeed")
+	private CharacteristicSeed characteristicSeed;
+	@Autowired
+	@Qualifier("departmentSeed")
+	private DepartmentSeed departmentSeed;
+
+	@Autowired
+	@Qualifier("juridicalSeed")
+	private JuridicalSeed juridicalSeed;
+	@Autowired
+	@Qualifier("individualSeed")
+	private IndividualSeed individualSeed;
 	@Autowired
 	@Qualifier("roleSeed")
 	private RoleSeed roleSeed;
 	@Autowired
-	@Qualifier("characteristicSeed")
-	private CharacteristicSeed characteristicSeed;
+	@Qualifier("codigosTributaveisSeed")
+	private CodigosTributaveisSeed codigosTributaveisSeed;
 
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (started.get()) return;
@@ -41,8 +86,19 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 	
 	private List<AppSeed> seeds() {
 		List<AppSeed> list = new LinkedList<>();
-		list.add(roleSeed);
+		list.add(codigosTributaveisSeed);
+		list.add(paymentTypeSeed);
+		list.add(personGroupSeed);
+		list.add(productGroupSeed);
+		list.add(operationTypeSeed);
+		list.add(businessRuleSeed);
+		list.add(formulaSeed);
+		list.add(taxationGroupSeed);
 		list.add(characteristicSeed);
+		list.add(departmentSeed);
+		list.add(roleSeed);
+		list.add(juridicalSeed);
+		list.add(individualSeed);
 		return list;
 	}
 

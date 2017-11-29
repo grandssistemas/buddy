@@ -21,30 +21,66 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = {"br.com.codein", "io.gumga"})
-@EnableJpaRepositories(repositoryFactoryBeanClass = GumgaRepositoryFactoryBean.class, basePackages = {"br.com.codein", "io.gumga"})
+@ComponentScan(basePackages = {
+        "br.com.codein",
+        "br.com.mobiage.mobiage.application.service.person",
+        "br.com.mobiage.mobiage.application.service.fiscalgroup",
+        "br.com.mobiage.mobiage.application.service.configuration",
+        "br.com.mobiage.mobiage.application.service.characteristic",
+        "br.com.mobiage.mobiage.application.service.marking",
+        "br.com.mobiage.mobiage.application.service.department",
+        "br.com.mobiage.mobiage.application.service.storage",
+        "br.com.mobiage.mobiage.application.service.dfe",
+        "br.com.mobiage.mobiage.application.service.certificado",
+        "br.com.mobiage.mobiage.application.service.paymenttype",
+        "br.com.mobiage.mobiage.application.service.operation",
+        "br.com.mobiage.mobiage.application.service.product",
+        "br.com.mobiage.mobiage.application.service.businessrule",
+        "br.com.mobiage.mobiage.application.service.tributador",
+        "br.com.mobiage.integration",
+        "io.gumga"
+})
+@EnableJpaRepositories(repositoryFactoryBeanClass = GumgaRepositoryFactoryBean.class, basePackages = {
+        "br.com.codein",
+        "br.com.mobiage.mobiage.application.repository.person",
+        "br.com.mobiage.mobiage.application.repository.fiscalgroup",
+        "br.com.mobiage.mobiage.application.repository.configuration",
+        "br.com.mobiage.mobiage.application.repository.characteristic",
+        "br.com.mobiage.mobiage.application.repository.marking",
+        "br.com.mobiage.mobiage.application.repository.department",
+        "br.com.mobiage.mobiage.application.repository.storage",
+        "br.com.mobiage.mobiage.application.repository.certificado",
+        "br.com.mobiage.mobiage.application.repository.paymenttype",
+        "br.com.mobiage.mobiage.application.repository.operation",
+        "br.com.mobiage.mobiage.application.repository.product",
+        "br.com.mobiage.mobiage.application.repository.businessrule",
+        "br.com.mobiage.mobiage.application.repository.tributador",
+        "io.gumga"
+})
 @EnableTransactionManagement(proxyTargetClass = true)
+
 public class Application {
 
-    @Bean
-    public static PropertyPlaceholderConfigurer dataConfigPropertyConfigurer() {
-        PropertyPlaceholderConfigurer configurer = new PropertyPlaceholderConfigurer();
-        configurer.setSearchSystemEnvironment(true);
-        return configurer;
-    }
     @Autowired
     private static GumgaValues gumgaValues;
 
     private static Properties properties;
 
     private static Properties getProperties() {
-        if(gumgaValues == null)
+        if (gumgaValues == null)
             gumgaValues = new ApplicationConstants();
 
-        if(properties == null)
+        if (properties == null)
             properties = gumgaValues.getCustomFileProperties();
 
         return properties;
+    }
+
+    @Bean
+    public static PropertyPlaceholderConfigurer dataConfigPropertyConfigurer() {
+        PropertyPlaceholderConfigurer configurer = new PropertyPlaceholderConfigurer();
+        configurer.setSearchSystemEnvironment(true);
+        return configurer;
     }
 
     @Bean
@@ -68,7 +104,7 @@ public class Application {
 
         Properties properties = new Properties();
         properties.put("eclipselink.weaving", "false");
-        properties.put("hibernate.hbm2ddl.auto", "none");
+        properties.put("hibernate.hbm2ddl.auto", "update");
 
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.EJB3NamingStrategy");
@@ -79,13 +115,29 @@ public class Application {
         properties.put("hibernate.connection.useUnicode", "true");
         properties.put("hibernate.jdbc.batch_size", "55");
 
-        properties.put("liquibase.enabled", "true");
-        properties.put("liquibase.drop-first","false");
-        properties.put("liquibase.change-log","src/main/resources/liquibase/changelog-master.xml");
+//        properties.put("liquibase.enabled", "true");
+//        properties.put("liquibase.drop-first", "false");
+//        properties.put("liquibase.change-log", "src/main/resources/liquibase/changelog-master.xml");
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("io.gumga.domain","br.com.codein");
+        factory.setPackagesToScan(
+                "io.gumga.domain",
+                "br.com.codein",
+                "br.com.mobiage.mobiage.domain.model.person",
+                "br.com.mobiage.mobiage.domain.model.fiscal",
+                "br.com.mobiage.mobiage.domain.model.configuration",
+                "br.com.mobiage.mobiage.domain.model.characteristic",
+                "br.com.mobiage.mobiage.domain.model.marking",
+                "br.com.mobiage.mobiage.domain.model.department",
+                "br.com.mobiage.mobiage.domain.model.storage",
+                "br.com.mobiage.mobiage.domain.model.paymenttype",
+                "br.com.mobiage.mobiage.domain.model.operation",
+                "br.com.mobiage.mobiage.domain.model.businessrule",
+                "br.com.mobiage.mobiage.domain.model.product",
+                "br.com.mobiage.mobiage.domain.model.tributador",
+                "br.com.mobiage.mobiage.domain.model.certificado"
+        );
         factory.setDataSource(dataSource);
 
         factory.setJpaProperties(properties);
@@ -94,14 +146,14 @@ public class Application {
         return factory;
     }
 
-    @Bean
-    public static SpringLiquibase liquibase() {
-        SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setDataSource(dataSource());
-        liquibase.setDropFirst(false);
-        liquibase.setChangeLog("classpath:/liquibase/changelog-master.xml");
-        return liquibase;
-    }
+//    @Bean
+//    public static SpringLiquibase liquibase() {
+//        SpringLiquibase liquibase = new SpringLiquibase();
+//        liquibase.setDataSource(dataSource());
+//        liquibase.setDropFirst(false);
+//        liquibase.setChangeLog("classpath:/liquibase/changelog-master.xml");
+//        return liquibase;
+//    }
 
     @Bean
     @Autowired

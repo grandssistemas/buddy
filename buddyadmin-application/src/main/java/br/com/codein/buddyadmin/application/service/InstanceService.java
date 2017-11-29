@@ -1,7 +1,7 @@
 package br.com.codein.buddyadmin.application.service;
 
 import br.com.codein.buddyadmin.application.utils.StringUtils;
-import br.com.codein.buddyadmin.integration.client.SecurityClient;
+import br.com.codein.buddyadmin.integration.client.SecurityBuddyClient;
 import br.com.gumga.security.domain.model.instance.Instance;
 import br.com.gumga.security.domain.model.institutional.Organization;
 import io.gumga.core.QueryObject;
@@ -19,13 +19,13 @@ public class InstanceService {
     private StringUtils stringUtils;
 
     @Autowired
-    private CompanyService companyService;
+    private CompanyBuddyService companyBuddyService;
 
     @Autowired
     private SoftwareService softwareService;
 
     @Autowired
-    private SecurityClient securityClient;
+    private SecurityBuddyClient securityBuddyClient;
 
     @Autowired
     private SecurityRoleService securityRoleService;
@@ -37,7 +37,7 @@ public class InstanceService {
         result.setExpiration(Date.from( new Date().toInstant().plus(60, ChronoUnit.DAYS)));
         result.setOrganization(org);
         result.setSoftwares(softwareService.getAll());
-        Instance created = securityClient.saveInstance(result);
+        Instance created = securityBuddyClient.saveInstance(result);
         securityRoleService.createRole(created, "Papel padrão da " + result.getName());
         return this.getInstance(created.getId());
     }
@@ -49,11 +49,11 @@ public class InstanceService {
         result.setName(name);
         result.setExpiration(expiration);
         String id = stringUtils.extractOrgIdFromOi(organizationOi);
-        Organization org = companyService.getOrganization(Long.valueOf(id));
+        Organization org = companyBuddyService.getOrganization(Long.valueOf(id));
         result.setOrganization(org);
 
         result.setSoftwares(softwareService.getAll());
-        return securityClient.saveInstance(result);
+        return securityBuddyClient.saveInstance(result);
     }
 
     public Instance createInstanceWithRole(String name, Date expiration, String organizationOi) {
@@ -63,7 +63,7 @@ public class InstanceService {
     }
 
     public Instance getInstance(Long instanceId) {
-        return securityClient.getInstance(instanceId);
+        return securityBuddyClient.getInstance(instanceId);
     }
 
     public List<Instance> search(QueryObject param) {
@@ -71,6 +71,6 @@ public class InstanceService {
         if (param.getSearchFields() == null){
             param.setSearchFields("name");
         }
-        return securityClient.searchInstance(param);
+        return securityBuddyClient.searchInstance(param);
     }
 }

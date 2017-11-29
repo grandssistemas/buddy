@@ -31,7 +31,8 @@
         <dependency>
             <groupId>io.gumga</groupId>
             <artifactId>gumga-domain</artifactId>
-            <version>1.5.9</version>
+            <version>${io.gumga.version}</version>
+
         </dependency>
     </dependencies>
     <build>

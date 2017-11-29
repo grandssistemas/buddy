@@ -1,13 +1,23 @@
 package br.com.codein.buddyadmin.domain.model;
 
+
 import io.gumga.domain.GumgaModel;
+import io.gumga.domain.GumgaMultitenancy;
+import io.gumga.domain.GumgaMultitenancyPolicy;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
 
 /**
  * Created by gelatti on 30/01/17.
  */
-public class CompanyDocument extends GumgaModel<Long> {
+@GumgaMultitenancy(policy = GumgaMultitenancyPolicy.ORGANIZATIONAL)
+@SequenceGenerator(name = GumgaModel.SEQ_NAME, sequenceName = "SEQ_COMPANYDOCUMENTBUDDY")
+@Audited
+@Entity
+public class CompanyDocumentBuddy extends GumgaModel<Long> {
 
     @Column(unique = true)
     private String numeroInscricao;

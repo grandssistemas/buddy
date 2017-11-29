@@ -1,6 +1,6 @@
 package br.com.codein.buddyadmin.presentation;
 
-import br.com.codein.buddyadmin.application.service.CompanyService;
+import br.com.codein.buddyadmin.application.service.CompanyBuddyService;
 import br.com.gumga.security.domain.model.institutional.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class PublicAPI {
 
     @Autowired
-    private CompanyService companyService;
+    private CompanyBuddyService companyBuddyService;
 
     @RequestMapping(value="/changeOrganization/{id}", method = RequestMethod.GET)
     public Organization changeOrganization(@PathVariable Long id){
-        return companyService.changeOrganization(id);
+        return companyBuddyService.changeOrganization(id);
     }
 }
