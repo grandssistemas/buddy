@@ -190,7 +190,19 @@ public class SeedBuddyService {
         all.put("productGroups",productGroupService.findAll());
         all.put("formulas",formulaService.findAll().getValues());
         all.put("taxationGroups",taxationGroupService.findAllFat());
-        all.put("departments",departmentService.findAllFat());
+        all.put("departments",departmentService.findAllFat()
+                .stream().map(department -> {
+                    department.setCategories(department.getCategories().stream().map(category -> {
+                        category.setDepartment(null);
+                        category.setProductTypes(category.getProductTypes()
+                                .stream().map(productType -> {
+                                    productType.setCategory(null);
+                                    return productType;
+                                }).collect(Collectors.toSet()));
+                        return category;
+                    }).collect(Collectors.toSet()));
+                    return department;
+                }).collect(Collectors.toList()));
         all.put("products",productService.findAllFat());
 
         return all;

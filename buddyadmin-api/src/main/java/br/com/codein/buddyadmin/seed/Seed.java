@@ -65,6 +65,9 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 	@Autowired
 	@Qualifier("roleSeed")
 	private RoleSeed roleSeed;
+	@Autowired
+	@Qualifier("codigosTributaveisSeed")
+	private CodigosTributaveisSeed codigosTributaveisSeed;
 
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (started.get()) return;
@@ -83,6 +86,7 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 	
 	private List<AppSeed> seeds() {
 		List<AppSeed> list = new LinkedList<>();
+		list.add(codigosTributaveisSeed);
 		list.add(paymentTypeSeed);
 		list.add(personGroupSeed);
 		list.add(productGroupSeed);
