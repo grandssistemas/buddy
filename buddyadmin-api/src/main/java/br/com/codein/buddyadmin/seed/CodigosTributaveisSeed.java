@@ -55,10 +55,15 @@ public class CodigosTributaveisSeed implements AppSeed {
     public void loadSeed() throws IOException {
         cests = new HashMap<>();
         saveNcm();
+        System.out.println("-----------------NCM");
         saveCest();
+        System.out.println("-----------------CEST");
         saveCfop();
+        System.out.println("-----------------CFOP");
         saveCodigoIpi();
+        System.out.println("-----------------IPI");
         saveIBPT();
+        System.out.println("-----------------IBPT");
     }
 
 
