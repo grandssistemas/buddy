@@ -23,4 +23,5 @@
     <include file="classpath:liquibase/product-changelog-master.xml"/>
     <include file="classpath:liquibase/buddyperson-changelog-master.xml"/>
     <include file="v1.1.0-SNAPSHOT-changelog.xml" relativeToChangelogFile="true"/>
+    <include file="v1.2.0-SNAPSHOT-changelog.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
