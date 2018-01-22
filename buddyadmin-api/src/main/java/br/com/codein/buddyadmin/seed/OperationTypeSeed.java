@@ -1,5 +1,6 @@
 package br.com.codein.buddyadmin.seed;
 
+import br.com.mobiage.mobiage.application.service.buddyseed.BuddySeedControlService;
 import br.com.mobiage.mobiage.application.service.operation.OperationService;
 import br.com.mobiage.mobiage.application.service.paymenttype.PaymentFormService;
 import br.com.mobiage.mobiage.domain.model.operation.Operation;
@@ -32,7 +33,8 @@ public class OperationTypeSeed implements AppSeed {
     @Autowired
     private OperationService service;
 
-
+    @Autowired
+    private BuddySeedControlService buddySeedControlService;
 
     @Override
     @Transactional
@@ -112,7 +114,7 @@ public class OperationTypeSeed implements AppSeed {
         operationTypeDXml.setCategory(OperationCategory.XML_RETURN);
         operation.getTypes().add(operationTypeDXml);
 
-        service.save(operation);
+        buddySeedControlService.saveSeedIntegrationFromBuddy(operation, service);
 
 
         Operation operation2 = new Operation();
@@ -221,7 +223,7 @@ public class OperationTypeSeed implements AppSeed {
         operationTypeRE.setCategory(OperationCategory.REVERSED_ENTRY);
         operation2.getTypes().add(operationTypeRE);
 
-        service.save(operation2);
+        buddySeedControlService.saveSeedIntegrationFromBuddy(operation2, service);
 
 
         Operation operation3 = new Operation();
@@ -247,7 +249,7 @@ public class OperationTypeSeed implements AppSeed {
         operationTypePC.setInvoiceObjective(DocumentFinality.NORMAL);
         operationTypePC.setCategory(OperationCategory.CONSIGNMENT_ORDER);
         operation3.getTypes().add(operationTypePC);
-        service.save(operation3);
+        buddySeedControlService.saveSeedIntegrationFromBuddy(operation3, service);
 
     }
 

@@ -1,5 +1,6 @@
 package br.com.codein.buddyadmin.seed;
 
+import br.com.mobiage.mobiage.application.service.buddyseed.BuddySeedControlService;
 import br.com.mobiage.mobiage.application.service.characteristic.CharacteristicService;
 import br.com.mobiage.mobiage.application.service.paymenttype.PaymentFormService;
 import br.com.mobiage.mobiage.domain.model.characteristic.Characteristic;
@@ -32,6 +33,9 @@ public class PaymentTypeSeed implements AppSeed {
 
     @Autowired
     private PaymentFormService service;
+
+    @Autowired
+    private BuddySeedControlService buddySeedControlService;
 
 
 
@@ -66,7 +70,7 @@ public class PaymentTypeSeed implements AppSeed {
         paymentType.setPaymentMethod(PaymentMethodsENUM.DINHEIRO);
         paymentType.setAccountType(AccountType.CAIXA_FISICO);
         paymentCategory.getPaymentTypes().add(paymentType);
-        service.save(paymentForm);
+        buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, service);
 
         /**
          * Cheque, Cartão de Credito, Cartão de Débito, Vale Refeição, Vale Alimentação, Vale Combustivel, Vale Presente
@@ -125,7 +129,7 @@ public class PaymentTypeSeed implements AppSeed {
         paymentTypeDep.setPaymentMethod(PaymentMethodsENUM.OUTROS);
         paymentTypeDep.setAccountType(AccountType.CONTA_CORRENTE);
         paymentCategoryDep.getPaymentTypes().add(paymentTypeDep);
-        service.save(paymentForm);
+        buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, service);
 
 
 
@@ -210,7 +214,7 @@ public class PaymentTypeSeed implements AppSeed {
         paymentTypeTroca.setPaymentCategory(paymentCategory);
         paymentCategoryCrediario.getPaymentTypes().add(paymentTypeTroca);
 
-        service.save(paymentForm);
+        buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, service);
 
     }
 

@@ -86,7 +86,7 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 	
 	private List<AppSeed> seeds() {
 		List<AppSeed> list = new LinkedList<>();
-		list.add(codigosTributaveisSeed);
+//		list.add(codigosTributaveisSeed);
 		list.add(paymentTypeSeed);
 		list.add(personGroupSeed);
 		list.add(productGroupSeed);

@@ -11,8 +11,8 @@
         <io.gumga.version>1.5.22</io.gumga.version>
         <spring.version>4.2.6.RELEASE</spring.version>
         <hibernate.version>4.3.1.Final</hibernate.version>
-        <mobiage.version>0.1</mobiage.version>
-        <security.version>1.5.33</security.version>
+        <mobiage.version>1.19.0-SNAPSHOT</mobiage.version>
+        <security.version>1.2.35</security.version>
         <!--<buddycharacteristic.version>1.1</buddycharacteristic.version>-->
         <!--<fiscalgroup.version>1.0</fiscalgroup.version>-->
         <!--<department.version>1.0</department.version>-->

@@ -6,6 +6,7 @@ import br.com.codein.buddyadmin.integration.client.SecurityBuddyClient;
 import br.com.codein.buddyadmin.integration.client.fashionmanager.DepartmentClient;
 import br.com.codein.buddyadmin.integration.client.fashionmanager.JuridicaClient;
 import br.com.gumga.security.domain.model.institutional.Organization;
+import br.com.mobiage.mobiage.application.service.buddyseed.BuddySeedControlService;
 import br.com.mobiage.mobiage.application.service.businessrule.BusinessRuleService;
 import br.com.mobiage.mobiage.application.service.characteristic.CharacteristicService;
 import br.com.mobiage.mobiage.application.service.department.DepartmentService;
@@ -65,10 +66,6 @@ public class SeedBuddyService {
     private BusinessRuleService businessRuleService;
     @Autowired
     private RoleService roleService;
-//    @Autowired
-//    private CashAccountService cashAccountService;
-//    @Autowired
-//    private PdvService pdvService;
     @Autowired
     private ProductGroupService productGroupService;
     @Autowired
@@ -86,62 +83,53 @@ public class SeedBuddyService {
     @Autowired
     private IndividualService individualService;
 
+    @Autowired
+    private BuddySeedControlService buddySeedControlService;
+
 
 
     @Transactional
     public List<PaymentForm> savePaymentForm(List<PaymentForm> entities) {
-        return entities.stream().map(paymentForm -> paymentFormService.save(paymentForm)).collect(Collectors.toList());
+        return entities.stream().map(paymentForm -> buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, paymentFormService)).collect(Collectors.toList());
     }
 
     @Transactional
     public List<PersonGroup> savePersonGroup(List<PersonGroup> entities) {
-        return entities.stream().map(personGroup -> personGroupService.save(personGroup)).collect(Collectors.toList());
+        return entities.stream().map(personGroup -> buddySeedControlService.saveSeedIntegrationFromBuddy(personGroup, personGroupService)).collect(Collectors.toList());
     }
 
     @Transactional
     public List<Operation> saveOperationType(List<Operation> entities) {
-        return entities.stream().map(operation -> operationService.save(operation)).collect(Collectors.toList());
+        return entities.stream().map(operation -> buddySeedControlService.saveSeedIntegrationFromBuddy(operation, operationService)).collect(Collectors.toList());
     }
 
     @Transactional
     public List<BusinessRule> saveBusinessRule(List<BusinessRule> entities) {
-        entities.forEach(entity -> businessRuleService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, businessRuleService));
         return entities;
     }
 
     @Transactional
     public List<Role> saveRole(List<Role> entities) {
-        entities.forEach(entity -> roleService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, roleService));
         return entities;
     }
 
-//    @Transactional
-//    public List<CashAccount> saveCashAccount(List<CashAccount> entities) {
-//        entities.forEach(entity -> cashAccountService.save(entity));
-//        return entities;
-//    }
-//
-//    @Transactional
-//    public List<Pdv> savePdv(List<Pdv> entities) {
-//        entities.forEach(entity -> pdvService.save(entity));
-//        return entities;
-//    }
-
     @Transactional
     public List<ProductGroup> saveProductGroup(List<ProductGroup> entities) {
-        entities.forEach(entity -> productGroupService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, productGroupService));
         return entities;
     }
 
     @Transactional
     public List<Formula> saveFormula(List<Formula> entities) {
-        entities.forEach(entity -> formulaService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, formulaService));
         return entities;
     }
 
     @Transactional
     public List<TaxationGroup> saveTaxationGroup(List<TaxationGroup> entities) {
-        entities.forEach(entity -> taxationGroupService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, taxationGroupService));
         return entities;
     }
 
@@ -153,25 +141,25 @@ public class SeedBuddyService {
 
     @Transactional
     public List<Characteristic> saveCharacteristic(List<Characteristic> entities) {
-        entities.forEach(entity -> characteristicService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, characteristicService));
         return entities;
     }
 
     @Transactional
     public List<Department> saveDepartment(List<Department> entities) {
-        entities.forEach(entity -> departmentService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, departmentService));
         return entities;
     }
 
     @Transactional
     public List<Juridica> saveJuridica(List<Juridica> entities) {
-        entities.forEach(entity -> juridicaService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, juridicaService));
         return entities;
     }
 
     @Transactional
     public List<Individual> saveIndividual(List<Individual> entities) {
-        entities.forEach(entity -> individualService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, individualService));
         return entities;
     }
 
@@ -188,7 +176,7 @@ public class SeedBuddyService {
         all.put("individuals",individualService.findAllFat());
         all.put("juridicas",juridicaService.findAllFat());
         all.put("productGroups",productGroupService.findAll());
-        all.put("formulas",formulaService.findAll().getValues());
+        all.put("formulas",formulaService.findAll());
         all.put("taxationGroups",taxationGroupService.findAllFat());
         all.put("departments",departmentService.findAllFat()
                 .stream().map(department -> {

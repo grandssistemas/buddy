@@ -37,6 +37,7 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.application.service.product",
         "br.com.mobiage.mobiage.application.service.businessrule",
         "br.com.mobiage.mobiage.application.service.tributador",
+        "br.com.mobiage.mobiage.application.service.buddyseed",
         "br.com.mobiage.integration",
         "io.gumga"
 })
@@ -55,6 +56,7 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.application.repository.product",
         "br.com.mobiage.mobiage.application.repository.businessrule",
         "br.com.mobiage.mobiage.application.repository.tributador",
+        "br.com.mobiage.mobiage.application.repository.buddyseed",
         "io.gumga"
 })
 @EnableTransactionManagement(proxyTargetClass = true)
@@ -104,12 +106,12 @@ public class Application {
 
         Properties properties = new Properties();
         properties.put("eclipselink.weaving", "false");
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create");
 
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.EJB3NamingStrategy");
         properties.put("hibernate.show_sql", "false");
-        //properties.put("hibernate.format_sql", "true");
+//        properties.put("hibernate.format_sql", "true");
         properties.put("hibernate.connection.charSet", "UTF-8");
         properties.put("hibernate.connection.characterEncoding", "UTF-8");
         properties.put("hibernate.connection.useUnicode", "true");
@@ -136,7 +138,8 @@ public class Application {
                 "br.com.mobiage.mobiage.domain.model.businessrule",
                 "br.com.mobiage.mobiage.domain.model.product",
                 "br.com.mobiage.mobiage.domain.model.tributador",
-                "br.com.mobiage.mobiage.domain.model.certificado"
+                "br.com.mobiage.mobiage.domain.model.certificado",
+                "br.com.mobiage.mobiage.domain.model.buddyseed"
         );
         factory.setDataSource(dataSource);
 

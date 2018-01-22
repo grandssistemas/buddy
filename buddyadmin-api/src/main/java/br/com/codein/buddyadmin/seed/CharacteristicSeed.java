@@ -1,5 +1,6 @@
 package br.com.codein.buddyadmin.seed;
 
+import br.com.mobiage.mobiage.application.service.buddyseed.BuddySeedControlService;
 import br.com.mobiage.mobiage.application.service.businessrule.BusinessRuleService;
 import br.com.mobiage.mobiage.application.service.characteristic.CharacteristicService;
 import br.com.mobiage.mobiage.application.service.operation.OperationTypeService;
@@ -35,7 +36,8 @@ public class CharacteristicSeed implements AppSeed {
     @Autowired
     private CharacteristicService service;
 
-
+    @Autowired
+    private BuddySeedControlService buddySeedControlService;
 
     @Override
     @Transactional
@@ -84,7 +86,8 @@ public class CharacteristicSeed implements AppSeed {
         volumeValue.add(new OptionValueCharacteristic("5000ml"));
         volumeValue.add(new OptionValueCharacteristic("10000ml"));
         volumeValue.add(new OptionValueCharacteristic("20000ml"));
-        Characteristic volume = service.save(new Characteristic("Volume", ValueTypeCharacteristic.MULTISELECAO, volumeValue, CharacteristicOrigin.PRODUCT));
+        Characteristic volume = new Characteristic("Volume", ValueTypeCharacteristic.MULTISELECAO, volumeValue, CharacteristicOrigin.PRODUCT);
+        volume = buddySeedControlService.saveSeedIntegrationFromBuddy(volume, service);
         volume.setIntegrationId(volume.getId());
         service.save(volume);
 
@@ -95,7 +98,8 @@ public class CharacteristicSeed implements AppSeed {
         embalagemValue.add(new OptionValueCharacteristic("Caixa"));
         embalagemValue.add(new OptionValueCharacteristic("Galão"));
         embalagemValue.add(new OptionValueCharacteristic("Copo"));
-        Characteristic embalagem = service.save(new Characteristic("Embalagem", ValueTypeCharacteristic.MULTISELECAO, embalagemValue, CharacteristicOrigin.PRODUCT));
+        Characteristic embalagem = new Characteristic("Embalagem", ValueTypeCharacteristic.MULTISELECAO, embalagemValue, CharacteristicOrigin.PRODUCT);
+        embalagem = buddySeedControlService.saveSeedIntegrationFromBuddy(embalagem, service);
         embalagem.setIntegrationId(embalagem.getId());
         service.save(embalagem);
 
@@ -199,7 +203,8 @@ public class CharacteristicSeed implements AppSeed {
         tamanhoValue.add(new OptionValueCharacteristic("73"));
         tamanhoValue.add(new OptionValueCharacteristic("74"));
         tamanhoValue.add(new OptionValueCharacteristic("75"));
-        Characteristic tamanho = service.save(new Characteristic("TAMANHO", ValueTypeCharacteristic.MULTISELECAO, tamanhoValue, CharacteristicOrigin.PRODUCT));
+        Characteristic tamanho = new Characteristic("TAMANHO", ValueTypeCharacteristic.MULTISELECAO, tamanhoValue, CharacteristicOrigin.PRODUCT);
+        tamanho = buddySeedControlService.saveSeedIntegrationFromBuddy(tamanho, service);
         tamanho.setIntegrationId(tamanho.getId());
         service.save(tamanho);
 
@@ -223,7 +228,8 @@ public class CharacteristicSeed implements AppSeed {
         corValue.add(new OptionValueCharacteristic("BORDÔ"));
         corValue.add(new OptionValueCharacteristic("VIOLETA"));
         corValue.add(new OptionValueCharacteristic("SEM COR"));
-        Characteristic cores = service.save(new Characteristic("CORES", ValueTypeCharacteristic.MULTISELECAO, corValue, CharacteristicOrigin.PRODUCT));
+        Characteristic cores = new Characteristic("CORES", ValueTypeCharacteristic.MULTISELECAO, corValue, CharacteristicOrigin.PRODUCT);
+        cores = buddySeedControlService.saveSeedIntegrationFromBuddy(cores, service);
         cores.setIntegrationId(cores.getId());
         service.save(cores);
     }

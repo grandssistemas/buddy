@@ -1,5 +1,6 @@
 package br.com.codein.buddyadmin.seed;
 
+import br.com.mobiage.mobiage.application.service.buddyseed.BuddySeedControlService;
 import br.com.mobiage.mobiage.application.service.businessrule.BusinessRuleService;
 import br.com.mobiage.mobiage.application.service.fiscalgroup.PersonGroupService;
 import br.com.mobiage.mobiage.application.service.operation.OperationTypeService;
@@ -42,6 +43,9 @@ public class JuridicalSeed implements AppSeed {
     @Autowired
     private PersonGroupService personGroupService;
 
+    @Autowired
+    private BuddySeedControlService buddySeedControlService;
+
 
 
     @Override
@@ -74,7 +78,7 @@ public class JuridicalSeed implements AppSeed {
         j.setGroup(groups.get(0));
         j.setIntegrationId(1L);
 
-        service.save(j);
+        buddySeedControlService.saveSeedIntegrationFromBuddy(j, service);
     }
 
 
