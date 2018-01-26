@@ -70,7 +70,14 @@ public class PaymentTypeSeed implements AppSeed {
         paymentType.setPaymentMethod(PaymentMethodsENUM.DINHEIRO);
         paymentType.setAccountType(AccountType.CAIXA_FISICO);
         paymentCategory.getPaymentTypes().add(paymentType);
-        buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, service);
+        paymentForm = buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, service);
+
+        paymentForm.getPaymentCategories().stream().forEach(category -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
+            category.getPaymentTypes().stream().forEach(productType -> {
+                buddySeedControlService.saveSeedIntegrationFromBuddy(productType, productType.getId());
+            });
+        });
 
         /**
          * Cheque, Cartão de Credito, Cartão de Débito, Vale Refeição, Vale Alimentação, Vale Combustivel, Vale Presente
@@ -129,8 +136,13 @@ public class PaymentTypeSeed implements AppSeed {
         paymentTypeDep.setPaymentMethod(PaymentMethodsENUM.OUTROS);
         paymentTypeDep.setAccountType(AccountType.CONTA_CORRENTE);
         paymentCategoryDep.getPaymentTypes().add(paymentTypeDep);
-        buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, service);
-
+        paymentForm = buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, service);
+        paymentForm.getPaymentCategories().stream().forEach(category -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
+            category.getPaymentTypes().stream().forEach(productType -> {
+                buddySeedControlService.saveSeedIntegrationFromBuddy(productType, productType.getId());
+            });
+        });
 
 
         /**
@@ -190,6 +202,8 @@ public class PaymentTypeSeed implements AppSeed {
         paymentForm.getPaymentCategories().add(paymentCategoryCrediario);
 
 
+
+
         PaymentType paymentTypeCL = new PaymentType();
         paymentTypeCL.setName("Crediário Loja");
         paymentTypeCL.setIcon("fa fa-shopping-bag");
@@ -214,8 +228,13 @@ public class PaymentTypeSeed implements AppSeed {
         paymentTypeTroca.setPaymentCategory(paymentCategory);
         paymentCategoryCrediario.getPaymentTypes().add(paymentTypeTroca);
 
-        buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, service);
-
+        paymentForm = buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, service);
+        paymentForm.getPaymentCategories().stream().forEach(category -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
+            category.getPaymentTypes().stream().forEach(productType -> {
+                buddySeedControlService.saveSeedIntegrationFromBuddy(productType, productType.getId());
+            });
+        });
     }
 
 }

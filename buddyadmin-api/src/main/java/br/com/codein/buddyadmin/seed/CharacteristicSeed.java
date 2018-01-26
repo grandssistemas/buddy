@@ -89,6 +89,9 @@ public class CharacteristicSeed implements AppSeed {
         Characteristic volume = new Characteristic("Volume", ValueTypeCharacteristic.MULTISELECAO, volumeValue, CharacteristicOrigin.PRODUCT);
         volume = buddySeedControlService.saveSeedIntegrationFromBuddy(volume, service);
         volume.setIntegrationId(volume.getId());
+        volume.getValues().stream().forEach(vol -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(vol, vol.getId());
+        });
         service.save(volume);
 
         List<OptionValueCharacteristic> embalagemValue = new ArrayList<>();
@@ -100,6 +103,9 @@ public class CharacteristicSeed implements AppSeed {
         embalagemValue.add(new OptionValueCharacteristic("Copo"));
         Characteristic embalagem = new Characteristic("Embalagem", ValueTypeCharacteristic.MULTISELECAO, embalagemValue, CharacteristicOrigin.PRODUCT);
         embalagem = buddySeedControlService.saveSeedIntegrationFromBuddy(embalagem, service);
+        embalagem.getValues().stream().forEach(embalagemValue1 -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(embalagemValue1, embalagemValue1.getId());
+        });
         embalagem.setIntegrationId(embalagem.getId());
         service.save(embalagem);
 
@@ -205,6 +211,9 @@ public class CharacteristicSeed implements AppSeed {
         tamanhoValue.add(new OptionValueCharacteristic("75"));
         Characteristic tamanho = new Characteristic("TAMANHO", ValueTypeCharacteristic.MULTISELECAO, tamanhoValue, CharacteristicOrigin.PRODUCT);
         tamanho = buddySeedControlService.saveSeedIntegrationFromBuddy(tamanho, service);
+        tamanho.getValues().stream().forEach(optionValueCharacteristic -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(optionValueCharacteristic, optionValueCharacteristic.getId());
+        });
         tamanho.setIntegrationId(tamanho.getId());
         service.save(tamanho);
 
@@ -231,6 +240,9 @@ public class CharacteristicSeed implements AppSeed {
         Characteristic cores = new Characteristic("CORES", ValueTypeCharacteristic.MULTISELECAO, corValue, CharacteristicOrigin.PRODUCT);
         cores = buddySeedControlService.saveSeedIntegrationFromBuddy(cores, service);
         cores.setIntegrationId(cores.getId());
+        cores.getValues().stream().forEach(optionValueCharacteristic -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(optionValueCharacteristic, optionValueCharacteristic.getId());
+        });
         service.save(cores);
     }
 

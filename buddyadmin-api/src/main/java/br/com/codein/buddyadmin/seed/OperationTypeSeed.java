@@ -114,8 +114,10 @@ public class OperationTypeSeed implements AppSeed {
         operationTypeDXml.setCategory(OperationCategory.XML_RETURN);
         operation.getTypes().add(operationTypeDXml);
 
-        buddySeedControlService.saveSeedIntegrationFromBuddy(operation, service);
-
+        operation = buddySeedControlService.saveSeedIntegrationFromBuddy(operation, service);
+        operation.getTypes().stream().forEach(category -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
+        });
 
         Operation operation2 = new Operation();
         operation2.setName("Saída");
@@ -223,8 +225,10 @@ public class OperationTypeSeed implements AppSeed {
         operationTypeRE.setCategory(OperationCategory.REVERSED_ENTRY);
         operation2.getTypes().add(operationTypeRE);
 
-        buddySeedControlService.saveSeedIntegrationFromBuddy(operation2, service);
-
+        operation2 = buddySeedControlService.saveSeedIntegrationFromBuddy(operation2, service);
+        operation2.getTypes().stream().forEach(category -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
+        });
 
         Operation operation3 = new Operation();
         operation3.setName("Informação");
@@ -249,8 +253,10 @@ public class OperationTypeSeed implements AppSeed {
         operationTypePC.setInvoiceObjective(DocumentFinality.NORMAL);
         operationTypePC.setCategory(OperationCategory.CONSIGNMENT_ORDER);
         operation3.getTypes().add(operationTypePC);
-        buddySeedControlService.saveSeedIntegrationFromBuddy(operation3, service);
-
+        operation3 = buddySeedControlService.saveSeedIntegrationFromBuddy(operation3, service);
+        operation3.getTypes().stream().forEach(category -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
+        });
     }
 
 }

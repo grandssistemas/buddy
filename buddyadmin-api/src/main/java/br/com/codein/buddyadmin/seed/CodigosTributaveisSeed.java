@@ -62,8 +62,8 @@ public class CodigosTributaveisSeed implements AppSeed {
         System.out.println("-----------------CFOP");
         saveCodigoIpi();
         System.out.println("-----------------IPI");
-        saveIBPT();
-        System.out.println("-----------------IBPT");
+//        saveIBPT();
+//        System.out.println("-----------------IBPT");
     }
 
 

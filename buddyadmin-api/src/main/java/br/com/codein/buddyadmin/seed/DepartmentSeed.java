@@ -207,11 +207,17 @@ public class DepartmentSeed implements AppSeed {
                     System.out.println(p.getName());
                 }
                 for (AssociativeCharacteristic a : p.getCharacteristics()) {
-                    associativeCharacteristicService.save(a);
+                    buddySeedControlService.saveSeedIntegrationFromBuddy(a, associativeCharacteristicService);
                 }
             }
         }
         buddySeedControlService.saveSeedIntegrationFromBuddy(moda, service);
+        moda.getCategories().stream().forEach(category -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
+            category.getProductTypes().stream().forEach(productType -> {
+                buddySeedControlService.saveSeedIntegrationFromBuddy(productType, productType.getId());
+            });
+        });
 
         ProductType pt = new ProductType("Mouse", Arrays.asList("Tipo de Produto", "Marca"), TypeLabeling.COMMON, false, "MS");
         Category cat = new Category("Perifericos", new HashSet<>(Arrays.asList(pt)), "PER");
@@ -219,6 +225,12 @@ public class DepartmentSeed implements AppSeed {
         Department department = new Department("Informática", new HashSet<>(Arrays.asList(cat)), "INF");
         cat.setDepartment(department);
         buddySeedControlService.saveSeedIntegrationFromBuddy(department, service);
+        department.getCategories().stream().forEach(category -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
+            category.getProductTypes().stream().forEach(productType -> {
+                buddySeedControlService.saveSeedIntegrationFromBuddy(productType, productType.getId());
+            });
+        });
     }
 
 

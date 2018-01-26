@@ -175,6 +175,9 @@ public class RoleSeed implements AppSeed {
             civilValue.add(optionValueCharacteristicService.save(new OptionValueCharacteristic("Viúvo(a)")));
             Characteristic civil = new Characteristic("Estado Civil", ValueTypeCharacteristic.SELECAO, civilValue, CharacteristicOrigin.PERSON);
             buddySeedControlService.saveSeedIntegrationFromBuddy(civil, this.characteristicService);
+            civil.getValues().stream().forEach(optionValueCharacteristic -> {
+                buddySeedControlService.saveSeedIntegrationFromBuddy(optionValueCharacteristic, optionValueCharacteristic.getId());
+            });
             AssociativeCharacteristic acivil = new AssociativeCharacteristic(civil, 0, SpecializationOrigin.FISICA);
             pf.getAttributes().add(acivil);
 
@@ -188,6 +191,9 @@ public class RoleSeed implements AppSeed {
             naturalValue.add(optionValueCharacteristicService.save(new OptionValueCharacteristic("Estrangeira")));
             Characteristic natural = new Characteristic("Nacionalidade", ValueTypeCharacteristic.SELECAO, naturalValue, CharacteristicOrigin.PERSON);
             buddySeedControlService.saveSeedIntegrationFromBuddy(natural, this.characteristicService);
+            natural.getValues().stream().forEach(optionValueCharacteristic -> {
+                buddySeedControlService.saveSeedIntegrationFromBuddy(optionValueCharacteristic, optionValueCharacteristic.getId());
+            });
             AssociativeCharacteristic anatural = new AssociativeCharacteristic(natural, 0, SpecializationOrigin.FISICA);
             pf.getAttributes().add(anatural);
             geral.getGroupAttributes().add(pf);
