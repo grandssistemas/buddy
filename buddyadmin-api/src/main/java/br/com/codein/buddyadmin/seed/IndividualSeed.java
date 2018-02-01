@@ -1,5 +1,6 @@
 package br.com.codein.buddyadmin.seed;
 
+import br.com.mobiage.mobiage.application.service.buddyseed.BuddySeedControlService;
 import br.com.mobiage.mobiage.application.service.fiscalgroup.PersonGroupService;
 import br.com.mobiage.mobiage.application.service.person.IndividualService;
 import br.com.mobiage.mobiage.application.service.person.JuridicaService;
@@ -31,6 +32,8 @@ public class IndividualSeed implements AppSeed {
     private RoleService roleService;
     @Autowired
     private PersonGroupService personGroupService;
+    @Autowired
+    private BuddySeedControlService buddySeedControlService;
 
 
 
@@ -64,7 +67,7 @@ public class IndividualSeed implements AppSeed {
         List<PersonGroup> groups = personGroupService.getAllActives().getValues();
         individual.setGroup(groups.get(0));
         individual.setIntegrationId(2L);
-        service.save(individual);
+        buddySeedControlService.saveSeedIntegrationFromBuddy(individual, service);
 
 //        List<PersonGroup> groups = personGroupService.getAllActives().getValues();
 //        Juridica company = companyService.getByOrganizationCode(GumgaThreadScope.organizationCode.get());
@@ -97,7 +100,7 @@ public class IndividualSeed implements AppSeed {
         }
         finalconsumer.setGroup(groups.get(0));
         finalconsumer.setIntegrationId(3L);
-        service.save(finalconsumer);
+        buddySeedControlService.saveSeedIntegrationFromBuddy(finalconsumer, service);
     }
 
 

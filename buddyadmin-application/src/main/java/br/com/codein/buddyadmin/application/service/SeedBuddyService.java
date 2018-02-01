@@ -6,11 +6,14 @@ import br.com.codein.buddyadmin.integration.client.SecurityBuddyClient;
 import br.com.codein.buddyadmin.integration.client.fashionmanager.DepartmentClient;
 import br.com.codein.buddyadmin.integration.client.fashionmanager.JuridicaClient;
 import br.com.gumga.security.domain.model.institutional.Organization;
+import br.com.mobiage.mobiage.application.service.buddyseed.BuddySeedControlService;
 import br.com.mobiage.mobiage.application.service.businessrule.BusinessRuleService;
 import br.com.mobiage.mobiage.application.service.characteristic.CharacteristicService;
+import br.com.mobiage.mobiage.application.service.characteristic.OptionValueCharacteristicService;
 import br.com.mobiage.mobiage.application.service.department.DepartmentService;
 import br.com.mobiage.mobiage.application.service.fiscalgroup.PersonGroupService;
 import br.com.mobiage.mobiage.application.service.operation.OperationService;
+import br.com.mobiage.mobiage.application.service.paymenttype.PaymentCategoryService;
 import br.com.mobiage.mobiage.application.service.paymenttype.PaymentFormService;
 import br.com.mobiage.mobiage.application.service.pdv.CashAccountService;
 import br.com.mobiage.mobiage.application.service.pdv.PdvService;
@@ -24,9 +27,11 @@ import br.com.mobiage.mobiage.application.service.tributador.FormulaService;
 import br.com.mobiage.mobiage.application.service.tributador.TaxationGroupService;
 import br.com.mobiage.mobiage.domain.model.businessrule.BusinessRule;
 import br.com.mobiage.mobiage.domain.model.characteristic.Characteristic;
+import br.com.mobiage.mobiage.domain.model.characteristic.OptionValueCharacteristic;
 import br.com.mobiage.mobiage.domain.model.department.Department;
 import br.com.mobiage.mobiage.domain.model.fiscal.PersonGroup;
 import br.com.mobiage.mobiage.domain.model.operation.Operation;
+import br.com.mobiage.mobiage.domain.model.paymenttype.PaymentCategory;
 import br.com.mobiage.mobiage.domain.model.paymenttype.PaymentForm;
 import br.com.mobiage.mobiage.domain.model.pdv.CashAccount;
 import br.com.mobiage.mobiage.domain.model.pdv.Pdv;
@@ -65,10 +70,6 @@ public class SeedBuddyService {
     private BusinessRuleService businessRuleService;
     @Autowired
     private RoleService roleService;
-//    @Autowired
-//    private CashAccountService cashAccountService;
-//    @Autowired
-//    private PdvService pdvService;
     @Autowired
     private ProductGroupService productGroupService;
     @Autowired
@@ -86,62 +87,75 @@ public class SeedBuddyService {
     @Autowired
     private IndividualService individualService;
 
-
+    @Autowired
+    private BuddySeedControlService buddySeedControlService;
+    @Autowired
+    private OptionValueCharacteristicService optionValueCharacteristicService;
 
     @Transactional
     public List<PaymentForm> savePaymentForm(List<PaymentForm> entities) {
-        return entities.stream().map(paymentForm -> paymentFormService.save(paymentForm)).collect(Collectors.toList());
+        entities.stream().forEach(paymentForm -> {
+            paymentForm = buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, paymentFormService);
+            paymentForm.getPaymentCategories().forEach(paymentCategory -> {
+                paymentCategory = buddySeedControlService.saveSeedIntegrationFromBuddy(paymentCategory, paymentCategory.getId());
+                paymentCategory.getPaymentTypes().forEach(paymentType -> {
+                    buddySeedControlService.saveSeedIntegrationFromBuddy(paymentType, paymentType.getId());
+                });
+            });
+        });
+        return entities;
     }
 
     @Transactional
     public List<PersonGroup> savePersonGroup(List<PersonGroup> entities) {
-        return entities.stream().map(personGroup -> personGroupService.save(personGroup)).collect(Collectors.toList());
+        return entities.stream().map(personGroup -> buddySeedControlService.saveSeedIntegrationFromBuddy(personGroup, personGroupService)).collect(Collectors.toList());
     }
 
     @Transactional
     public List<Operation> saveOperationType(List<Operation> entities) {
-        return entities.stream().map(operation -> operationService.save(operation)).collect(Collectors.toList());
+        entities.forEach(operation -> {
+            operation = buddySeedControlService.saveSeedIntegrationFromBuddy(operation, operationService);
+            operation.getTypes().forEach(operationType -> {
+                buddySeedControlService.saveSeedIntegrationFromBuddy(operationType, operationType.getId());
+            });
+        });
+
+        return entities;
     }
 
     @Transactional
     public List<BusinessRule> saveBusinessRule(List<BusinessRule> entities) {
-        entities.forEach(entity -> businessRuleService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, businessRuleService));
         return entities;
     }
 
     @Transactional
     public List<Role> saveRole(List<Role> entities) {
-        entities.forEach(entity -> roleService.save(entity));
+        entities.forEach((Role entity) -> {
+            entity = buddySeedControlService.saveSeedIntegrationFromBuddy(entity, roleService);
+            entity.getGroupAttributes().stream().forEach(groupRoleAttribute -> {
+               groupRoleAttribute = buddySeedControlService.saveSeedIntegrationFromBuddy(groupRoleAttribute,groupRoleAttribute.getId());
+               groupRoleAttribute.getAttributes().stream().forEach(associativeCharacteristic -> buddySeedControlService.saveSeedIntegrationFromBuddy(associativeCharacteristic,associativeCharacteristic.getId()));
+            });
+        });
         return entities;
     }
 
-//    @Transactional
-//    public List<CashAccount> saveCashAccount(List<CashAccount> entities) {
-//        entities.forEach(entity -> cashAccountService.save(entity));
-//        return entities;
-//    }
-//
-//    @Transactional
-//    public List<Pdv> savePdv(List<Pdv> entities) {
-//        entities.forEach(entity -> pdvService.save(entity));
-//        return entities;
-//    }
-
     @Transactional
     public List<ProductGroup> saveProductGroup(List<ProductGroup> entities) {
-        entities.forEach(entity -> productGroupService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, productGroupService));
         return entities;
     }
 
     @Transactional
     public List<Formula> saveFormula(List<Formula> entities) {
-        entities.forEach(entity -> formulaService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, formulaService));
         return entities;
     }
 
     @Transactional
     public List<TaxationGroup> saveTaxationGroup(List<TaxationGroup> entities) {
-        entities.forEach(entity -> taxationGroupService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, taxationGroupService));
         return entities;
     }
 
@@ -153,25 +167,44 @@ public class SeedBuddyService {
 
     @Transactional
     public List<Characteristic> saveCharacteristic(List<Characteristic> entities) {
-        entities.forEach(entity -> characteristicService.save(entity));
+        entities.forEach(entity -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(entity, characteristicService);
+            if(entity.getValues() != null && !entity.getValues().isEmpty())
+                entity.getValues().stream().forEach(optionValueCharacteristic -> {
+                    buddySeedControlService.saveSeedIntegrationFromBuddy(optionValueCharacteristic, optionValueCharacteristic.getId());
+                });
+        });
         return entities;
     }
 
     @Transactional
     public List<Department> saveDepartment(List<Department> entities) {
-        entities.forEach(entity -> departmentService.save(entity));
+        entities.forEach(entity -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(entity, departmentService);
+            entity.getCategories().stream().forEach(category -> {
+                buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
+                category.getProductTypes().stream().forEach(productType -> {
+                    buddySeedControlService.saveSeedIntegrationFromBuddy(productType, productType.getId());
+                    if(productType.getCharacteristics() != null && !productType.getCharacteristics().isEmpty()){
+                        productType.getCharacteristics().stream().forEach(associativeCharacteristic -> {
+                            buddySeedControlService.saveSeedIntegrationFromBuddy(associativeCharacteristic, associativeCharacteristic.getId());
+                        });
+                    }
+                });
+            });
+        });
         return entities;
     }
 
     @Transactional
     public List<Juridica> saveJuridica(List<Juridica> entities) {
-        entities.forEach(entity -> juridicaService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, juridicaService));
         return entities;
     }
 
     @Transactional
     public List<Individual> saveIndividual(List<Individual> entities) {
-        entities.forEach(entity -> individualService.save(entity));
+        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, individualService));
         return entities;
     }
 
@@ -188,7 +221,7 @@ public class SeedBuddyService {
         all.put("individuals",individualService.findAllFat());
         all.put("juridicas",juridicaService.findAllFat());
         all.put("productGroups",productGroupService.findAll());
-        all.put("formulas",formulaService.findAll().getValues());
+        all.put("formulas",formulaService.findAll());
         all.put("taxationGroups",taxationGroupService.findAllFat());
         all.put("departments",departmentService.findAllFat()
                 .stream().map(department -> {

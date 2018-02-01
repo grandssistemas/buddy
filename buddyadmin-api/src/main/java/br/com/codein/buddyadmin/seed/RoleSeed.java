@@ -1,5 +1,6 @@
 package br.com.codein.buddyadmin.seed;
 
+import br.com.mobiage.mobiage.application.service.buddyseed.BuddySeedControlService;
 import br.com.mobiage.mobiage.application.service.characteristic.CharacteristicService;
 import br.com.mobiage.mobiage.application.service.characteristic.OptionValueCharacteristicService;
 import br.com.mobiage.mobiage.application.service.person.RoleService;
@@ -36,6 +37,9 @@ public class RoleSeed implements AppSeed {
     @Autowired
     private OptionValueCharacteristicService optionValueCharacteristicService;
 
+    @Autowired
+    private BuddySeedControlService buddySeedControlService;
+
 
 
     @Override
@@ -51,7 +55,7 @@ public class RoleSeed implements AppSeed {
             Role client = new Role("Cliente", RoleCategory.CLIENT);
             client.setColor("#1c84c6");
             client.setIntegrationId(1L);
-            service.save(client);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(client, service);
         }
 
 
@@ -59,7 +63,7 @@ public class RoleSeed implements AppSeed {
             Role provider = new Role("Fornecedor", RoleCategory.PROVIDER);
             provider.setColor("#f8ac59");
             provider.setIntegrationId(2L);
-            service.save(provider);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(provider, service);
         }
 
 
@@ -68,20 +72,20 @@ public class RoleSeed implements AppSeed {
             transporter.setColor("#23c6c8");
             GroupRoleAttribute dadosVei = new GroupRoleAttribute("Dados Veiculo");
             Characteristic placa = new Characteristic("Placa do Veiculo", ValueTypeCharacteristic.TEXTO, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(placa);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(placa, this.characteristicService);
             AssociativeCharacteristic aplaca = new AssociativeCharacteristic(placa, 0);
             dadosVei.getAttributes().add(aplaca);
             Characteristic cidVeiculo = new Characteristic("Cidade Veiculo", ValueTypeCharacteristic.TEXTO, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(cidVeiculo);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(cidVeiculo, this.characteristicService);
             AssociativeCharacteristic acidVeiculo = new AssociativeCharacteristic(cidVeiculo, 0);
             dadosVei.getAttributes().add(acidVeiculo);
             Characteristic estVeiculo = new Characteristic("Estado Veiculo", ValueTypeCharacteristic.TEXTO, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(estVeiculo);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(estVeiculo, this.characteristicService);
             AssociativeCharacteristic aestVeiculo = new AssociativeCharacteristic(estVeiculo, 0);
             dadosVei.getAttributes().add(aestVeiculo);
             transporter.getGroupAttributes().add(dadosVei);
             transporter.setIntegrationId(3L);
-            service.save(transporter);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(transporter, service);
         }
 
         Characteristic cargo = null;
@@ -91,44 +95,44 @@ public class RoleSeed implements AppSeed {
             employee.setColor("#1ab394");
             GroupRoleAttribute general = new GroupRoleAttribute("Gerais");
             Characteristic setor = new Characteristic("Setor", ValueTypeCharacteristic.TEXTO, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(setor);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(setor, this.characteristicService);
             AssociativeCharacteristic asetor = new AssociativeCharacteristic(setor, 0);
             general.getAttributes().add(asetor);
             cargo = new Characteristic("Cargo", ValueTypeCharacteristic.TEXTO, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(cargo);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(cargo, this.characteristicService);
             AssociativeCharacteristic acargo = new AssociativeCharacteristic(cargo, 0);
             general.getAttributes().add(acargo);
             Characteristic admissao = new Characteristic("Data de Admissão", ValueTypeCharacteristic.DATA, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(admissao);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(admissao, this.characteristicService);
             AssociativeCharacteristic aadmissao = new AssociativeCharacteristic(admissao, 0);
             general.getAttributes().add(aadmissao);
             Characteristic demissao = new Characteristic("Data de Demissão", ValueTypeCharacteristic.DATA, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(demissao);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(demissao, this.characteristicService);
             AssociativeCharacteristic ademissao = new AssociativeCharacteristic(demissao, 0);
             general.getAttributes().add(ademissao);
             employee.getGroupAttributes().add(general);
             GroupRoleAttribute bankdata = new GroupRoleAttribute("Dados Bancárioss");
             Characteristic banco = new Characteristic("Banco", ValueTypeCharacteristic.TEXTO, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(banco);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(banco, this.characteristicService);
             AssociativeCharacteristic abanco = new AssociativeCharacteristic(banco, 0);
             bankdata.getAttributes().add(abanco);
             Characteristic agencia = new Characteristic("Agência", ValueTypeCharacteristic.TEXTO, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(agencia);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(agencia, this.characteristicService);
             AssociativeCharacteristic aagencia = new AssociativeCharacteristic(agencia, 0);
             bankdata.getAttributes().add(aagencia);
             Characteristic conta = new Characteristic("Conta", ValueTypeCharacteristic.TEXTO, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(conta);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(conta, this.characteristicService);
             AssociativeCharacteristic aconta = new AssociativeCharacteristic(conta, 0);
             bankdata.getAttributes().add(aconta);
             employee.getGroupAttributes().add(bankdata);
             GroupRoleAttribute other = new GroupRoleAttribute("Observações");
             Characteristic obs = new Characteristic("Observação", ValueTypeCharacteristic.TEXTO, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(obs);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(obs, this.characteristicService);
             AssociativeCharacteristic aobs = new AssociativeCharacteristic(obs, 0);
             other.getAttributes().add(aobs);
             employee.getGroupAttributes().add(other);
             employee.setIntegrationId(4L);
-            service.save(employee);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(employee, service);
         }
 
 
@@ -138,22 +142,22 @@ public class RoleSeed implements AppSeed {
             geral.setColor("#000000");
             GroupRoleAttribute pj = new GroupRoleAttribute("Dados do Contato", SpecializationOrigin.JURIDICA);
             Characteristic nome = new Characteristic("Nome", ValueTypeCharacteristic.TEXTO, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(nome);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(nome, this.characteristicService);
             AssociativeCharacteristic anome = new AssociativeCharacteristic(nome, 0, SpecializationOrigin.JURIDICA);
             pj.getAttributes().add(anome);
 
             Characteristic cpf = new Characteristic("CPF", ValueTypeCharacteristic.TEXTO, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(cpf);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(cpf, this.characteristicService);
             AssociativeCharacteristic acpf = new AssociativeCharacteristic(cpf, 0, SpecializationOrigin.JURIDICA);
             pj.getAttributes().add(acpf);
 
             Characteristic rg = new Characteristic("RG", ValueTypeCharacteristic.TEXTO, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(rg);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(rg, this.characteristicService);
             AssociativeCharacteristic arg = new AssociativeCharacteristic(rg, 0, SpecializationOrigin.JURIDICA);
             pj.getAttributes().add(arg);
 
             Characteristic nascimento = new Characteristic("Data de Nascimento", ValueTypeCharacteristic.DATA, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(nascimento);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(nascimento, this.characteristicService);
             AssociativeCharacteristic anascimento = new AssociativeCharacteristic(nascimento, 0, SpecializationOrigin.JURIDICA);
             pj.getAttributes().add(anascimento);
 
@@ -170,12 +174,15 @@ public class RoleSeed implements AppSeed {
             civilValue.add(optionValueCharacteristicService.save(new OptionValueCharacteristic("Divorciado(a)")));
             civilValue.add(optionValueCharacteristicService.save(new OptionValueCharacteristic("Viúvo(a)")));
             Characteristic civil = new Characteristic("Estado Civil", ValueTypeCharacteristic.SELECAO, civilValue, CharacteristicOrigin.PERSON);
-            characteristicService.save(civil);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(civil, this.characteristicService);
+            civil.getValues().stream().forEach(optionValueCharacteristic -> {
+                buddySeedControlService.saveSeedIntegrationFromBuddy(optionValueCharacteristic, optionValueCharacteristic.getId());
+            });
             AssociativeCharacteristic acivil = new AssociativeCharacteristic(civil, 0, SpecializationOrigin.FISICA);
             pf.getAttributes().add(acivil);
 
             Characteristic address = new Characteristic("Naturalidade", ValueTypeCharacteristic.TEXTO, null, CharacteristicOrigin.PERSON);
-            characteristicService.save(address);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(address, this.characteristicService);
             AssociativeCharacteristic aaddress = new AssociativeCharacteristic(address, 0, SpecializationOrigin.FISICA);
             pf.getAttributes().add(aaddress);
 
@@ -183,12 +190,15 @@ public class RoleSeed implements AppSeed {
             naturalValue.add(optionValueCharacteristicService.save(new OptionValueCharacteristic("Brasileira")));
             naturalValue.add(optionValueCharacteristicService.save(new OptionValueCharacteristic("Estrangeira")));
             Characteristic natural = new Characteristic("Nacionalidade", ValueTypeCharacteristic.SELECAO, naturalValue, CharacteristicOrigin.PERSON);
-            characteristicService.save(natural);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(natural, this.characteristicService);
+            natural.getValues().stream().forEach(optionValueCharacteristic -> {
+                buddySeedControlService.saveSeedIntegrationFromBuddy(optionValueCharacteristic, optionValueCharacteristic.getId());
+            });
             AssociativeCharacteristic anatural = new AssociativeCharacteristic(natural, 0, SpecializationOrigin.FISICA);
             pf.getAttributes().add(anatural);
             geral.getGroupAttributes().add(pf);
             geral.setIntegrationId(5L);
-            service.save(geral);
+            buddySeedControlService.saveSeedIntegrationFromBuddy(geral, service);
         }
     }
 

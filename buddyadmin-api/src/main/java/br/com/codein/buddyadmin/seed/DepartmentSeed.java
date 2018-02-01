@@ -1,5 +1,6 @@
 package br.com.codein.buddyadmin.seed;
 
+import br.com.mobiage.mobiage.application.service.buddyseed.BuddySeedControlService;
 import br.com.mobiage.mobiage.application.service.businessrule.BusinessRuleService;
 import br.com.mobiage.mobiage.application.service.characteristic.AssociativeCharacteristicService;
 import br.com.mobiage.mobiage.application.service.characteristic.CharacteristicService;
@@ -39,6 +40,9 @@ public class DepartmentSeed implements AppSeed {
     private CharacteristicService characteristicService;
     @Autowired
     private AssociativeCharacteristicService associativeCharacteristicService;
+
+    @Autowired
+    private BuddySeedControlService buddySeedControlService;
 
 
 
@@ -203,19 +207,30 @@ public class DepartmentSeed implements AppSeed {
                     System.out.println(p.getName());
                 }
                 for (AssociativeCharacteristic a : p.getCharacteristics()) {
-                    associativeCharacteristicService.save(a);
+                    buddySeedControlService.saveSeedIntegrationFromBuddy(a, associativeCharacteristicService);
                 }
             }
         }
-
-        service.save(moda);
+        buddySeedControlService.saveSeedIntegrationFromBuddy(moda, service);
+        moda.getCategories().stream().forEach(category -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
+            category.getProductTypes().stream().forEach(productType -> {
+                buddySeedControlService.saveSeedIntegrationFromBuddy(productType, productType.getId());
+            });
+        });
 
         ProductType pt = new ProductType("Mouse", Arrays.asList("Tipo de Produto", "Marca"), TypeLabeling.COMMON, false, "MS");
         Category cat = new Category("Perifericos", new HashSet<>(Arrays.asList(pt)), "PER");
         pt.setCategory(cat);
         Department department = new Department("Informática", new HashSet<>(Arrays.asList(cat)), "INF");
         cat.setDepartment(department);
-        service.save(department);
+        buddySeedControlService.saveSeedIntegrationFromBuddy(department, service);
+        department.getCategories().stream().forEach(category -> {
+            buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
+            category.getProductTypes().stream().forEach(productType -> {
+                buddySeedControlService.saveSeedIntegrationFromBuddy(productType, productType.getId());
+            });
+        });
     }
 
 
