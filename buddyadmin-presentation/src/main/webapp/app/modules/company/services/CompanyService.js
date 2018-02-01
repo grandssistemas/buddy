@@ -3,7 +3,7 @@ define(['apiLocations'], function(APILocation) {
 	CompanyService.$inject = ['GumgaRest'];
 
 	function CompanyService(GumgaRest) {
-    	var Service = new GumgaRest(APILocation.apiLocation + '/api/company');
+    	var Service = new GumgaRest(APILocation.apiLocation + '/api/companybuddy');
 
 		Service.createOrganization = function(person){
 			return Service.extend('post','/addorganization',person);

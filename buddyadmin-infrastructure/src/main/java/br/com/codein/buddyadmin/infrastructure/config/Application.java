@@ -20,6 +20,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+
 @Configuration
 @ComponentScan(basePackages = {
         "br.com.codein",
@@ -39,6 +40,26 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.application.service.tributador",
         "br.com.mobiage.mobiage.application.service.buddyseed",
         "br.com.mobiage.integration",
+        "br.com.mobiage.mobiage.presentation.api.person",
+        "br.com.mobiage.mobiage.presentation.api.fiscalgroup",
+        "br.com.mobiage.mobiage.presentation.api.configuration",
+        "br.com.mobiage.mobiage.presentation.api.characteristic",
+        "br.com.mobiage.mobiage.presentation.api.marking",
+        "br.com.mobiage.mobiage.presentation.api.department",
+        "br.com.mobiage.mobiage.presentation.api.paymenttype",
+        "br.com.mobiage.mobiage.presentation.api.operation",
+        "br.com.mobiage.mobiage.presentation.api.product",
+        "br.com.mobiage.mobiage.presentation.api.businessrule",
+        "br.com.mobiage.mobiage.presentation.api.tributador",
+        "br.com.mobiage.mobiage.gateway.dto.businessrole",
+        "br.com.mobiage.mobiage.gateway.dto.department",
+        "br.com.mobiage.mobiage.gateway.dto.operation",
+        "br.com.mobiage.mobiage.gateway.dto.paymenttype",
+        "br.com.mobiage.mobiage.gateway.dto.person",
+        "br.com.mobiage.mobiage.gateway.dto.product",
+        "br.com.mobiage.mobiage.gateway.dto.tributador",
+        "br.com.mobiage.mobiage.gateway.dto.businessrole",
+        "br.com.mobiage.mobiage.gateway.dto.translator",
         "io.gumga"
 })
 @EnableJpaRepositories(repositoryFactoryBeanClass = GumgaRepositoryFactoryBean.class, basePackages = {
@@ -60,7 +81,6 @@ import java.util.Properties;
         "io.gumga"
 })
 @EnableTransactionManagement(proxyTargetClass = true)
-
 public class Application {
 
     @Autowired
