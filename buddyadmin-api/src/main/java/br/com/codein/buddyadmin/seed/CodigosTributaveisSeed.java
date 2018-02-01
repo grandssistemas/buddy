@@ -92,6 +92,7 @@ public class CodigosTributaveisSeed implements AppSeed {
     }
 
 
+    @Transactional
     public void saveCodigoIpi() throws IOException {
         if (codigoEnquadramentoIpiService.findAll().isEmpty()) {
             ClassLoader classLoader = getClass().getClassLoader();
