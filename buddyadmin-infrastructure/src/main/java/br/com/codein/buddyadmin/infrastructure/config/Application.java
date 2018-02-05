@@ -48,7 +48,6 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.presentation.api.department",
         "br.com.mobiage.mobiage.presentation.api.paymenttype",
         "br.com.mobiage.mobiage.presentation.api.operation",
-        "br.com.mobiage.mobiage.presentation.api.product",
         "br.com.mobiage.mobiage.presentation.api.businessrule",
         "br.com.mobiage.mobiage.presentation.api.tributador",
         "br.com.mobiage.mobiage.gateway.dto.businessrole",
@@ -56,12 +55,13 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.gateway.dto.operation",
         "br.com.mobiage.mobiage.gateway.dto.paymenttype",
         "br.com.mobiage.mobiage.gateway.dto.person",
-        "br.com.mobiage.mobiage.gateway.dto.product",
         "br.com.mobiage.mobiage.gateway.dto.tributador",
         "br.com.mobiage.mobiage.gateway.dto.businessrole",
         "br.com.mobiage.mobiage.gateway.dto.translator",
         "io.gumga"
 })
+
+
 @EnableJpaRepositories(repositoryFactoryBeanClass = GumgaRepositoryFactoryBean.class, basePackages = {
         "br.com.codein",
         "br.com.mobiage.mobiage.application.repository.person",
@@ -185,3 +185,4 @@ public class Application {
     }
 
 }
+
