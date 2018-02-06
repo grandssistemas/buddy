@@ -3,6 +3,7 @@
   "CUSTOMFIELDS",
   "TAGS",
   "CONFIGURATION",
+  "CRUD-Company",
   "CRUD-Person",
   "CRUD-ProductStructure"
 ]

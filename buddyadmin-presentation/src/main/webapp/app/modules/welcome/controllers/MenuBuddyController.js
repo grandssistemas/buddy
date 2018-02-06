@@ -15,7 +15,6 @@ define([], function () {
                                  $http) {
 
 
-        console.log('vereuy');
         $scope.user = JSON.parse(sessionStorage.getItem('user'));
 
         // if ($scope.user.profileImage && $scope.user.profileImage.indexOf("src/images/user-without-image.png") !== -1) {

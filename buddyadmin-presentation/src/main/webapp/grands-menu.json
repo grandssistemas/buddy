@@ -9,9 +9,9 @@
   },
   {
     "type": "item",
-    "label": "Pessoa",
+    "label": "Organização",
     "state": "company.insert",
-    "key": "CRUD-Person",
+    "key": "CRUD-Company",
     "icon": "",
     "children": []
   },
@@ -20,6 +20,14 @@
     "label": "Departamento",
     "state": "categorization.tree",
     "key": "CRUD-ProductStructure",
+    "icon": "",
+    "children": []
+  },
+  {
+    "type": "item",
+    "label": "Pessoa",
+    "state": "person.list",
+    "key": "CRUD-Person",
     "icon": "",
     "children": []
   }
