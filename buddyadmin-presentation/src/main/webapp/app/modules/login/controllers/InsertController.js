@@ -21,7 +21,7 @@ define([], function () {
                     message: 'Confirme sua senha corretamente.'
                 });
             }
-        }
+        };
         
         $scope.enabledBtn = function (){
             if(!$scope.passwordInvalid && !$scope.passwordConfirmInvalid){
@@ -29,7 +29,7 @@ define([], function () {
             }else{
                 $scope.btDisabled = false;
             }
-        }
+        };
         
         $scope.validPassword = function (param){
             if(!param || param.length < 3){
@@ -38,7 +38,7 @@ define([], function () {
                 $scope.passwordInvalid = false;
             }
             $scope.enabledBtn();
-        }
+        };
         $scope.validPasswordConfirm = function (paramConfirm, paramPassword){
             if(paramConfirm !== paramPassword){
                 $scope.passwordConfirmInvalid = true;

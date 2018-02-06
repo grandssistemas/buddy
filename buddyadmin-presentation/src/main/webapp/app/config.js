@@ -7,12 +7,15 @@ requirejs.config({
         "angular-bootstrap": "bower_components/angular-bootstrap/ui-bootstrap-tpls.min",
         "angular-ui-router": "bower_components/angular-ui-router/release/angular-ui-router.min",
         "angular-sanitize": "bower_components/angular-sanitize/angular-sanitize.min",
+        "popper": "bower_components/popper.js/dist/umd/popper",
         "bootstrap": "bower_components/bootstrap/dist/js/bootstrap.min",
         "jquery": "bower_components/jquery/dist/jquery.min",
         'jquery-mask': "bower_components/jQuery-Mask-Plugin/dist/jquery.mask.min",
         "es5-sshim": "bower_components/es5-shim/es5-shim.min",
         'notify': "bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.min",
         "apiLocations":"app/apiLocations",
+        "api-variables": "app/systemVariables",
+        "api-locations-angular": "app/apiLocationsAngular",
         "gumga-components":"bower_components/gumga-components/dist/gumga.min",
         "gumga-layout":"resources/gumgalayout/gumga-layout.min",
         "mousetrap-latest": "bower_components/mousetrap-latest/mousetrap.min",
@@ -31,21 +34,20 @@ requirejs.config({
         "angular-moment": "bower_components/angular-moment/angular-moment.min",
         "angular-locale": "bower_components/angular-locale-pt-br/angular-locale_pt-br",
         "characteristic": "bower_components/characteristic-front/characteristic.min",
-        "grands-core": "bower_components/grands-components/grands.min",
-        "api-locations-angular": "app/apiLocationsAngular",
+        "grands-core": "bower_components/grands-components/grands-components.min",
         "product": "bower_components/product-front/product.min",
-        "api-variables": "app/systemVariables",
         "sweet-alert": "bower_components/sweetalert/dist/sweetalert.min",
         "ng-sweet-alert": "bower_components/ngSweetAlert/SweetAlert.min"
     },
     shim: {
         "angular": {exports: "angular", deps: ["jquery"]},
+        "popper": {exports: "popper", deps: ["jquery", "angular"]},
         "angular-bootstrap": {deps: ["angular"]},
         "angular-input-masks": {deps: ['angular']},
         "angular-sanitize": {deps: ["angular"]},
         "angular-ui-router": {deps: ["angular"]},
         "angular-mocks": {deps: ["angular"], exports: "angular-mocks"},
-        "bootstrap": {deps: ["jquery"]},
+        "bootstrap": {deps: ["jquery", "popper"]},
         "jquery-mask": {deps: ["jquery"]},
         "moment": {deps: ["jquery"], exports:"moment"},
         "gumga-components":{deps:['angular','angular-bootstrap', 'angular-ui-router', 'jquery', 'remarkable-bootstrap-notify', 'mousetrap-latest'] },
@@ -75,13 +77,14 @@ requirejs.config({
             ]
         },
         "characteristic": {deps: ['angular', 'grands-core', 'gumga-components', 'angular-ui-router','api-locations-angular']},
-        "grands-core": {deps: ['angular']},
+        "grands-core": {deps: ['angular', 'api-locations-angular']},
         "gumga-layout":{deps:['angular']},
         "api-locations-angular": {
             deps: ['angular', 'apiLocations']
         },
         "product": {deps: ['angular', 'grands-core', 'gumga-components', 'angular-ui-router','api-locations-angular','characteristic', 'ng-sweet-alert']},
         "api-variables": {deps: ['angular']},
+        "sweet-alert": {deps: ['angular']},
         "ng-sweet-alert": {deps: ['angular', 'sweet-alert']}
     }
 });

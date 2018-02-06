@@ -113,7 +113,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements WebApplication
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(gumgaRequestFilter());
+        registry.addInterceptor(gumgaRequestFilter());
     }
 
 }

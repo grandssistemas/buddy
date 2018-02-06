@@ -1,5 +1,6 @@
 <div class="gumga-layout">
-    <header class="gl-header"  ng-controller="MenuController">
+    <!--<header class="gl-header"  >-->
+    <header class="gl-header"  ng-controller="MenuBuddyController">
         <div class="searchbar">
             <div class="icon back">
                 <button type="button" data-ng-click="toggleSearch()">
@@ -56,7 +57,8 @@
         </div>
     </main>
 
-    <nav class="gl-nav" ng-controller="MenuController">
+    <nav class="gl-nav"  ng-controller="MenuBuddyController">
+    <!--<nav class="gl-nav">-->
         <div class="navbar-header">
             <a class="navbar-brand" data-ng-click="navCollapse()">
                 <i class="material-icons">menu</i>

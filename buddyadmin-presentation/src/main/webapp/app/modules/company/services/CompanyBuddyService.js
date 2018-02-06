@@ -1,8 +1,8 @@
 define(['apiLocations'], function(APILocation) {
 
-	CompanyService.$inject = ['GumgaRest'];
+	CompanyBuddyService.$inject = ['GumgaRest'];
 
-	function CompanyService(GumgaRest) {
+	function CompanyBuddyService(GumgaRest) {
     	var Service = new GumgaRest(APILocation.apiLocation + '/api/companybuddy');
 
 		Service.createOrganization = function(person){
@@ -21,5 +21,5 @@ define(['apiLocations'], function(APILocation) {
     	return Service;
     }
 
-  	return CompanyService;
+  	return CompanyBuddyService;
 });

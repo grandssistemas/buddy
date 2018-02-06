@@ -20,6 +20,7 @@ define(['angular',
     'app/modules/instance/module',
     'app/modules/role/module',
     'app/modules/company/module',
+    'app/modules/welcome/module',
     'app/directives/module',
     'product',
     'api-variables'], function (angular, moment) {
@@ -34,6 +35,7 @@ define(['angular',
         , 'app.user'
         , 'app.instance'
         , 'app.securityrole'
+        , 'app.welcome'
         , 'brasil.filters'
         , 'treeControl'
         , 'ui.utils.masks'
@@ -49,7 +51,7 @@ define(['angular',
             var template = [
                 '<gumga-nav></gumga-nav>',
                 '<gumga-menu menu-url="gumga-menu.json" keys-url="keys.json" image="./resources/images/gumga.png"></gumga-menu>',
-                'oi<div class="gumga-container">',
+                '<div class="gumga-container">',
                 '<gumga-multi-entity-search data="multi.search"></gumga-multi-entity-search>',
                 '</div>'
             ];
@@ -66,6 +68,7 @@ define(['angular',
                 })
                 .state('welcome', {
                     url: '/welcome',
+                    controller: 'MenuBuddyController',
                     data: {
                         id: 0
                     },
