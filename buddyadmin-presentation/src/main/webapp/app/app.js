@@ -85,7 +85,6 @@ define(['angular',
         ,'product.core'
         , 'operationtype.core'
         , 'paymenttype.core'
-        , 'pdv.core'
         , 'buddyadmin.core'
         //FIMINJECTIONS
     ])
