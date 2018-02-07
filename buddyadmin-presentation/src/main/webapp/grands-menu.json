@@ -4,7 +4,7 @@
     "label": "Home",
     "state": "welcome",
     "key": "CRUD-BASE",
-    "icon": "",
+    "icon": "home",
     "children": []
   },
   {
@@ -12,23 +12,87 @@
     "label": "Organização",
     "state": "company.insert",
     "key": "CRUD-Company",
-    "icon": "",
+    "icon": "account_balance",
     "children": []
   },
   {
     "type": "item",
-    "label": "Departamento",
-    "state": "categorization.tree",
-    "key": "CRUD-ProductStructure",
-    "icon": "",
-    "children": []
-  },
-  {
-    "type": "item",
-    "label": "Pessoa",
-    "state": "person.list",
-    "key": "CRUD-Person",
-    "icon": "",
-    "children": []
+    "label": "Seed",
+    "key": "CRUD-Seed",
+    "icon": "archive",
+    "children": [
+      {
+        "type": "item",
+        "label": "Departamento",
+        "state": "categorization.tree",
+        "key": "CRUD-ProductStructure",
+        "icon": "",
+        "children": []
+      },
+      {
+        "type": "item",
+        "label": "Pessoa",
+        "state": "person.list",
+        "key": "CRUD-Person",
+        "icon": "",
+        "children": []
+      },
+      {
+        "type": "item",
+        "label": "Papel",
+        "state": "role.list",
+        "key": "CRUD-Role",
+        "icon": "",
+        "children": []
+      },
+      {
+        "type": "item",
+        "label": "Grupo Fiscal de Pessoa",
+        "state": "fiscalgroup.personlist",
+        "key": "CRUD-PersonGroup",
+        "icon": "",
+        "children": []
+      },
+      {
+        "type": "item",
+        "label": "Caracteristicas",
+        "state": "characteristic.list",
+        "key": "CRUD-Characteristic",
+        "icon": "",
+        "children": []
+      },
+      {
+        "type": "item",
+        "label": "Grupo Fiscal de Produto",
+        "state": "productfiscalgroup.productlist",
+        "key": "CRUD-ProductGroup",
+        "icon": "",
+        "children": []
+      },
+      {
+        "type": "item",
+        "label": "Regra Comercial",
+        "state": "businessrule.list",
+        "key": "CRUD-BusinessRule",
+        "icon": "",
+        "children": []
+      },
+      {
+        "type": "item",
+        "label": "Forma de Pagamento",
+        "state": "paymentmethods.insert",
+        "key": "CRUD-PaymentType",
+        "icon": "",
+        "children": []
+      },
+      {
+        "type": "item",
+        "label": "Operações",
+        "state": "stock.insert",
+        "key": "CRUD-Operation",
+        "icon": "",
+        "children": []
+      }
+    ]
   }
 ]

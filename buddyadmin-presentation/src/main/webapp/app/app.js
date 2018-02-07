@@ -1,6 +1,8 @@
 define(['angular',
     'angular-ui-router',
     'angular-sanitize',
+    'ui-select',
+    'angular-ui-tree',
     'ngImgCrop',
     'gumga-core',
     'gumga-layout',
@@ -40,6 +42,13 @@ define(['angular',
     'br-validations',
     'gumga-layout',
     'buddy-core',
+    'grands-core',
+    'payment-type',
+    'pdv',
+    'tributador',
+    'movementgroup',
+    'operation-type',
+    'product',
     'inspinia-datepicker',
     'angular-locale',
     'app/modules/login/module',
@@ -51,13 +60,13 @@ define(['angular',
     'app/modules/company/module',
     'app/modules/welcome/module',
     'app/directives/module',
-    'product',
     'api-variables'], function (angular, moment) {
     //FIMREQUIRE
     window.moment = moment;
     angular.module('app.core', [
         'ui.router'
-        , 'ngSanitize',
+        , 'ui.tree'
+        , 'ngSanitize'
         , 'gumga.core'
         , 'app.login'
         , 'app.company'
@@ -69,10 +78,15 @@ define(['angular',
         , 'treeControl'
         , 'ui.utils.masks'
         , 'gumga.layout'
-        , 'buddy.core'
-        , 'buddyadmin.core'
+        ,'grands.components'
         , 'datePicker'
-        , 'product.core'
+        ,'buddy.core'
+        , 'characteristic.core'
+        ,'product.core'
+        , 'operationtype.core'
+        , 'paymenttype.core'
+        , 'pdv.core'
+        , 'buddyadmin.core'
         //FIMINJECTIONS
     ])
         .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $injector, GumgaAlertProvider) {

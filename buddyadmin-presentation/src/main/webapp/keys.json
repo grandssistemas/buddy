@@ -4,6 +4,14 @@
   "TAGS",
   "CONFIGURATION",
   "CRUD-Company",
+  "CRUD-Seed",
   "CRUD-Person",
-  "CRUD-ProductStructure"
+  "CRUD-ProductStructure",
+  "CRUD-Role",
+  "CRUD-PersonGroup",
+  "CRUD-Characteristic",
+  "CRUD-ProductGroup",
+  "CRUD-BusinessRule",
+  "CRUD-PaymentType",
+  "CRUD-Operation"
 ]

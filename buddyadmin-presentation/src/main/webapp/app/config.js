@@ -6,6 +6,8 @@ requirejs.config({
         "angular-mocks": "node_modules/angular-mocks/angular-mocks",
         "angular-bootstrap": "bower_components/angular-bootstrap/ui-bootstrap-tpls.min",
         "angular-ui-router": "bower_components/angular-ui-router/release/angular-ui-router.min",
+        "angular-ui-tree" : "bower_components/angular-ui-tree/dist/angular-ui-tree",
+        "ui-select" : "/bower_components/ui-select/dist/select.min",
         "angular-sanitize": "bower_components/angular-sanitize/angular-sanitize.min",
         "popper": "bower_components/popper.js/dist/umd/popper",
         "bootstrap": "bower_components/bootstrap/dist/js/bootstrap.min",
@@ -47,6 +49,7 @@ requirejs.config({
         "gumga-gallery-icon": "bower_components/gumga-gallery-icon-ng/dist/gumga-gallery-icon.min",
         "gumga-avatar": "bower_components/gumga-avatar-ng/dist/gumga-avatar.min",
         "gumga-gquery": "bower_components/gumga-gquery-ng/dist/gumga-gquery.min",
+        "grands-core": "bower_components/grands-components/grands-components.min",
         "mousetrap-latest": "bower_components/mousetrap-latest/mousetrap.min",
         "remarkable-bootstrap-notify": "bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.min",
         "ngImgCrop": "bower_components/ng-img-crop/compile/minified/ng-img-crop",
@@ -62,16 +65,21 @@ requirejs.config({
         "inspinia-datepicker": "bower_components/angular-datepicker/dist/angular-datepicker",
         "angular-moment": "bower_components/angular-moment/angular-moment.min",
         "angular-locale": "bower_components/angular-locale-pt-br/angular-locale_pt-br",
-        "characteristic": "bower_components/characteristic-front/characteristic.min",
-        "grands-core": "bower_components/grands-components/grands-components.min",
         "sweet-alert": "bower_components/sweetalert/dist/sweetalert.min",
         "ng-sweet-alert": "bower_components/ngSweetAlert/SweetAlert.min",
-
-        "product": "bower_components/product-front/product.min"
+        "product": "bower_components/product-front/product.min",
+        "characteristic": "bower_components/characteristic-front/characteristic.min",
+        "payment-type": "bower_components/paymenttype-front/paymenttype.min",
+        "operation-type": "bower_components/operationtype-front/operationtype.min",
+        "pdv": "bower_components/pdv-front/pdv.min",
+        "tributador": "bower_components/tributador-front/tributador.min",
+        "movementgroup": "bower_components/movementgroup-front/movementgroup.min",
     },
     shim: {
         "angular": {exports: "angular", deps: ["jquery"]},
         "popper": {exports: "popper", deps: ["jquery", "angular"]},
+        "ui-select": {deps: ["jquery", "angular"]},
+        "angular-ui-tree": {deps: ["jquery", "angular"]},
         "angular-bootstrap": {deps: ["angular"]},
         "angular-input-masks": {deps: ['angular']},
         "angular-sanitize": {deps: ["angular"]},
@@ -117,6 +125,7 @@ requirejs.config({
         "ng-filter-br": {deps: ['angular']},
         "inspinia": {deps: ['jquery']},
         "angular-locale": {deps: ['angular']},
+        "grands-core": {deps: ['angular', 'api-locations-angular']},
         "tree-control": {deps: ['angular']},
         "buddy-core": {
             deps: [
@@ -138,8 +147,12 @@ requirejs.config({
                 'angular-locale'
             ]
         },
-        "characteristic": {deps: ['angular', 'grands-core', 'angular-ui-router','api-locations-angular']},
-        "grands-core": {deps: ['angular', 'api-locations-angular']},
+        "characteristic": {deps: ['angular', 'angular-ui-router','grands-core', 'api-locations-angular', 'grands-core']},
+        "payment-type": {deps: ['angular', 'angular-ui-router', 'ui-select', 'angular-sanitize', 'grands-core', 'api-locations-angular', 'grands-core']},
+        "pdv": {deps: ['angular', 'angular-ui-router', 'ui-select', 'angular-sanitize', 'grands-core', 'api-locations-angular', 'grands-core']},
+        "tributador": {deps: ['angular', 'angular-ui-router', 'ui-select', 'angular-sanitize', 'grands-core', 'api-locations-angular', 'grands-core']},
+        "operation-type": {deps: ['angular', 'angular-ui-router','grands-core', 'api-locations-angular', 'characteristic', 'movementgroup', 'grands-core']},
+        "movementgroup": {deps: ['angular', 'angular-ui-router', 'ui-select', 'angular-sanitize', 'grands-core', 'api-locations-angular', 'grands-core']},
         "gumga-layout":{deps:['angular']},
         "api-locations-angular": {
             deps: ['angular', 'apiLocations']
