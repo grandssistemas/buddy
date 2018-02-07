@@ -1,8 +1,39 @@
 define(['angular',
     'angular-ui-router',
     'angular-sanitize',
+    'ui-select',
+    'angular-ui-tree',
     'ngImgCrop',
-    'gumga-components',
+    'gumga-core',
+    'gumga-layout',
+    'gumga-simple-image',
+    'gumga-security-embedded',
+    'gumga-rest',
+    'gumga-controller',
+    'gumga-alert',
+    'gumga-web-storage',
+    'gumga-many-to-one',
+    'gumga-address',
+    'gumga-translate',
+    'gumga-mask',
+    'gumga-upload',
+    'gumga-custom-fields',
+    'gumga-form-buttons',
+    'gumga-counter',
+    'gumga-breadcrumb',
+    'gumga-confirm',
+    'gumga-one-to-many',
+    'gumga-populate',
+    'gumga-many-to-many',
+    'gumga-form',
+    'gumga-generic-filter',
+    'gumga-query-filter',
+    'gumga-list',
+    'gumga-date',
+    'gumga-click-sync',
+    'gumga-gallery-icon',
+    'gumga-avatar',
+    'gumga-gquery',
     'ng-filter-br',
     'tree-control',
     'angular-input-masks',
@@ -11,6 +42,13 @@ define(['angular',
     'br-validations',
     'gumga-layout',
     'buddy-core',
+    'grands-core',
+    'payment-type',
+    'pdv',
+    'tributador',
+    'movementgroup',
+    'operation-type',
+    'product',
     'inspinia-datepicker',
     'angular-locale',
     'app/modules/login/module',
@@ -20,13 +58,14 @@ define(['angular',
     'app/modules/instance/module',
     'app/modules/role/module',
     'app/modules/company/module',
+    'app/modules/welcome/module',
     'app/directives/module',
-    'product',
     'api-variables'], function (angular, moment) {
     //FIMREQUIRE
     window.moment = moment;
     angular.module('app.core', [
         'ui.router'
+        , 'ui.tree'
         , 'ngSanitize'
         , 'gumga.core'
         , 'app.login'
@@ -34,14 +73,20 @@ define(['angular',
         , 'app.user'
         , 'app.instance'
         , 'app.securityrole'
+        , 'app.welcome'
         , 'brasil.filters'
         , 'treeControl'
         , 'ui.utils.masks'
         , 'gumga.layout'
-        , 'buddy.core'
-        , 'buddyadmin.core'
+        ,'grands.components'
         , 'datePicker'
-        , 'product.core'
+        ,'buddy.core'
+        , 'characteristic.core'
+        ,'product.core'
+        , 'operationtype.core'
+        , 'paymenttype.core'
+        , 'pdv.core'
+        , 'buddyadmin.core'
         //FIMINJECTIONS
     ])
         .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $injector, GumgaAlertProvider) {
@@ -49,7 +94,7 @@ define(['angular',
             var template = [
                 '<gumga-nav></gumga-nav>',
                 '<gumga-menu menu-url="gumga-menu.json" keys-url="keys.json" image="./resources/images/gumga.png"></gumga-menu>',
-                'oi<div class="gumga-container">',
+                '<div class="gumga-container">',
                 '<gumga-multi-entity-search data="multi.search"></gumga-multi-entity-search>',
                 '</div>'
             ];
@@ -66,6 +111,7 @@ define(['angular',
                 })
                 .state('welcome', {
                     url: '/welcome',
+                    controller: 'MenuBuddyController',
                     data: {
                         id: 0
                     },

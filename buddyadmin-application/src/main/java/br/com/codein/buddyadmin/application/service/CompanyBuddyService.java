@@ -182,7 +182,8 @@ public class CompanyBuddyService {
 
     @Transactional
     public void verifyExistSH() {
-        throw new RuntimeException("Esse metodo necesita de atualização");
+        System.out.println("verifyexistsh: Esse metodo necesita de atualização");
+//        throw new RuntimeException("Esse metodo necesita de atualização");
 // List<Person> persons = personService.findByRoleCategory(RoleCategory.OWNER);
 //        if (persons.isEmpty()) {
 //            Juridica person = new Juridica();

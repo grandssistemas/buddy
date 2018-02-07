@@ -5,7 +5,7 @@ define(['angular'], function (angular) {
         'JuridicaCompanyService',
         'entity',
         '$scope',
-        'CompanyService',
+        'CompanyBuddyService',
         'RoleService',
         'GumgaAlert',
         '$timeout',

@@ -39,6 +39,7 @@
         <dependency>
             <groupId>br.com.mobiage</groupId>
             <artifactId>mobiage-application</artifactId>
+            <version>${mobiage.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>br.com.mobiage</groupId>
@@ -46,6 +47,31 @@
                 </exclusion>
             </exclusions>
             <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.mobiage</groupId>
+            <artifactId>mobiage-api</artifactId>
+            <version>${mobiage.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>br.com.mobiage</groupId>
+                    <artifactId>mobiage-infrastructure</artifactId>
+                </exclusion>
+            </exclusions>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.mobiage</groupId>
+            <artifactId>mobiage-gateway</artifactId>
+            <version>${mobiage.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>br.com.mobiage</groupId>
+                    <artifactId>mobiage-infrastructure</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
