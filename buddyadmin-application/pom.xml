@@ -39,6 +39,10 @@
             </exclusions>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>br.com.codein</groupId>-->
             <!--<artifactId>fiscalgroup-application</artifactId>-->
