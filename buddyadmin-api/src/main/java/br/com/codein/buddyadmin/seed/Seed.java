@@ -29,6 +29,10 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 //	private CharacteristicSeed characteristicSeed;
 
 	@Autowired
+	@Qualifier("genericReportSeed")
+	private GenericReportSeed genericReportSeed;
+
+	@Autowired
 	@Qualifier("paymentTypeSeed")
 	private PaymentTypeSeed paymentTypeSeed;
 	@Autowired
@@ -99,6 +103,7 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 		list.add(roleSeed);
 		list.add(juridicalSeed);
 		list.add(individualSeed);
+		list.add(genericReportSeed);
 		return list;
 	}
 

@@ -39,6 +39,7 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.application.service.businessrule",
         "br.com.mobiage.mobiage.application.service.tributador",
         "br.com.mobiage.mobiage.application.service.buddyseed",
+        "br.com.mobiage.mobiage.application.service.genericreport",
         "br.com.mobiage.integration",
         "br.com.mobiage.mobiage.presentation.api.person",
         "br.com.mobiage.mobiage.presentation.api.fiscalgroup",
@@ -50,6 +51,7 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.presentation.api.operation",
         "br.com.mobiage.mobiage.presentation.api.businessrule",
         "br.com.mobiage.mobiage.presentation.api.tributador",
+        "br.com.mobiage.mobiage.presentation.api.genericreport",
         "br.com.mobiage.mobiage.gateway.dto.businessrole",
         "br.com.mobiage.mobiage.gateway.dto.department",
         "br.com.mobiage.mobiage.gateway.dto.operation",
@@ -78,6 +80,7 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.application.repository.businessrule",
         "br.com.mobiage.mobiage.application.repository.tributador",
         "br.com.mobiage.mobiage.application.repository.buddyseed",
+        "br.com.mobiage.mobiage.application.repository.genericreport",
         "io.gumga"
 })
 @EnableTransactionManagement(proxyTargetClass = true)
@@ -126,7 +129,7 @@ public class Application {
 
         Properties properties = new Properties();
         properties.put("eclipselink.weaving", "false");
-        properties.put("hibernate.hbm2ddl.auto", "none");
+        properties.put("hibernate.hbm2ddl.auto", "update");
 
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.EJB3NamingStrategy");
@@ -159,7 +162,8 @@ public class Application {
                 "br.com.mobiage.mobiage.domain.model.product",
                 "br.com.mobiage.mobiage.domain.model.tributador",
                 "br.com.mobiage.mobiage.domain.model.certificado",
-                "br.com.mobiage.mobiage.domain.model.buddyseed"
+                "br.com.mobiage.mobiage.domain.model.buddyseed",
+                "br.com.mobiage.mobiage.domain.model.genericreport"
         );
         factory.setDataSource(dataSource);
 
