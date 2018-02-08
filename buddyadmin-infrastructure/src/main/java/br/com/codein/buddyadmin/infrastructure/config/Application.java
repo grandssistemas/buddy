@@ -110,16 +110,30 @@ public class Application {
 
     @Bean
     public static DataSource dataSource() {
+//        StringBuilder databaseURL = new StringBuilder();
+//        databaseURL.append("jdbc:postgresql://");
+//        databaseURL.append(getProperties().getProperty("database.url"));
+//        databaseURL.append("/").append(getProperties().getProperty("database.name"));
+//        databaseURL.append("?currentSchema=").append(getProperties().getProperty("schema.name"));
+//
+//        return new DatabaseConfigSupport().getDataSourceProvider(DatabaseConfigSupport.Database.POSTGRES).
+//                createDataSource(databaseURL.toString(),
+//                        getProperties().getProperty("database.user"),
+//                        getProperties().getProperty("database.password"));
+
+        return new DatabaseConfigSupport().getDataSourceProvider(DatabaseConfigSupport.Database.POSTGRES).
+                createDataSource(getDatabaseURL(getProperties().getProperty("schema.name")),
+                        getProperties().getProperty("database.user"),
+                        getProperties().getProperty("database.password"));
+    }
+
+    private static String getDatabaseURL(String property) {
         StringBuilder databaseURL = new StringBuilder();
         databaseURL.append("jdbc:postgresql://");
         databaseURL.append(getProperties().getProperty("database.url"));
         databaseURL.append("/").append(getProperties().getProperty("database.name"));
-        databaseURL.append("?currentSchema=").append(getProperties().getProperty("schema.name"));
-
-        return new DatabaseConfigSupport().getDataSourceProvider(DatabaseConfigSupport.Database.POSTGRES).
-                createDataSource(databaseURL.toString(),
-                        getProperties().getProperty("database.user"),
-                        getProperties().getProperty("database.password"));
+        databaseURL.append("?currentSchema=").append(property);
+        return databaseURL.toString();
     }
 
     @Bean

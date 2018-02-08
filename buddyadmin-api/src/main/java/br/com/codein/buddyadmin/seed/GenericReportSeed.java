@@ -24,8 +24,9 @@ public class GenericReportSeed implements AppSeed {
     private GenericReportService service;
 
 
-    @Transactional
+
     @Override
+    @Transactional
     public void loadSeed() throws IOException {
         try {
             ClassLoader classLoader = getClass().getClassLoader();
