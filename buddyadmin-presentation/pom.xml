@@ -22,6 +22,30 @@
                     <warName>buddyadmin</warName>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <executions>
+                    <execution>
+                        <id>Bower</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <basedir>${basedir}/src/main/webapp</basedir>
+                            <executable>bower</executable>
+                            <arguments>
+                                <argument>install</argument>
+                                <argument>--allow-root</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+
     </build>
 </project>
