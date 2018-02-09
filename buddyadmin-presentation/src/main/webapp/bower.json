@@ -77,6 +77,10 @@
   "resolutions": {
     "angular": "1.5.8",
     "string-mask": "^0.3.0",
-    "moment": "^2.15.1"
+    "moment": "^2.15.1",
+    "gumga-components": "3.5.0",
+    "angular-ui-router": "0.2.13",
+    "jquery": "2.1.3",
+    "gumga-date-ng": "1.10.0"
   }
 }
