@@ -7,7 +7,7 @@ requirejs.config({
         "angular-bootstrap": "bower_components/angular-bootstrap/ui-bootstrap-tpls.min",
         "angular-ui-router": "bower_components/angular-ui-router/release/angular-ui-router.min",
         "angular-ui-tree" : "bower_components/angular-ui-tree/dist/angular-ui-tree",
-        "ui-select" : "/bower_components/ui-select/dist/select.min",
+        "ui-select" : "/bower_components/ui-select/dist/select",
         "angular-sanitize": "bower_components/angular-sanitize/angular-sanitize.min",
         "popper": "bower_components/popper.js/dist/umd/popper",
         "bootstrap": "bower_components/bootstrap/dist/js/bootstrap.min",
