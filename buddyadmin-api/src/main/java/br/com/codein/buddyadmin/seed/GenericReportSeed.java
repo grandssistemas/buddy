@@ -1,5 +1,6 @@
 package br.com.codein.buddyadmin.seed;
 
+import br.com.mobiage.mobiage.application.service.buddyseed.BuddySeedControlService;
 import br.com.mobiage.mobiage.application.service.genericreport.GenericReportService;
 import br.com.mobiage.mobiage.domain.model.genericreport.GenericReport;
 import br.com.mobiage.mobiage.domain.model.genericreport.enums.ReportType;
@@ -22,6 +23,9 @@ public class GenericReportSeed implements AppSeed {
 
     @Autowired
     private GenericReportService service;
+
+    @Autowired
+    private BuddySeedControlService buddySeedControlService;
 
 
 
@@ -57,7 +61,7 @@ public class GenericReportSeed implements AppSeed {
                         defaultReport = new GenericReport(name,type,json,lastAlteration);
                     }
 
-                    service.save(defaultReport);
+                    buddySeedControlService.saveSeedIntegrationFromBuddy(defaultReport, service);
                 }
             }
 

@@ -12,6 +12,7 @@ import br.com.mobiage.mobiage.application.service.characteristic.CharacteristicS
 import br.com.mobiage.mobiage.application.service.characteristic.OptionValueCharacteristicService;
 import br.com.mobiage.mobiage.application.service.department.DepartmentService;
 import br.com.mobiage.mobiage.application.service.fiscalgroup.PersonGroupService;
+import br.com.mobiage.mobiage.application.service.genericreport.GenericReportService;
 import br.com.mobiage.mobiage.application.service.operation.OperationService;
 import br.com.mobiage.mobiage.application.service.paymenttype.PaymentCategoryService;
 import br.com.mobiage.mobiage.application.service.paymenttype.PaymentFormService;
@@ -91,6 +92,9 @@ public class SeedBuddyService {
     private BuddySeedControlService buddySeedControlService;
     @Autowired
     private OptionValueCharacteristicService optionValueCharacteristicService;
+    @Autowired
+    private GenericReportService genericReportService;
+
 
     @Transactional
     public List<PaymentForm> savePaymentForm(List<PaymentForm> entities) {
@@ -237,6 +241,7 @@ public class SeedBuddyService {
                     return department;
                 }).collect(Collectors.toList()));
         all.put("products",productService.findAllFat());
+        all.put("reports", genericReportService.findAll());
 
         return all;
     }
