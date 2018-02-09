@@ -65,8 +65,9 @@ define(['angular',
     window.moment = moment;
     angular.module('app.core', [
         'ui.router'
-        , 'ui.tree'
         , 'ngSanitize'
+        , 'ui.tree'
+        , 'ui.select'
         , 'gumga.core'
         , 'app.login'
         , 'app.company'
