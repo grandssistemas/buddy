@@ -147,14 +147,14 @@ public class Application {
 
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.EJB3NamingStrategy");
-        properties.put("hibernate.show_sql", "false");
+        properties.put("hibernate.show_sql", "true");
 //        properties.put("hibernate.format_sql", "true");
         properties.put("hibernate.connection.charSet", "UTF-8");
         properties.put("hibernate.connection.characterEncoding", "UTF-8");
         properties.put("hibernate.connection.useUnicode", "true");
         properties.put("hibernate.jdbc.batch_size", "55");
 
-//        properties.put("liquibase.enabled", "true");
+        properties.put("liquibase.enabled", "false");
 //        properties.put("liquibase.drop-first", "false");
 //        properties.put("liquibase.change-log", "src/main/resources/liquibase/changelog-master.xml");
 
