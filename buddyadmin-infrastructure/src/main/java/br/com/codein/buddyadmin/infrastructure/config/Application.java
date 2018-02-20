@@ -154,7 +154,7 @@ public class Application {
         properties.put("hibernate.connection.useUnicode", "true");
         properties.put("hibernate.jdbc.batch_size", "55");
 
-//        properties.put("liquibase.enabled", "true");
+        properties.put("liquibase.enabled", "false");
 //        properties.put("liquibase.drop-first", "false");
 //        properties.put("liquibase.change-log", "src/main/resources/liquibase/changelog-master.xml");
 

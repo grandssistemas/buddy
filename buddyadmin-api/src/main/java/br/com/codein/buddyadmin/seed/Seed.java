@@ -75,7 +75,7 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (started.get()) return;
-		
+
 		for (AppSeed seed : seeds()) {
 			try {
 				seed.loadSeed();
@@ -83,7 +83,7 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 				throw new RuntimeException(e);
 			}
 		}
-		
+
 		started.set(true);
 	}
 	
