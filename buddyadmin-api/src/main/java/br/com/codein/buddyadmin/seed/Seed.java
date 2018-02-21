@@ -61,12 +61,6 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 	private DepartmentSeed departmentSeed;
 
 	@Autowired
-	@Qualifier("juridicalSeed")
-	private JuridicalSeed juridicalSeed;
-	@Autowired
-	@Qualifier("individualSeed")
-	private IndividualSeed individualSeed;
-	@Autowired
 	@Qualifier("roleSeed")
 	private RoleSeed roleSeed;
 	@Autowired
@@ -101,8 +95,6 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 		list.add(characteristicSeed);
 		list.add(departmentSeed);
 		list.add(roleSeed);
-		list.add(juridicalSeed);
-		list.add(individualSeed);
 		list.add(genericReportSeed);
 		return list;
 	}

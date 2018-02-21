@@ -84,14 +84,7 @@ public class SeedBuddyService {
     @Autowired
     private DepartmentService departmentService;
     @Autowired
-    private JuridicaService juridicaService;
-    @Autowired
-    private IndividualService individualService;
-
-    @Autowired
     private BuddySeedControlService buddySeedControlService;
-    @Autowired
-    private OptionValueCharacteristicService optionValueCharacteristicService;
     @Autowired
     private GenericReportService genericReportService;
 
@@ -200,18 +193,6 @@ public class SeedBuddyService {
         return entities;
     }
 
-    @Transactional
-    public List<Juridica> saveJuridica(List<Juridica> entities) {
-        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, juridicaService));
-        return entities;
-    }
-
-    @Transactional
-    public List<Individual> saveIndividual(List<Individual> entities) {
-        entities.forEach(entity -> buddySeedControlService.saveSeedIntegrationFromBuddy(entity, individualService));
-        return entities;
-    }
-
     @Transactional(readOnly = true)
     public HashMap<String, Object> all() {
         HashMap<String, Object> all = new HashMap<>();
@@ -222,8 +203,6 @@ public class SeedBuddyService {
         all.put("operations",operationService.findAllFat());
         all.put("businessRules",businessRuleService.findAllFat());
         all.put("roles",roleService.findAllFat());
-        all.put("individuals",individualService.findAllFat());
-        all.put("juridicas",juridicaService.findAllFat());
         all.put("productGroups",productGroupService.findAll());
         all.put("formulas",formulaService.findAll());
         all.put("taxationGroups",taxationGroupService.findAllFat());
@@ -240,7 +219,7 @@ public class SeedBuddyService {
                     }).collect(Collectors.toSet()));
                     return department;
                 }).collect(Collectors.toList()));
-        all.put("products",productService.findAllFat());
+//        all.put("products",productService.findAllFat());
         all.put("reports", genericReportService.findAll());
 
         return all;
