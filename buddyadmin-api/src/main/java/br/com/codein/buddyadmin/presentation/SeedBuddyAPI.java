@@ -103,16 +103,6 @@ public class SeedBuddyAPI {
         return service.saveCharacteristic(entities);
     }
 
-    @RequestMapping(value = "/juridica",method = RequestMethod.POST)
-    public List<Juridica> seedJuridica(@RequestBody List<Juridica> entities){
-        return service.saveJuridica(entities);
-    }
-
-    @RequestMapping(value = "/individual",method = RequestMethod.POST)
-    public List<Individual> seedIndividual(@RequestBody List<Individual> entities){
-        return service.saveIndividual(entities);
-    }
-
     @RequestMapping(value = "/all",method = RequestMethod.GET)
     public HashMap<String,Object> seedAll(){
         return service.all();

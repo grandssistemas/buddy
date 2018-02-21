@@ -201,9 +201,6 @@ public class PaymentTypeSeed implements AppSeed {
         paymentCategoryCrediario.setPaymentTypes(new ArrayList<>());
         paymentForm.getPaymentCategories().add(paymentCategoryCrediario);
 
-
-
-
         PaymentType paymentTypeCL = new PaymentType();
         paymentTypeCL.setName("Crediário Loja");
         paymentTypeCL.setIcon("fa fa-shopping-bag");
