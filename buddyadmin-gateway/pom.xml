@@ -19,11 +19,6 @@
             <artifactId>buddyadmin-domain</artifactId>
         </dependency>
         <!-- DEPENDENCIAS do Framework GUMGA    -->
-        <dependency>
-            <groupId>io.gumga</groupId>
-            <artifactId>gumga-presentation</artifactId>
-            <version>1.5.9</version>
-            <type>jar</type>
-        </dependency>
+
     </dependencies>
 </project>

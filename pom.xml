@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <io.gumga.version>1.5.22</io.gumga.version>
+        <io.gumga.version>3.2.2</io.gumga.version>
         <spring.version>4.2.8.RELEASE</spring.version>
         <hibernate.version>4.3.11.Final</hibernate.version>
         <hibernate.validator.version>5.1.0.Final</hibernate.validator.version>
@@ -107,18 +107,6 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${javax.servlet.api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>javax.servlet.jsp</groupId>
-                <artifactId>jsp-api</artifactId>
-                <version>${javax.servlet.jsp.api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>jstl</artifactId>
-                <version>${javax.servlet.jstl.version}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
@@ -212,11 +200,6 @@
                 <version>${slf4j.simple.version}</version>
             </dependency>
             <dependency>
-                <groupId>redis.clients</groupId>
-                <artifactId>jedis</artifactId>
-                <version>2.4.2</version>
-            </dependency>
-            <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-hibernate4</artifactId>
                 <version>${com.fasterxml.jackson.version}</version>
@@ -288,17 +271,17 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency>
-                <groupId>br.com.mobiage</groupId>
-                <artifactId>mobiage-api</artifactId>
-                <version>${mobiage.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>br.com.mobiage</groupId>
-                        <artifactId>mobiage-infrastructure</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>br.com.mobiage</groupId>-->
+                <!--<artifactId>mobiage-api</artifactId>-->
+                <!--<version>${mobiage.version}</version>-->
+                <!--<exclusions>-->
+                    <!--<exclusion>-->
+                        <!--<groupId>br.com.mobiage</groupId>-->
+                        <!--<artifactId>mobiage-infrastructure</artifactId>-->
+                    <!--</exclusion>-->
+                <!--</exclusions>-->
+            <!--</dependency>-->
             <dependency>
                 <groupId>br.com.mobiage</groupId>
                 <artifactId>mobiage-gateway</artifactId>
