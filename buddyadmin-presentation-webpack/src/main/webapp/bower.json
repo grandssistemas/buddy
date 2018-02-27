@@ -1,0 +1,15 @@
+{
+  "name": "buddyadmin",
+  "version": "1.0.0",
+  "description": "buddyadmin",
+  "main": "app/app.js",
+  "license": "ISC",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {}
+}
