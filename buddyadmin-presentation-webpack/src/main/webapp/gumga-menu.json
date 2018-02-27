@@ -1,6 +1,13 @@
 [
 	{
 		"type": "item",
+		"label": "Árvore de Produto",
+		"state": "categorization.tree",
+		"icon": "home",
+		"key": "CRUD-BASE"
+	},
+	{
+		"type": "item",
 		"label": "Página Inicial",
 		"state": "welcome.home",
 		"icon": "home",

@@ -5,6 +5,10 @@ Object.keys(env).forEach(key => window[key] = env[key]);
 require('./import-libs');
 require('./import-styles');
 require('./import-modules');
+require('./import-projects');
+
+require('./apiLocationsAngular');
+require('./apiVariables');
 
 
 angular.module('gumga.core', [
@@ -33,7 +37,8 @@ angular.module('gumga.core', [
   'gumga.layout',
   'gumga.date',
   'gumga.queryaction',
-  'gumga.myAccountEmbedded'
+  'gumga.myAccountEmbedded',
+  'gumga.numberinwords'
 ]);
 
 angular.module('app.core', [
@@ -46,7 +51,22 @@ angular.module('app.core', [
   , 'app.account'
   , 'app.gumgatagdefinition'
   , 'app.gumgacustomfield'
-  , 'app.welcome'
+  , 'app.welcome',
+    'oitozero.ngSweetAlert',
+    'ui.select',
+    'brasil.filters',
+    'app.taxsettings.services',
+    'buddy.core',
+    'grands.components',
+    'finance.embedded',
+    'characteristic.core',
+    'product.core',
+    'operationtype.core',
+    'taxsettings.core',
+    'paymenttype.core',
+    'pdv.core',
+    'movementgroup.core',
+    'app.reportlist'
   //FIMINJECTIONS
 ])
   .run(['$rootScope', '$timeout', function ($rootScope, $timeout) {
