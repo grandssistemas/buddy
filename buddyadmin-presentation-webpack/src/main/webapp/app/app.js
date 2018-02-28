@@ -69,10 +69,36 @@ angular.module('app.core', [
     'app.reportlist'
   //FIMINJECTIONS
 ])
-  .run(['$rootScope', '$timeout', function ($rootScope, $timeout) {
-    $rootScope.$watch(() => {
-      setTimeout(() => angular.element('a[href]').attr('target', '_self'), 0);
-    });
+  .run(['$rootScope', '$timeout', '$transitions', '$uiRouter', function ($rootScope, $timeout, $transitions, $uiRouter) {
+      $rootScope.$watch(() => {
+        setTimeout(() => angular.element('a[href]').attr('target', '_self'), 0);
+      });
+
+      // $uiRouter.stateRegistry.deregister('categorization');
+
+      //
+      // $transitions.onBefore({}, function($transitions) {
+      //     console.log("statechange success");
+      //     let stateTo = $transitions.views();
+      //     stateTo[0].template = "";
+      //     stateTo[0].templateUrl = 'app/modules/common/views/base.html';
+      //
+      //     let test = stateTo[0].getTemplate();
+      //     console.log(test);
+      //     stateTo[0].load();
+      //
+      //     test = stateTo[0].getTemplate();
+      //     console.log(test);
+      //
+      //     console.log(stateTo);
+      //     // $transitions.redirect();
+      // });
+
+      // $rootScope.$on('$stateChangeStart',
+      //     function(event, toState, toParams, fromState, fromParams, options){
+      //         event.preventDefault();
+      //         console.log("TESTE");
+      //     });
   }])
   .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$injector', function ($stateProvider, $urlRouterProvider, $httpProvider, $injector) {
 
@@ -86,7 +112,10 @@ angular.module('app.core', [
 
     var tempĺateBase = 'app/modules/common/views/base.html';
     $urlRouterProvider.otherwise('app/login');
-    $stateProvider
+
+
+
+      $stateProvider
       .state('app', {
         abstract: true,
         url: '/app',
@@ -129,6 +158,14 @@ angular.module('app.core', [
         url: '/gumgacustomfield',
         templateUrl: tempĺateBase
       })
+      // .state('categorization', {
+          // data: {
+          //     id: 1
+          // },
+          // url: '/categorization',
+          // templateUrl: tempĺateBase,
+          // abstract: true
+      // })
     //FIMROUTE
 
     const handlingLoading = ($injector, $timeout) => {
@@ -142,6 +179,14 @@ angular.module('app.core', [
         'request': function (config) {
           config.headers['gumgaToken'] = window.sessionStorage.getItem('user') ? JSON.parse(window.sessionStorage.getItem('user')).token : 0
           handlingLoading($injector, $timeout);
+
+            var url = config.url;
+            console.log(url);
+
+            if (url === '/baseGrandsComponents.html'){
+                config.url = tempĺateBase;
+            }
+
           return config
         },
         'response': function (config) {
