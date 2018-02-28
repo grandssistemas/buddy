@@ -1,17 +1,88 @@
 [
 	{
 		"type": "item",
-		"label": "Árvore de Produto",
-		"state": "categorization.tree",
+		"label": "Página Inicial",
+		"state": "welcome.home",
 		"icon": "home",
 		"key": "CRUD-BASE"
 	},
 	{
 		"type": "item",
-		"label": "Página Inicial",
-		"state": "welcome.home",
-		"icon": "home",
-		"key": "CRUD-BASE"
+		"label": "Cadastros",
+		"icon": "subtitles",
+		"key": "CRUD-BASE",
+		"children": [
+			{
+				"type": "item",
+				"label": "Árvore de Produto",
+				"key": "TAGS",
+				"state": "categorization.tree",
+				"icon": "device_hub"
+			},
+			{
+				"type": "item",
+				"label": "Características",
+				"key": "TAGS",
+				"state": "characteristic.list",
+				"icon": "photo_filter"
+			},
+			{
+				"type": "item",
+				"label": "Tipos de Pagamento",
+				"key": "TAGS",
+				"state": "paymentmethods.insert",
+				"icon": "monetization_on"
+			},
+			{
+				"type": "item",
+				"label": "Tipos de Operação",
+				"key": "TAGS",
+				"state": "stock.insert",
+				"icon": "layers"
+			},
+			{
+				"type": "item",
+				"label": "Regra Comercial",
+				"key": "TAGS",
+				"state": "businessrule.list",
+				"icon": "local_offer"
+			},
+			{
+				"type": "item",
+				"label": "Papéis",
+				"key": "TAGS",
+				"state": "role.list",
+				"icon": "person_pin"
+			},
+			{
+				"type": "item",
+				"label": "Grupo fiscal de Produto",
+				"key": "TAGS",
+				"state": "productfiscalgroup.productlist",
+				"icon": "local_library"
+			},
+			{
+				"type": "item",
+				"label": "Grupo fiscal de Pessoa",
+				"key": "TAGS",
+				"state": "fiscalgroup.personlist",
+				"icon": "person_pin_circle"
+			},
+			{
+				"type": "item",
+				"label": "Fórmulas",
+				"key": "TAGS",
+				"state": "formula.list",
+				"icon": "note_add"
+			},
+			{
+				"type": "item",
+				"label": "Configurações de Tributo",
+				"key": "TAGS",
+				"state": "taxsettings.list",
+				"icon": "local_atm"
+			}
+		]
 	},
 	{
 		"type": "item",

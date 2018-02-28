@@ -3,5 +3,16 @@
     "gumgacustomfield.insert": "Custom Fields",
     "gumgatagdefinition.insert": "Tags",
     "gumgatagdefinition.list": "Tags",
-    "welcome.home": "Página Inicial"
+    "welcome.home": "Página Inicial",
+    "categorization.tree": "Árvore de Produto",
+    "characteristic.list": "Características",
+    "paymentmethods.insert": "Tipos de Pagamento",
+    "stock.insert": "Tipos de Operação",
+    "businessrule.list": "Regra Comercial",
+    "role.list": "Papéis",
+    "productfiscalgroup.productlist": "Grupo fiscal de Produto",
+    "fiscalgroup.personlist": "Grupo fiscal de Pessoa",
+    "formula.list": "Fórmulas",
+    "taxsettings.list": "Configurações de Tributo"
 }
+

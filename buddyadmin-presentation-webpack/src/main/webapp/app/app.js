@@ -38,11 +38,14 @@ angular.module('gumga.core', [
   'gumga.date',
   'gumga.queryaction',
   'gumga.myAccountEmbedded',
-  'gumga.numberinwords'
+  'gumga.numberinwords',
+  'gumga.gallery-icon'
 ]);
 
 angular.module('app.core', [
-  'ui.router'
+  'ui.router',
+    'ui.select',
+    'ui.tree',
   , 'ngSanitize'
   , 'ui.bootstrap'
   , 'gumga.core'
@@ -73,32 +76,6 @@ angular.module('app.core', [
       $rootScope.$watch(() => {
         setTimeout(() => angular.element('a[href]').attr('target', '_self'), 0);
       });
-
-      // $uiRouter.stateRegistry.deregister('categorization');
-
-      //
-      // $transitions.onBefore({}, function($transitions) {
-      //     console.log("statechange success");
-      //     let stateTo = $transitions.views();
-      //     stateTo[0].template = "";
-      //     stateTo[0].templateUrl = 'app/modules/common/views/base.html';
-      //
-      //     let test = stateTo[0].getTemplate();
-      //     console.log(test);
-      //     stateTo[0].load();
-      //
-      //     test = stateTo[0].getTemplate();
-      //     console.log(test);
-      //
-      //     console.log(stateTo);
-      //     // $transitions.redirect();
-      // });
-
-      // $rootScope.$on('$stateChangeStart',
-      //     function(event, toState, toParams, fromState, fromParams, options){
-      //         event.preventDefault();
-      //         console.log("TESTE");
-      //     });
   }])
   .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$injector', function ($stateProvider, $urlRouterProvider, $httpProvider, $injector) {
 
@@ -112,8 +89,6 @@ angular.module('app.core', [
 
     var tempĺateBase = 'app/modules/common/views/base.html';
     $urlRouterProvider.otherwise('app/login');
-
-
 
       $stateProvider
       .state('app', {
@@ -158,18 +133,10 @@ angular.module('app.core', [
         url: '/gumgacustomfield',
         templateUrl: tempĺateBase
       })
-      // .state('categorization', {
-          // data: {
-          //     id: 1
-          // },
-          // url: '/categorization',
-          // templateUrl: tempĺateBase,
-          // abstract: true
-      // })
-    //FIMROUTE
 
     const handlingLoading = ($injector, $timeout) => {
       var $http = $injector.get('$http');
+
       let loading = angular.element('gmd-spinner.loading');
       if (loading) $timeout(() => loading.css({ display: $http.pendingRequests.length > 0 ? 'block' : 'none' }));
     };
@@ -179,14 +146,10 @@ angular.module('app.core', [
         'request': function (config) {
           config.headers['gumgaToken'] = window.sessionStorage.getItem('user') ? JSON.parse(window.sessionStorage.getItem('user')).token : 0
           handlingLoading($injector, $timeout);
-
             var url = config.url;
-            console.log(url);
-
             if (url === '/baseGrandsComponents.html'){
                 config.url = tempĺateBase;
             }
-
           return config
         },
         'response': function (config) {
@@ -199,6 +162,7 @@ angular.module('app.core', [
           var GumgaAlert = $injector.get('GumgaAlert')
           if (rejection.status == 404) {
             $gmdAlert.error('404', 'Verifique se o endereço foi digitado corretamente.', 3000);
+
             return;
           }
           var error = {

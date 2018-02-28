@@ -12,7 +12,7 @@ module.exports = {
     devServer: {
         inline: true,
         open: true,
-        port: 1111
+        port: 2222
     },
     plugins: [
         new ExtractTextPlugin({
