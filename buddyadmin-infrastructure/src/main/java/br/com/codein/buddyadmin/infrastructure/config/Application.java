@@ -40,6 +40,7 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.application.service.tributador",
         "br.com.mobiage.mobiage.application.service.buddyseed",
         "br.com.mobiage.mobiage.application.service.genericreport",
+        "br.com.mobiage.mobiage.application.service.product",
         "br.com.mobiage.integration",
         "br.com.mobiage.mobiage.presentation.api.person",
         "br.com.mobiage.mobiage.presentation.api.fiscalgroup",
@@ -52,6 +53,7 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.presentation.api.businessrule",
         "br.com.mobiage.mobiage.presentation.api.tributador",
         "br.com.mobiage.mobiage.presentation.api.genericreport",
+        "br.com.mobiage.mobiage.presentation.api.product",
         "br.com.mobiage.mobiage.gateway.dto.businessrole",
         "br.com.mobiage.mobiage.gateway.dto.department",
         "br.com.mobiage.mobiage.gateway.dto.operation",
@@ -177,7 +179,8 @@ public class Application {
                 "br.com.mobiage.mobiage.domain.model.tributador",
                 "br.com.mobiage.mobiage.domain.model.certificado",
                 "br.com.mobiage.mobiage.domain.model.buddyseed",
-                "br.com.mobiage.mobiage.domain.model.genericreport"
+                "br.com.mobiage.mobiage.domain.model.genericreport",
+                "br.com.mobiage.mobiage.domain.model.product"
         );
         factory.setDataSource(dataSource);
 
