@@ -1,234 +1,195 @@
-define(['angular',
-    'angular-ui-router',
-    'angular-sanitize',
-    'ui-select',
-    'angular-ui-tree',
-    'ngImgCrop',
-    'gumga-core',
-    'gumga-layout',
-    'gumga-simple-image',
-    'gumga-security-embedded',
-    'gumga-rest',
-    'gumga-controller',
-    'gumga-alert',
-    'gumga-web-storage',
-    'gumga-many-to-one',
-    'gumga-address',
-    'gumga-translate',
-    'gumga-mask',
-    'gumga-upload',
-    'gumga-custom-fields',
-    'gumga-form-buttons',
-    'gumga-counter',
-    'gumga-breadcrumb',
-    'gumga-confirm',
-    'gumga-one-to-many',
-    'gumga-populate',
-    'gumga-many-to-many',
-    'gumga-form',
-    'gumga-generic-filter',
-    'gumga-query-filter',
-    'gumga-list',
-    'gumga-date',
-    'gumga-click-sync',
-    'gumga-gallery-icon',
-    'gumga-avatar',
-    'gumga-gquery',
-    'ng-filter-br',
-    'tree-control',
-    'angular-input-masks',
-    'string-mask',
-    'moment',
-    'br-validations',
-    'gumga-layout',
-    'buddy-core',
-    'grands-core',
-    'payment-type',
-    'pdv',
-    'tributador',
-    'movementgroup',
-    'operation-type',
-    'product',
-    'inspinia-datepicker',
-    'angular-locale',
-    'app/modules/login/module',
-    'apiLocations',
-    'bootstrap',
-    'app/modules/user/module',
-    'app/modules/instance/module',
-    'app/modules/role/module',
-    'app/modules/company/module',
-    'app/modules/welcome/module',
-    'app/directives/module',
-    'api-variables'], function (angular, moment) {
-    //FIMREQUIRE
-    window.moment = moment;
-    angular.module('app.core', [
-        'ui.router'
-        , 'ngSanitize'
-        , 'ui.tree'
-        , 'ui.select'
-        , 'gumga.core'
-        , 'app.login'
-        , 'app.company'
-        , 'app.user'
-        , 'app.instance'
-        , 'app.securityrole'
-        , 'app.welcome'
-        , 'brasil.filters'
-        , 'treeControl'
-        , 'ui.utils.masks'
-        , 'gumga.layout'
-        ,'grands.components'
-        , 'datePicker'
-        ,'buddy.core'
-        , 'characteristic.core'
-        ,'product.core'
-        , 'operationtype.core'
-        , 'paymenttype.core'
-        , 'buddyadmin.core'
-        //FIMINJECTIONS
-    ])
-        .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $injector, GumgaAlertProvider) {
+'use strict';
+const env = process.env.NODE_ENV == "production" ? require('./environments/environment.prod').env : require('./environments/environment').env;
 
-            var template = [
-                '<gumga-nav></gumga-nav>',
-                '<gumga-menu menu-url="gumga-menu.json" keys-url="keys.json" image="./resources/images/gumga.png"></gumga-menu>',
-                '<div class="gumga-container">',
-                '<gumga-multi-entity-search data="multi.search"></gumga-multi-entity-search>',
-                '</div>'
-            ];
+Object.keys(env).forEach(key => window[key] = env[key]);
+require('./import-libs');
+require('./import-styles');
+require('./import-modules');
+require('./import-projects');
 
-            $urlRouterProvider.otherwise('login/log');
-            $stateProvider
-                .state('login', {
-                    abstract: true,
-                    url: '/login',
-                    data: {
-                        id: 0
-                    },
-                    template: '<div ui-view style="height: 100%;"></div>'
-                })
-                .state('welcome', {
-                    url: '/welcome',
-                    controller: 'MenuBuddyController',
-                    data: {
-                        id: 0
-                    },
-                    templateUrl: 'app/modules/welcome/views/welcome.html'
-                })
-                .state('multientity', {
-                    url: '/multientity/:search',
-                    template: template.join('\n'),
-                    controller: 'MultiEntityController',
-                    controllerAs: 'multi',
-                    data: {
-                        id: 0
-                    },
-                    resolve: {
-                        SearchPromise: ['$stateParams', '$http', function ($stateParams, $http) {
-                            var url = APILocations.apiLocation + '/public/multisearch/search/';
-                            return $http.get(url + $stateParams.search);
-                        }]
-                    }
-                })
-                .state('gumgatagdefinition', {
-                    url: '/gumgatagdefinition',
-                    templateUrl: 'app/modules/gumgatagdefinition/views/base.html'
-                })
-                .state('gumgacustomfield', {
-                    url: '/gumgacustomfield',
-                    templateUrl: 'app/modules/gumgacustomfield/views/base.html'
-                })
-                .state('company', {
-                    data: {
-                        id: 1
-                    },
-                    url: '/company',
-                    templateUrl: 'app/modules/company/views/base.html'
-                })
+require('./apiLocationsAngular');
+require('./apiVariables');
 
-            //FIMROUTE
 
-            var countLoader = 0, countSuccessMessage = 0;
-            $httpProvider.interceptors.push(function ($q, $injector, $timeout) {
+angular.module('gumga.core', [
+  'gumga.rest',
+  'gumga.controller',
+  'gumga.alert',
+  'gumga.webstorage',
+  'gumga.manytoone',
+  'gumga.address',
+  'gumga.translate',
+  'gumga.mask',
+  'gumga.upload',
+  'gumga.customfields',
+  'gumga.formbuttons',
+  'gumga.counter',
+  'gumga.breadcrumb',
+  'gumga.confirm',
+  'gumga.onetomany',
+  'gumga.populate',
+  'gumga.manytomany',
+  'gumga.form',
+  'gumga.queryfilter',
+  'gumga.genericfilter',
+  'gumga.list',
+  'gumga.login',
+  'gumga.layout',
+  'gumga.date',
+  'gumga.queryaction',
+  'gumga.myAccountEmbedded',
+  'gumga.numberinwords',
+  'gumga.gallery-icon'
+]);
 
-                var rootScope = $injector.get('$rootScope');
-                    rootScope.hideMessage = false;
-                    rootScope.$on('hideNextMessage', function () {
-                        console.log(rootScope.hideMessage);
-                    rootScope.hideMessage = true;
-                });
-                return {
-                    'request': function (config) {
-                        config.headers['gumgaToken'] = window.sessionStorage.getItem('token') || 0;
-                        return config;
-                    },
-                    'response': function (config) {
-                        var isPost = config.config.method === 'POST' && config.config.url.indexOf('catalog') === -1;
-                        if ((config.config.method === 'PUT' || isPost) && --countSuccessMessage === 0 && !rootScope.hideMessage) {
-                            switch (config.config.method) {
-                                case 'POST':
-                                    GumgaAlertProvider.createSuccessMessage('Salvo com sucesso!', 'Pronto!');
-                                    break;
-                                case 'PUT':
-                                    GumgaAlertProvider.createSuccessMessage('Editado com sucesso!', 'Pronto!');
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                        if (--countLoader === 0) {
-                            rootScope.$broadcast('loader_hide');
-                        }
-                        if (rootScope.hideMessage && !countSuccessMessage && (config.config.method === 'PUT' || isPost)) {
-                            rootScope.hideMessage = false;
-                        }
+angular.module('app.core', [
+  'ui.router',
+    'ui.select',
+    'ui.tree',
+  , 'ngSanitize'
+  , 'ui.bootstrap'
+  , 'gumga.core'
+  , 'app.login'
+  , 'app.base'
+  , 'app.account'
+  , 'app.gumgatagdefinition'
+  , 'app.gumgacustomfield'
+  , 'app.welcome',
+    'oitozero.ngSweetAlert',
+    'ui.select',
+    'brasil.filters',
+    'app.taxsettings.services',
+    'buddy.core',
+    'grands.components',
+    'finance.embedded',
+    'characteristic.core',
+    'product.core',
+    'operationtype.core',
+    'taxsettings.core',
+    'paymenttype.core',
+    'pdv.core',
+    'movementgroup.core',
+    'app.reportlist'
+  //FIMINJECTIONS
+])
+  .run(['$rootScope', '$timeout', '$transitions', '$uiRouter', function ($rootScope, $timeout, $transitions, $uiRouter) {
+      $rootScope.$watch(() => {
+        setTimeout(() => angular.element('a[href]').attr('target', '_self'), 0);
+      });
+  }])
+  .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$injector', function ($stateProvider, $urlRouterProvider, $httpProvider, $injector) {
 
-                        return config;
-                    },
-                    'responseError': function (rejection) {
-                        // var $state = $injector.get('$state');
-                        // GumgaAlertProvider.createDangerMessage(rejection.data.response, rejection.statusText);
-                        // rejection.status === 403 && ($state.go('login.log'));
-                        // return $q.reject(rejection);
-                        if (rejection.status === 403) {
-                            var state = $injector.get('$state');
-                            GumgaAlertProvider.createDangerMessage('Usuário ',
-                                'Sua sessão expirou ou você não tem acesso a esta funcionalidade, faça login e tente novamente.',
-                                'errors', {
-                                    timer: 9999999
-                                });
-                            state.go('login.log');
-                            return $q.reject(rejection);
-                        }
-                        if (rejection.status === 409 && rejection.data.data && rejection.data.data.SQLState === '23503') {
-                            var state = rejection.data.data.SQLState,
-                                message = $filter('gumgaTranslate')(state, 'errors');
-                            GumgaAlertProvider.createDangerMessage('Conflito',
-                                message,
-                                'errors', {
-                                    timer: 9999999
-                                });
-                            return $q.reject(rejection);
-                        }
-                        if (rejection.data && rejection.data.details && rejection.data.details.indexOf('notooltip;;') > -1) {
-                            return $q.reject(rejection);
-                        }
-                        if (rejection.data && rejection.data.details && rejection.data.details.indexOf(';;') > -1) {
-                            GumgaAlertProvider.createDangerMessage('ERRO AO REALIZAR O METODO ' + rejection.config.method + ' (' + rejection.status + ')',
-                                $filter('gumgaTranslate')(rejection.data.details.split(';;')[0], 'errors'), {
-                                    timer: 9999999
-                                });
-                            return $q.reject(rejection);
-                        }
-                        GumgaAlertProvider.createDangerMessage('ERRO AO REALIZAR O METODO ' + rejection.config.method + ' (' + rejection.status + ')',
-                            rejection.config.url, 'errors', {
-                                timer: 9999999
-                            });
-                        return $q.reject(rejection);
-                    }
-                };
-            })
-        })
-});
+    var template = [
+      '<gumga-nav></gumga-nav>',
+      '<gumga-menu menu-url="gumga-menu.json" keys-url="keys.json" image="./resources/images/gumga.png"></gumga-menu>',
+      '<div class="gumga-container">',
+      '<gumga-multi-entity-search data="multi.search"></gumga-multi-entity-search>',
+      '</div>'
+    ];
+
+    var tempĺateBase = 'app/modules/common/views/base.html';
+    $urlRouterProvider.otherwise('app/login');
+
+      $stateProvider
+      .state('app', {
+        abstract: true,
+        url: '/app',
+        data: {
+          id: 0
+        },
+        template: '<div ui-view></div>'
+      })
+      .state('account', {
+        url: '/account',
+        templateUrl: tempĺateBase
+      })
+      .state('welcome', {
+        url: '/welcome',
+        data: {
+          id: 0
+        },
+        templateUrl: tempĺateBase
+      })
+      .state('multientity', {
+        url: '/multientity/:search',
+        template: template.join('\n'),
+        controller: 'MultiEntityController',
+        controllerAs: 'multi',
+        data: {
+          id: 0
+        },
+        resolve: {
+          SearchPromise: ['$stateParams', '$http', function ($stateParams, $http) {
+            var url = APILocations.apiLocation + '/public/multisearch/search/';
+            return $http.get(url + $stateParams.search);
+          }]
+        }
+      })
+      .state('gumgatagdefinition', {
+        url: '/gumgatagdefinition',
+        templateUrl: tempĺateBase
+      })
+      .state('gumgacustomfield', {
+        url: '/gumgacustomfield',
+        templateUrl: tempĺateBase
+      })
+
+    const handlingLoading = ($injector, $timeout) => {
+      var $http = $injector.get('$http');
+
+      let loading = angular.element('gmd-spinner.loading');
+      if (loading) $timeout(() => loading.css({ display: $http.pendingRequests.length > 0 ? 'block' : 'none' }));
+    };
+
+    $httpProvider.interceptors.push(function ($q, $injector, $timeout, $filter, $gmdAlert) {
+      return {
+        'request': function (config) {
+          config.headers['gumgaToken'] = window.sessionStorage.getItem('user') ? JSON.parse(window.sessionStorage.getItem('user')).token : 0
+          handlingLoading($injector, $timeout);
+            var url = config.url;
+            if (url === '/baseGrandsComponents.html'){
+                config.url = tempĺateBase;
+            }
+            console.log(url);
+          return config
+        },
+        'response': function (config) {
+          handlingLoading($injector, $timeout);
+          return config
+        },
+        'responseError': function (rejection) {
+          handlingLoading($injector, $timeout);
+          var $state = $injector.get('$state')
+          var GumgaAlert = $injector.get('GumgaAlert')
+          if (rejection.status == 404) {
+            $gmdAlert.error('404', 'Verifique se o endereço foi digitado corretamente.', 3000);
+
+            return;
+          }
+          var error = {
+            title: rejection.data.response || rejection.data.code,
+            message: rejection.data.response ? rejection.statusText : rejection.data.details,
+            errorCode: (rejection.data.data) ? rejection.data.data.ErrorCode : null
+          }
+          if (error.title === 'NO_USER' || error.title === 'BAD_PASSWORD') {
+            error.message = 'Usuario ou senha está incorreto!'
+          }
+          if (rejection.data.response == 'NO_TOKEN' || rejection.data.response == 'TOKEN_EXPIRED') {
+            sessionStorage.clear();
+            localStorage.clear();
+            $state.go('app.login');
+            $gmdAlert.error('Login necessário', 'Sua sessão expirou, faça o login novamente.', 3000);
+          }
+          if (error.title === 'OPERATION_NOT_ALLOWED') {
+            error.message = rejection.data.operation
+          }
+          if (error.title === 'ConstraintViolation') {
+            error.message = 'Estes dados não podem ser deletados, pois estão sendo utilizado por outros registros.'
+          }
+          $gmdAlert.error($filter('gumgaTranslate')(error.title, 'exception'), error.message, 3000);
+          rejection.status === 403 && ($state.go('app.login'));
+          return $q.reject(rejection);
+        }
+      }
+    })
+  }])

@@ -1,88 +1,31 @@
-<div class="gumga-layout" ng-controller="MenuBuddyController">
-
-    <menu-shrink menu="menu"
-                 keys="keys"
-                 theme="dark">
-    </menu-shrink>
-
-    <header class="gl-header">
-        <nav class="navbar">
-            <div class="container-fluid">
-                <div class="navbar-header" style="max-height: 50.33px;">
-                    <a class="navbar-brand" data-ng-click="navCollapse()">
-                        {{titleState}}
-                    </a>
-                    <button type="button" style="background-color: transparent;padding-top: 12px !important;" class="btn-round-footer navbar-toggle collapsed"
-                            data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <i class="material-icons">more_vert</i>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav organizations" title="Trocar de Organização">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" target="_self" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">domain</i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control gmd" data-ng-model="org_search" placeholder="Pesquisar...">
-                                        <div class="bar"></div>
-                                    </div>
-                                </li>
-                                <li data-ng-repeat="org in organizations | filter: org_search">
-                                    <a href="" ng-click="changeOrganization(org)">{{org.name}}
-                                        <span class="glyphicon glyphicon-ok" ng-show="org.name == user.organization || org.name == user.name"></span>
-                                    </a>
-                                </li>
-                                <li role="separator" class="divider"></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="navbar-form navbar-left search" autocomplete="off">
-                        <div class="form-group">
-                            <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon1">
-                                        <i class="material-icons">search</i>
-                                    </span>
-                                <input type="text" ng-model="asyncSelected" placeholder="O que deseja Fazer..." id="searchBase" uib-typeahead="item.searchLabel for item in searchMenu($viewValue) | limitTo:10"
-                                       class="form-control" typeahead-on-select="goToState($item)">
-                            </div>
-                        </div>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="height: 50.33px; padding-top: 15px">
-                                {{user.name}}
-                                <span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu ">
-                                <div class="row dropdown-account">
-                                    <div class="col-xs-4">
-                                        <img ng-src="{{user.profileImage}}" alt="">
-                                    </div>
-                                    <div class="user-info">
-                                        <b>{{user.name}}</b>
-                                        <span>{{user.login}}</span>
-                                    </div>
-                                </div>
-                                <hr style="margin-bottom: 10px;">
-                                <div class="row">
-                                    <div class="col-xs-12 dropdown-account-footer" style="padding:0 25px 10px 25px;">
-                                        <button ui-sref="user.profile" class="btn btn-primary raised gmd">Minha conta</button>
-                                        <div class="pull-right">
-
-                                            <button type="button" ng-click="logout()" class="btn btn-default gmd " name="button">Sair</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-md-offset-2" ng-init="entity = {}">
+        <div class="panel gmd">
+          <div class="panel-heading">
+            Próximos passos
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12">
+                <h5>Layout</h5> <br>
+                <p>
+                  Veja como usar os componentes <b>Bootstrap</b> com visual do <b>Material Design</b>, acesse: <a class="cl-primary" href="https://gumga.github.io/layout/" target="_blank">layout</a>
+                </p>
+              </div>
+              <div class="col-md-12"> <br> <br>
+                <h6>Componentes</h6><br>
+                <p>
+                  Quer saber como usar os componentes que a gumga oferece, acesse:  <a class="cl-primary" href="https://gumga.github.io/#/app/component" target="_blank">component</a>
+                </p>
+              </div>
+              <div class="col-md-12"> <br> <br>
+                <h6>Framework</h6><br>
+                <p>
+                  Gere novas entidades, repositórios, services, e endpoints, acesse:  <a class="cl-primary" href="https://gumga.github.io/#/app/framework/" target="_blank">framework</a>
+                </p>
+              </div>
             </div>
-        </nav>
-    </header>
-
-    <main ui-view style="background-color: var(--backgroundColor);position: relative;" class="gl-main"></main>
+          </div>
+        </div>
+    </div>
 </div>
