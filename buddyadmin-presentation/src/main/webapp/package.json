@@ -61,6 +61,7 @@
     "mousetrap": "^1.6.1",
     "my-account-embedded": "^1.1.1",
     "ng-img-crop": "^0.2.0",
+    "spdx-expression-parse": "^3.0.0",
     "sweetalert": "^2.0.8"
   },
   "devDependencies": {
