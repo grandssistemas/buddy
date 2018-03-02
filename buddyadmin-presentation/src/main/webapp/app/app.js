@@ -150,7 +150,6 @@ angular.module('app.core', [
             if (url === '/baseGrandsComponents.html'){
                 config.url = tempĺateBase;
             }
-            console.log(url);
           return config
         },
         'response': function (config) {

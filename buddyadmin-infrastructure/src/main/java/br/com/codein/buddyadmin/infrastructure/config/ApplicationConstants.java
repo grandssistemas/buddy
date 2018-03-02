@@ -8,8 +8,6 @@ public class ApplicationConstants implements GumgaValues {
 
     @Override
     public String getGumgaSecurityUrl() {
-        System.out.println(this.getCustomFileProperties().toString());
-        System.out.println("TESTE");
         return this.getCustomFileProperties().get("security.url") +"/security-api/publicoperations";
     }
 
