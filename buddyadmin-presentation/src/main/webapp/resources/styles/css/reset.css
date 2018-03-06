@@ -65,3 +65,14 @@ table {
 	height: 50px;
 	border: #E5E6E7 solid 1px;
 }
+
+
+:root {
+    --primary: #303f9f;
+    --secundary: #536dfe;
+    --defaultColor: #4e4e4e;
+    --titleColor: #848484;
+    --iconFocus: #ffffff;
+    --icon: #ffffff;
+}
+
