@@ -60,3 +60,8 @@ table {
 	font-size: 1rem !important;
     line-height: 1.42857143;
 }
+
+.ace_editor {
+	height: 50px;
+	border: #E5E6E7 solid 1px;
+}
