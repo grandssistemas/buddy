@@ -8,6 +8,7 @@ require("script-loader!../node_modules/angular-sweetalert/SweetAlert.min");
 require("script-loader!../node_modules/angular-sanitize/angular-sanitize.min");
 require("script-loader!../node_modules/@uirouter/angularjs/release/angular-ui-router.min");
 require("script-loader!../node_modules/bootstrap/dist/js/bootstrap.min");
+require('script-loader!../resources/javascript/ng-color-picker/color-picker.js');
 require("script-loader!../node_modules/es5-shim/es5-shim.min");
 require('script-loader!../node_modules/angular-datepicker/dist/index.js');
 require("script-loader!../resources/javascript/bootstrap-notify.min");

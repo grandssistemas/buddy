@@ -15,3 +15,4 @@ require('../bower_components/product-front/product.min.css');
 require('../bower_components/operationtype-front/operationtype.min.css');
 require('../bower_components/tributador-front/tributador.min.css');
 require('../bower_components/movementgroup-front/movementgroup.min.css');
+require('../resources/javascript/ng-color-picker/color-picker.css');

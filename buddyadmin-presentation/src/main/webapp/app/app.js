@@ -47,6 +47,7 @@ angular.module('app.core', [
     'ui.select',
     'ui.tree',
   , 'ngSanitize'
+  , 'ngColorPicker'
   , 'ui.bootstrap'
   , 'gumga.core'
   , 'app.login'
