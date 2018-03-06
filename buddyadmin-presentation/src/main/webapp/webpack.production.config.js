@@ -47,7 +47,7 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                exclude: /node_modules/,
+                exclude: [/node_modules/,/bower_components/] ,
                 use: [
                     {
                         loader: 'babel-loader'
@@ -63,6 +63,17 @@ module.exports = {
             {
                 test: /\.(jpe?g|png|gif|svg|eot|woff2|woff|ttf)$/i,
                 use: "file-loader?name=public/icons/[name].[ext]"
+            },
+            {
+                test: /\.html$/,
+                use: [
+                    {
+                        loader: 'ngtemplate-loader?relativeTo=src'
+                    },
+                    {
+                        loader: 'html-loader'
+                    }
+                ]
             }
         ]
     }

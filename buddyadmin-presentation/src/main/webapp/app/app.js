@@ -46,6 +46,7 @@ angular.module('app.core', [
   'ui.router',
     'ui.select',
     'ui.tree',
+    'ui.ace',
   , 'ngSanitize'
   , 'ngColorPicker'
   , 'ui.bootstrap'

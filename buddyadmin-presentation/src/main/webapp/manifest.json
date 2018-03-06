@@ -1,6 +1,7 @@
 {
     "name": "buddyadmin",
     "short_name": "buddyadmin",
+    "id": "buddyadmin",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#fff",

@@ -63,11 +63,6 @@
             <artifactId>spring-beans</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>br.com.gumga</groupId>
-            <artifactId>security-domain</artifactId>
-            <type>jar</type>
-        </dependency>
 
         <dependency>
             <groupId>br.com.mobiage</groupId>
@@ -100,11 +95,6 @@
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
             <version>3.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>br.com.gumga</groupId>
-            <artifactId>security-gateway</artifactId>
-            <type>jar</type>
         </dependency>
         <!--<dependency>-->
             <!--<groupId>br.com.codein</groupId>-->

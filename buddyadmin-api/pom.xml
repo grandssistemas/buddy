@@ -30,11 +30,6 @@
             <version>${io.gumga.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>br.com.gumga</groupId>
-            <artifactId>security-domain</artifactId>
-        </dependency>
-
 
         <dependency>
             <groupId>br.com.mobiage</groupId>
