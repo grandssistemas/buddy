@@ -46,7 +46,9 @@ angular.module('app.core', [
   'ui.router',
     'ui.select',
     'ui.tree',
+
   , 'ngSanitize'
+  , 'ngColorPicker'
   , 'ui.bootstrap'
   , 'gumga.core'
   , 'app.login'
@@ -57,6 +59,7 @@ angular.module('app.core', [
   , 'app.welcome',
     'oitozero.ngSweetAlert',
     'ui.select',
+    'ui.ace',
     'brasil.filters',
     'app.taxsettings.services',
     'buddy.core',

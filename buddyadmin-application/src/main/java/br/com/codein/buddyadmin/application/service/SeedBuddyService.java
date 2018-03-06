@@ -2,10 +2,8 @@ package br.com.codein.buddyadmin.application.service;
 
 
 import br.com.codein.buddyadmin.infrastructure.config.ApplicationConstants;
-import br.com.codein.buddyadmin.integration.client.SecurityBuddyClient;
 import br.com.codein.buddyadmin.integration.client.fashionmanager.DepartmentClient;
 import br.com.codein.buddyadmin.integration.client.fashionmanager.JuridicaClient;
-import br.com.gumga.security.domain.model.institutional.Organization;
 import br.com.mobiage.mobiage.application.service.buddyseed.BuddySeedControlService;
 import br.com.mobiage.mobiage.application.service.businessrule.BusinessRuleService;
 import br.com.mobiage.mobiage.application.service.characteristic.CharacteristicService;

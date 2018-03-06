@@ -262,17 +262,6 @@
                 <version>${commons.io.version}</version>
             </dependency>
             <dependency>
-                <groupId>br.com.gumga</groupId>
-                <artifactId>security-domain</artifactId>
-                <version>${security.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>br.com.gumga</groupId>
-                <artifactId>security-gateway</artifactId>
-                <version>${security.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>br.com.mobiage</groupId>
                 <artifactId>mobiage-domain</artifactId>
                 <version>${mobiage.version}</version>

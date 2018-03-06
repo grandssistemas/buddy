@@ -4,10 +4,12 @@ require("script-loader!../node_modules/angular-mocks/angular-mocks");
 require("script-loader!../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls");
 // require("script-loader!../node_modules/angular-ui-select/select.min");
 require('script-loader!../bower_components/ui-select/dist/select.min.js');
-require("script-loader!../node_modules/angular-sweetalert/SweetAlert.min");
 require("script-loader!../node_modules/angular-sanitize/angular-sanitize.min");
 require("script-loader!../node_modules/@uirouter/angularjs/release/angular-ui-router.min");
+require('script-loader!../bower_components/sweetalert/dist/sweetalert.min.js');
+require('script-loader!../bower_components/ngSweetAlert/SweetAlert.min.js');
 require("script-loader!../node_modules/bootstrap/dist/js/bootstrap.min");
+require('script-loader!../resources/javascript/ng-color-picker/color-picker.js');
 require("script-loader!../node_modules/es5-shim/es5-shim.min");
 require('script-loader!../node_modules/angular-datepicker/dist/index.js');
 require("script-loader!../resources/javascript/bootstrap-notify.min");
@@ -17,7 +19,6 @@ require("script-loader!../node_modules/ng-img-crop/compile/minified/ng-img-crop"
 require("script-loader!../node_modules/moment/min/moment.min");
 require("script-loader!../gumga-layout/gumga-layout.min");
 require("script-loader!../node_modules/gumga-login/dist/gumga-login.min");
-require("script-loader!../node_modules/sweetalert/dist/sweetalert.min");
 require("script-loader!../i18n/angular-locale_pt-br");
 require("script-loader!../node_modules/moment-timezone/builds/moment-timezone-with-data.min");
 require("script-loader!../node_modules/gumga-rest-ng/dist/gumga-rest.min");
@@ -48,3 +49,8 @@ require("script-loader!../node_modules/gumga-number-in-words-ng/dist/gumga-numbe
 require("script-loader!../node_modules/my-account-embedded/dist/my-profile-embedded.min");
 require("script-loader!../node_modules/gumga-gallery-icon-ng/dist/gumga-gallery-icon.min");
 require('script-loader!../resources/javascript/ng-filters-br/ng-filter-br.js');
+
+require('script-loader!../bower_components/ace-builds/src-min-noconflict/ace');
+require('script-loader!../bower_components/ace-builds/src-min-noconflict/mode-markdown');
+require('script-loader!../bower_components/ace-builds/src-min-noconflict/ext-language_tools');
+require('script-loader!../bower_components/angular-ui-ace/ui-ace.min.js');

@@ -1,7 +1,8 @@
 require("../node_modules/bootstrap/dist/css/bootstrap.min.css");
 require("../resources/styles/css/reset.css");
 require("../node_modules/animate.css/animate.min.css");
-require('../node_modules/components-font-awesome/css/fontawesome.min.css');
+
+require('../bower_components/components-font-awesome/css/font-awesome.min.css');
 require('../bower_components/angular-ui-tree/dist/angular-ui-tree.min.css');
 require('../bower_components/ui-select/dist/select.min.css');
 require('../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css');
@@ -15,3 +16,5 @@ require('../bower_components/product-front/product.min.css');
 require('../bower_components/operationtype-front/operationtype.min.css');
 require('../bower_components/tributador-front/tributador.min.css');
 require('../bower_components/movementgroup-front/movementgroup.min.css');
+require('../resources/javascript/ng-color-picker/color-picker.css');
+require('../bower_components/sweetalert/dist/sweetalert.css');
