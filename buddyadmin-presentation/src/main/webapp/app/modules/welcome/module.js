@@ -1,7 +1,13 @@
+'use strict';
 
-define(function (require) {
-    'use strict';
-    require('angular-ui-router');
-    var angular = require('angular');
-    return angular.module('app.welcome', ['ui.router']);
-});
+const WelcomeConfiguration = ($stateProvider) => {
+    $stateProvider
+        .state('welcome.home', {
+            url: '/home',
+            templateUrl: 'app/modules/welcome/views/welcome.html'
+        });
+}
+
+WelcomeConfiguration.$inject = ['$stateProvider'];
+
+module.exports = angular.module('app.welcome', ['ui.router']).config(WelcomeConfiguration);

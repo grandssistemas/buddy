@@ -5,7 +5,7 @@
     <parent>
         <groupId>br.com.codein</groupId>
         <artifactId>buddyadmin</artifactId>
-        <version>0.1</version>
+        <version>1.2.0</version>
     </parent>
     <artifactId>buddyadmin-api</artifactId>
     <name>buddyadmin-api</name>
@@ -30,15 +30,11 @@
             <version>${io.gumga.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>br.com.gumga</groupId>
-            <artifactId>security-domain</artifactId>
-        </dependency>
-
 
         <dependency>
             <groupId>br.com.mobiage</groupId>
             <artifactId>mobiage-application</artifactId>
+            <version>${mobiage.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>br.com.mobiage</groupId>
@@ -46,6 +42,31 @@
                 </exclusion>
             </exclusions>
             <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.mobiage</groupId>
+            <artifactId>mobiage-api</artifactId>
+            <version>${mobiage.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>br.com.mobiage</groupId>
+                    <artifactId>mobiage-infrastructure</artifactId>
+                </exclusion>
+            </exclusions>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.mobiage</groupId>
+            <artifactId>mobiage-gateway</artifactId>
+            <version>${mobiage.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>br.com.mobiage</groupId>
+                    <artifactId>mobiage-infrastructure</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>

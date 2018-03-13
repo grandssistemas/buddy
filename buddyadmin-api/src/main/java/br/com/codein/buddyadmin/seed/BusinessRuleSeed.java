@@ -1,5 +1,6 @@
 package br.com.codein.buddyadmin.seed;
 
+import br.com.mobiage.mobiage.application.service.buddyseed.BuddySeedControlService;
 import br.com.mobiage.mobiage.application.service.businessrule.BusinessRuleService;
 import br.com.mobiage.mobiage.application.service.operation.OperationTypeService;
 import br.com.mobiage.mobiage.application.service.paymenttype.PaymentTypeService;
@@ -34,6 +35,9 @@ public class BusinessRuleSeed implements AppSeed {
     private PaymentTypeService paymentTypeService;
     @Autowired
     private OperationTypeService operationTypeService;
+    @Autowired
+    private BuddySeedControlService buddySeedControlService;
+
 
 
 
@@ -68,6 +72,7 @@ public class BusinessRuleSeed implements AppSeed {
             List<OperationType> operationTypes = operationTypeService.recoveryAllByCategory(OperationCategory.SIMPLE_SALE);
             operationTypes.addAll(operationTypeService.recoveryAllByCategory(OperationCategory.CONSIGNMENT_SALE));
 
+            businessRule = buddySeedControlService.saveSeedIntegrationFromBuddy(businessRule, service);
             service.createManyWithOperation(Collections.singletonList(businessRule), operationTypes);
         }
     }

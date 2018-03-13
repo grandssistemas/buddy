@@ -20,6 +20,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+
 @Configuration
 @ComponentScan(basePackages = {
         "br.com.codein",
@@ -37,9 +38,34 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.application.service.product",
         "br.com.mobiage.mobiage.application.service.businessrule",
         "br.com.mobiage.mobiage.application.service.tributador",
+        "br.com.mobiage.mobiage.application.service.buddyseed",
+        "br.com.mobiage.mobiage.application.service.genericreport",
+        "br.com.mobiage.mobiage.application.service.product",
         "br.com.mobiage.integration",
+        "br.com.mobiage.mobiage.presentation.api.person",
+        "br.com.mobiage.mobiage.presentation.api.fiscalgroup",
+        "br.com.mobiage.mobiage.presentation.api.configuration",
+        "br.com.mobiage.mobiage.presentation.api.characteristic",
+        "br.com.mobiage.mobiage.presentation.api.marking",
+        "br.com.mobiage.mobiage.presentation.api.department",
+        "br.com.mobiage.mobiage.presentation.api.paymenttype",
+        "br.com.mobiage.mobiage.presentation.api.operation",
+        "br.com.mobiage.mobiage.presentation.api.businessrule",
+        "br.com.mobiage.mobiage.presentation.api.tributador",
+        "br.com.mobiage.mobiage.presentation.api.genericreport",
+        "br.com.mobiage.mobiage.presentation.api.product",
+        "br.com.mobiage.mobiage.gateway.dto.businessrole",
+        "br.com.mobiage.mobiage.gateway.dto.department",
+        "br.com.mobiage.mobiage.gateway.dto.operation",
+        "br.com.mobiage.mobiage.gateway.dto.paymenttype",
+        "br.com.mobiage.mobiage.gateway.dto.person",
+        "br.com.mobiage.mobiage.gateway.dto.tributador",
+        "br.com.mobiage.mobiage.gateway.dto.businessrole",
+        "br.com.mobiage.mobiage.gateway.dto.translator",
         "io.gumga"
 })
+
+
 @EnableJpaRepositories(repositoryFactoryBeanClass = GumgaRepositoryFactoryBean.class, basePackages = {
         "br.com.codein",
         "br.com.mobiage.mobiage.application.repository.person",
@@ -55,10 +81,11 @@ import java.util.Properties;
         "br.com.mobiage.mobiage.application.repository.product",
         "br.com.mobiage.mobiage.application.repository.businessrule",
         "br.com.mobiage.mobiage.application.repository.tributador",
+        "br.com.mobiage.mobiage.application.repository.buddyseed",
+        "br.com.mobiage.mobiage.application.repository.genericreport",
         "io.gumga"
 })
 @EnableTransactionManagement(proxyTargetClass = true)
-
 public class Application {
 
     @Autowired
@@ -85,16 +112,30 @@ public class Application {
 
     @Bean
     public static DataSource dataSource() {
+//        StringBuilder databaseURL = new StringBuilder();
+//        databaseURL.append("jdbc:postgresql://");
+//        databaseURL.append(getProperties().getProperty("database.url"));
+//        databaseURL.append("/").append(getProperties().getProperty("database.name"));
+//        databaseURL.append("?currentSchema=").append(getProperties().getProperty("schema.name"));
+//
+//        return new DatabaseConfigSupport().getDataSourceProvider(DatabaseConfigSupport.Database.POSTGRES).
+//                createDataSource(databaseURL.toString(),
+//                        getProperties().getProperty("database.user"),
+//                        getProperties().getProperty("database.password"));
+
+        return new DatabaseConfigSupport().getDataSourceProvider(DatabaseConfigSupport.Database.POSTGRES).
+                createDataSource(getDatabaseURL(getProperties().getProperty("schema.name")),
+                        getProperties().getProperty("database.user"),
+                        getProperties().getProperty("database.password"));
+    }
+
+    private static String getDatabaseURL(String property) {
         StringBuilder databaseURL = new StringBuilder();
         databaseURL.append("jdbc:postgresql://");
         databaseURL.append(getProperties().getProperty("database.url"));
         databaseURL.append("/").append(getProperties().getProperty("database.name"));
-        databaseURL.append("?currentSchema=").append(getProperties().getProperty("schema.name"));
-
-        return new DatabaseConfigSupport().getDataSourceProvider(DatabaseConfigSupport.Database.POSTGRES).
-                createDataSource(databaseURL.toString(),
-                        getProperties().getProperty("database.user"),
-                        getProperties().getProperty("database.password"));
+        databaseURL.append("?currentSchema=").append(property);
+        return databaseURL.toString();
     }
 
     @Bean
@@ -104,18 +145,18 @@ public class Application {
 
         Properties properties = new Properties();
         properties.put("eclipselink.weaving", "false");
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "none");
 
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.EJB3NamingStrategy");
         properties.put("hibernate.show_sql", "false");
-        //properties.put("hibernate.format_sql", "true");
+//        properties.put("hibernate.format_sql", "true");
         properties.put("hibernate.connection.charSet", "UTF-8");
         properties.put("hibernate.connection.characterEncoding", "UTF-8");
         properties.put("hibernate.connection.useUnicode", "true");
         properties.put("hibernate.jdbc.batch_size", "55");
 
-//        properties.put("liquibase.enabled", "true");
+        properties.put("liquibase.enabled", "false");
 //        properties.put("liquibase.drop-first", "false");
 //        properties.put("liquibase.change-log", "src/main/resources/liquibase/changelog-master.xml");
 
@@ -136,7 +177,10 @@ public class Application {
                 "br.com.mobiage.mobiage.domain.model.businessrule",
                 "br.com.mobiage.mobiage.domain.model.product",
                 "br.com.mobiage.mobiage.domain.model.tributador",
-                "br.com.mobiage.mobiage.domain.model.certificado"
+                "br.com.mobiage.mobiage.domain.model.certificado",
+                "br.com.mobiage.mobiage.domain.model.buddyseed",
+                "br.com.mobiage.mobiage.domain.model.genericreport",
+                "br.com.mobiage.mobiage.domain.model.product"
         );
         factory.setDataSource(dataSource);
 
@@ -162,3 +206,4 @@ public class Application {
     }
 
 }
+

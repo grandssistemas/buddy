@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+
+        <div class="row">
+            <div class="col-sm-7 col-sm-offset-5">
+                <gumga-query use-gquery="true" class="gmd" search="gumgatagdefinition.methods.searchWithGQuery(field,param)" advanced-search="gumgatagdefinition.methods.searchWithGQuery(param)"
+                    saved-filters="gumgatagdefinition.methods.getQuery(page)">
+
+                    <search-field field="name" label="name" select="true"></search-field>
+                    <search-field field="attributes" label="attributes" select="true"></search-field>
+
+                    <advanced-search-field label="id" field="id" type="string"></advanced-search-field>
+                    <advanced-search-field label="name" field="name" type="string"></advanced-search-field>
+                    <advanced-search-field label="attributes" field="attributes" type="string"></advanced-search-field>
+
+                </gumga-query>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <gumga-list sort="gumgatagdefinition.methods.sort(field, dir)" class="table-hover table-condensed" data="gumgatagdefinition.data"
+                    page-align="flex-end" page-position="bottom" configuration="tableConfig" page-model="page" page-size="gumgatagdefinition.pageSize"
+                    count="gumgatagdefinition.count" on-page-change="gumgatagdefinition.methods.searchWithGQuery(gumgatagdefinition.lastGQuery, page)">
+                </gumga-list>
+            </div>
+        </div>
+
+    </div>
+</div>
+<gmd-fab force-click="false" fixed opened="selectedValues.length > 0">
+    <button ng-if="selectedValues.length == 0" class="btn-primary gmd-ripple" ui-sref="gumgatagdefinition.insert">
+        <span class="material-icons">add</span>
+    </button>
+    <button ng-if="selectedValues.length > 0" class="btn-warning gmd-ripple">
+        <span class="material-icons">view_headline</span>
+    </button>
+    <ul ng-class="{'disabled-fab': selectedValues.length <= 0}">
+        <li class="btn-danger" ng-click="gumgatagdefinition.methods.delete(selectedValues)">
+            <span class="visible">Remover</span>
+            <i class="material-icons gmd-ripple">delete</i>
+        </li>
+    </ul>
+</gmd-fab>

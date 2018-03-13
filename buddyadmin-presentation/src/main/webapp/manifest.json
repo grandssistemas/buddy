@@ -1,0 +1,25 @@
+{
+    "name": "buddyadmin",
+    "short_name": "buddyadmin",
+    "id": "buddyadmin",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#fff",
+    "description": "buddyadmin Software.",
+    "icons": [
+        {
+            "src": "favicon.ico",
+            "sizes": "48x48",
+            "type": "image/ico"
+        }
+    ],
+    "related_applications": [
+        {
+            "platform": "web"
+        },
+        {
+            "platform": "play",
+            "url": "https://play.google.com/store/apps/details?id=undefined"
+        }
+    ]
+}

@@ -1,73 +1,35 @@
+
 <!DOCTYPE html>
-<html>
+<html ng-app="app.core">
 <head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>Gumga</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="resources/styles/css/reset.css"/>
-    <link rel="stylesheet" href="bower_components/gumga-components/dist/gumga.min.css"/>
-    <link rel="stylesheet" href="bower_components/angular-tree-control/css/tree-control.css">
-    <link rel="stylesheet" href="resources/gumgalayout/gumga-layout.min.css"/>
-    <link rel="stylesheet" href="bower_components/animate.css/animate.min.css"/>
-
-    <link rel="stylesheet" href="bower_components/ng-img-crop/compile/minified/ng-img-crop.css">
-    <link rel="stylesheet" href="bower_components/switchery/dist/switchery.min.css"/>
-    <link rel="stylesheet" href="resources/styles/grands.css">
-    <link rel="stylesheet" href="resources/styles/buddy.css">
-    <link rel="stylesheet" href="resources/styles/SwitcheryPureCss/switcheryPureCss.css"/>
-    <link rel="stylesheet" href="resources/styles/InspiniaDatePicker/angular-datapicker.css"/>
-
-    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css"/>
-    <link href="bower_components/mdi/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
-    <link href="bower_components/product-front/product-front.min.css" media="all" rel="stylesheet" type="text/css" />
-    <link href="bower_components/characteristic-front/characteristic-front.min.css" media="all" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="resources/styles/InspiniaDatePicker/angular-datapicker.css"/>
-    <link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css"/>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" sizes="72x72" href="favicon.ico">
+  <link rel="apple-touch-icon" sizes="114x114" href="favicon.ico">
+  <link rel="apple-touch-icon" href="favicon.ico">
+  <link rel="apple-touch-startup-image" href="favicon.ico">
+  <title>Buddy Admin</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="dist/app-dev.css">
+  <noscript>
+    <div class="container">
+      <br><br>
+    	<h5 align="center">
+    		Oops, seu navegador não tem suporte para executar JavaScript, <br>
+    		ou alguma configuração está bloqueando isso, <br>
+    		verifique e tente novamente.</h5>
+    </div>
+   </noscript>
 </head>
-<body style="background-color: whitesmoke">
-<div class="loading">
-</div>
+<body>
 
-<div ui-view style="height: 100%" gumga-translate="pt-br">
-</div>
+    <div class="gumga-layout" gumga-translate="pt-br" ui-view></div>
 
-<script src="bower_components/requirejs/require.js"></script>
+    <gmd-spinner fixed box="true" class="loading"></gmd-spinner>
+    <script src="dist/app-dev.js">buildall</script>
 
-<script src="app/config.js"></script>
-<script>
-    requirejs(['angular', 'app/app'], function (angular) {
-        angular.bootstrap(document, ['app.core']);
-    });
-</script>
-<script type="text/ng-template" id="multiEntity.html">
-    <gumga-nav></gumga-nav>
-    <gumga-menu menu-url="gumga-menu.json" keys-url="keys.json"></gumga-menu>
-    <div class="gumga-container">
-        <gumga-multi-entity-search data="multi.search"></gumga-multi-entity-search>
-    </div>
-
-</script>
-<script type="text/ng-template" id="modalTemplate.html">
-    <div class="modal-header">
-        <h3 class="modal-title">{{title}}</h3>
-    </div>
-    <div class="modal-body">
-        Nome
-        <input type="text" ng-model="entity.nome" class="form-control"/>
-        Idade
-        <input type="text" ng-model="entity.idade" class="form-control"/>
-
-        <gumga-one-to-many children="entity.filhos" displayable-property="nome" name="Coisa"
-                           template-url="modalTemplate.html" controller="ModalController">
-
-        </gumga-one-to-many>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-    </div>
-</script>
 </body>
 </html>

@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+
+    <div class="row">
+
+      <div class="col-md-7 col-sm-offset-5">
+        <gumga-query use-gquery="true" class="gmd" search="gumgacustomfield.methods.searchWithGQuery(field,param)" advanced-search="gumgacustomfield.methods.searchWithGQuery(param)"
+          saved-filters="gumgacustomfield.methods.getQuery(page)">
+
+          <search-field field="clazz" label="clazz" select="true"></search-field>
+          <search-field field="name" label="name" select="true"></search-field>
+          <search-field field="description" label="description" select="true"></search-field>
+          <search-field field="active" label="active" select="false"></search-field>
+          <search-field field="type" label="type" select="false"></search-field>
+
+          <advanced-search-field label="id" field="id" type="string"></advanced-search-field>
+          <advanced-search-field label="clazz" field="clazz" type="string"></advanced-search-field>
+          <advanced-search-field label="name" field="name" type="string"></advanced-search-field>
+          <advanced-search-field label="description" field="description" type="string"></advanced-search-field>
+          <advanced-search-field label="active" field="active" type="boolean"></advanced-search-field>
+          <advanced-search-field label="type" field="type" type="string"></advanced-search-field>
+          <advanced-search-field label="validationdescription" field="validationdescription" type="string"></advanced-search-field>
+          <advanced-search-field label="validationscript" field="validationscript" type="string"></advanced-search-field>
+          <advanced-search-field label="defaultvaluescript" field="defaultvaluescript" type="string"></advanced-search-field>
+          <advanced-search-field label="options" field="options" type="string"></advanced-search-field>
+          <advanced-search-field label="optionvaluefield" field="optionvaluefield" type="string"></advanced-search-field>
+          <advanced-search-field label="optionlabelfield" field="optionlabelfield" type="string"></advanced-search-field>
+          <advanced-search-field label="optionscollection" field="optionscollection" type="string"></advanced-search-field>
+          <advanced-search-field label="visualizationorder" field="visualizationorder" type="number"></advanced-search-field>
+          <advanced-search-field label="fieldgroup" field="fieldgroup" type="string"></advanced-search-field>
+          <advanced-search-field label="translatekey" field="translatekey" type="string"></advanced-search-field>
+        </gumga-query>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+        <gumga-list sort="gumgacustomfield.methods.sort(field, dir)" class="table-hover table-condensed" data="gumgacustomfield.data"
+          page-align="flex-end" page-position="bottom" configuration="tableConfig" page-model="page" page-size="gumgacustomfield.pageSize"
+          count="gumgacustomfield.count" on-page-change="gumgacustomfield.methods.searchWithGQuery(gumgacustomfield.lastGQuery, page)">
+        </gumga-list>
+      </div>
+    </div>
+
+  </div>
+</div>
+<gmd-fab force-click="false" fixed opened="selectedValues.length > 0">
+  <button ng-if="selectedValues.length == 0" class="btn-primary gmd-ripple" ui-sref="gumgacustomfield.insert">
+    <span class="material-icons">add</span>
+  </button>
+  <button ng-if="selectedValues.length > 0" class="btn-warning gmd-ripple">
+    <span class="material-icons">view_headline</span>
+  </button>
+  <ul ng-class="{'disabled-fab': selectedValues.length <= 0}">
+    <li class="btn-danger" ng-click="gumgacustomfield.methods.delete(selectedValues)">
+      <span class="visible">Remover</span>
+      <i class="material-icons gmd-ripple">delete</i>
+    </li>
+  </ul>
+</gmd-fab>

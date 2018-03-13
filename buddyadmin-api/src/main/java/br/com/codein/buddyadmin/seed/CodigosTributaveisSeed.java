@@ -62,8 +62,8 @@ public class CodigosTributaveisSeed implements AppSeed {
         System.out.println("-----------------CFOP");
         saveCodigoIpi();
         System.out.println("-----------------IPI");
-        saveIBPT();
-        System.out.println("-----------------IBPT");
+//        saveIBPT();
+//        System.out.println("-----------------IBPT");
     }
 
 
@@ -92,6 +92,7 @@ public class CodigosTributaveisSeed implements AppSeed {
     }
 
 
+    @Transactional
     public void saveCodigoIpi() throws IOException {
         if (codigoEnquadramentoIpiService.findAll().isEmpty()) {
             ClassLoader classLoader = getClass().getClassLoader();

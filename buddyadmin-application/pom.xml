@@ -4,7 +4,7 @@
     <parent>
         <groupId>br.com.codein</groupId>
         <artifactId>buddyadmin</artifactId>
-        <version>0.1</version>
+        <version>1.2.0</version>
     </parent>
     <artifactId>buddyadmin-application</artifactId>
     <name>buddyadmin-application</name>
@@ -39,6 +39,10 @@
             </exclusions>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>br.com.codein</groupId>-->
             <!--<artifactId>fiscalgroup-application</artifactId>-->
@@ -54,16 +58,6 @@
             <groupId>io.gumga</groupId>
             <artifactId>gumga-domain</artifactId>
             <version>${io.gumga.version}</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>br.com.gumga</groupId>
-            <artifactId>security-domain</artifactId>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>br.com.gumga</groupId>
-            <artifactId>security-gateway</artifactId>
             <type>jar</type>
         </dependency>
         <dependency>
