@@ -4,7 +4,7 @@
     <groupId>br.com.codein</groupId>
     <artifactId>buddyadmin</artifactId>
     <name>buddyadmin</name>
-    <version>0.1</version>
+    <version>1.2.0</version>
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -12,7 +12,7 @@
         <spring.version>4.2.8.RELEASE</spring.version>
         <hibernate.version>4.3.11.Final</hibernate.version>
         <hibernate.validator.version>5.1.0.Final</hibernate.validator.version>
-        <mobiage.version>1.21.0-SNAPSHOT</mobiage.version>
+        <mobiage.version>1.21.0</mobiage.version>
         <security.version>1.2.35</security.version>
         <com.fasterxml.jackson.version>2.3.2</com.fasterxml.jackson.version>
 
