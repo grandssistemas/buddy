@@ -9652,7 +9652,19 @@
         <addForeignKeyConstraint baseColumnNames="id" baseTableName="cest" constraintName="fk_w51ee0cr0tejaemwut2ymg9a" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="taxablecode" />
     </changeSet>
 
-    <changeSet id="BA-010" author="Matheus Portolan">
+    <changeSet id="BA-010" author="Kolechinha">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="taxationicms" columnName="preducaobase"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="taxationicms">
+            <column name="preducaobase" type="numeric(7, 4)"/>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet id="BA-011" author="Matheus Portolan">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="publicrecordexclusion"/>
@@ -9670,7 +9682,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="BA-011" author="Matheus Portolan">
+    <changeSet id="BA-012" author="Matheus Portolan">
         <preConditions onFail="MARK_RAN">
             <not>
                 <primaryKeyExists tableName="publicrecordexclusion"/>
@@ -9680,7 +9692,7 @@
                        tableName="publicrecordexclusion"/>
     </changeSet>
 
-    <changeSet id="BA-012" author="Matheus Portolan">
+    <changeSet id="BA-013" author="Matheus Portolan">
         <preConditions onFail="MARK_RAN">
             <not>
                 <indexExists indexName="recordexclusion_unique"/>
@@ -9689,7 +9701,7 @@
         <addUniqueConstraint columnNames="oi, recordid, tablename" constraintName="recordexclusion_unique" tableName="publicrecordexclusion"/>
     </changeSet>
 
-    <changeSet id="BA-013" author="Matheus Portolan">
+    <changeSet id="BA-014" author="Matheus Portolan">
         <preConditions onFail="MARK_RAN">
             <not>
                 <sequenceExists sequenceName="seq_publicrecordexclusion"/>
