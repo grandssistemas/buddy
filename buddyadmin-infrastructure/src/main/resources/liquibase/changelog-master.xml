@@ -9651,4 +9651,65 @@
         </preConditions>
         <addForeignKeyConstraint baseColumnNames="id" baseTableName="cest" constraintName="fk_w51ee0cr0tejaemwut2ymg9a" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="taxablecode" />
     </changeSet>
+
+    <changeSet id="BA-010" author="Kolechinha">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="taxationicms" columnName="preducaobase"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="taxationicms">
+            <column name="preducaobase" type="numeric(7, 4)"/>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet id="BA-011" author="Matheus Portolan">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="publicrecordexclusion"/>
+            </not>
+        </preConditions>
+        <createTable tableName="publicrecordexclusion">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recordid" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="oi" type="VARCHAR(255)"/>
+            <column name="tablename" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="BA-012" author="Matheus Portolan">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists tableName="publicrecordexclusion"/>
+            </not>
+        </preConditions>
+        <addPrimaryKey columnNames="id" constraintName="publicrecordexclusion_pkey"
+                       tableName="publicrecordexclusion"/>
+    </changeSet>
+
+    <changeSet id="BA-013" author="Matheus Portolan">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="recordexclusion_unique"/>
+            </not>
+        </preConditions>
+        <addUniqueConstraint columnNames="oi, recordid, tablename" constraintName="recordexclusion_unique" tableName="publicrecordexclusion"/>
+    </changeSet>
+
+    <changeSet id="BA-014" author="Matheus Portolan">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="seq_publicrecordexclusion"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="seq_publicrecordexclusion"/>
+    </changeSet>
+
+
+
 </databaseChangeLog>
