@@ -1,4 +1,5 @@
- angular.module('api.location', [])
+angular.module('api.location', [])
+    .constant('apiName', APILocation.apiName)
     .constant('apiLocation', APILocation.apiLocation)
     .constant('apiStorageLocation', APILocation.apiStorageLocation)
     .constant('apiAmazonStorageLocation', APILocation.apiAmazonStorageLocation)
