@@ -1,5 +1,6 @@
 export const env = {
     APILocation: {
-      apiLocation: location.origin + "/buddyadmin-api"
+        apiName: "buddy",
+        apiLocation: location.origin + "/buddyadmin-api"
     }
-  };
+};

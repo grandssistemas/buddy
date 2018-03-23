@@ -1,5 +1,6 @@
 export const env = {
   APILocation: {
-    apiLocation: "http://localhost:8084/buddyadmin-api"
+    apiName: "buddy",
+    apiLocation: "http://hom.grands.mobi/buddyadmin-api"
   }
 };
