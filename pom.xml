@@ -299,6 +299,11 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+	        <dependency>
+	            <groupId>br.com.mobiage</groupId>
+	            <artifactId>mobiage-configuration</artifactId>
+	            <version>${mobiage.version}</version>
+	        </dependency>
 
             <dependency>
                 <groupId>commons-digester</groupId>

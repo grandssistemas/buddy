@@ -40,6 +40,11 @@
             <type>jar</type>
         </dependency>
         <dependency>
+            <groupId>br.com.mobiage</groupId>
+            <artifactId>mobiage-configuration</artifactId>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
         </dependency>
