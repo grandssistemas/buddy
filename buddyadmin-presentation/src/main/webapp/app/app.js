@@ -46,6 +46,8 @@ angular.module('app.core', [
   'ui.router',
     'ui.select',
     'ui.tree',
+  'mbgBase',
+  'mbgLogin',
 
   , 'ngSanitize'
   , 'ngColorPicker'
@@ -76,6 +78,7 @@ angular.module('app.core', [
   //FIMINJECTIONS
 ])
   .run(['$rootScope', '$timeout', '$transitions', '$uiRouter', function ($rootScope, $timeout, $transitions, $uiRouter) {
+    // $uiRouter.plugin(window["ui-router-visualizer"].visualizer);
       $rootScope.$watch(() => {
         setTimeout(() => angular.element('a[href]').attr('target', '_self'), 0);
       });
@@ -91,50 +94,52 @@ angular.module('app.core', [
     ];
 
     var tempĺateBase = 'app/modules/common/views/base.html';
-    $urlRouterProvider.otherwise('app/login');
+    $urlRouterProvider.otherwise('/login');
 
       $stateProvider
       .state('app', {
         abstract: true,
-        url: '/app',
-        data: {
-          id: 0
-        },
-        template: '<div ui-view></div>'
+        template: `
+          <mbg-base config="configBase">
+            <mbg-base-topbar config="configTopbar"></mbg-base-topbar>
+            <mbg-base-container>
+              <mbg-base-side-menu config="configMenu"></mbg-base-side-menu>
+              <mbg-base-content-container>
+                <ui-view></ui-view>
+              </mbg-base-content-container>
+            </mbg-base-container>
+          </mbg-base>
+			  `
       })
-      .state('account', {
+      .state('app.account', {
         url: '/account',
-        templateUrl: tempĺateBase
+        abstract: true,
       })
-      .state('welcome', {
+      .state('app.welcome', {
         url: '/welcome',
-        data: {
-          id: 0
-        },
-        templateUrl: tempĺateBase
+        abstract: true,
+        data: { id: 0 }
       })
-      .state('multientity', {
+      .state('app.multientity', {
         url: '/multientity/:search',
         template: template.join('\n'),
         controller: 'MultiEntityController',
         controllerAs: 'multi',
-        data: {
-          id: 0
-        },
+        data: { id: 0 },
         resolve: {
-          SearchPromise: ['$stateParams', '$http', function ($stateParams, $http) {
+          SearchPromise: ['$transition$', '$http', function ($transition$, $http) {
             var url = APILocations.apiLocation + '/public/multisearch/search/';
-            return $http.get(url + $stateParams.search);
+            return $http.get(url + $transition$.params().search);
           }]
         }
       })
-      .state('gumgatagdefinition', {
+      .state('app.gumgatagdefinition', {
         url: '/gumgatagdefinition',
-        templateUrl: tempĺateBase
+        abstract: true
       })
-      .state('gumgacustomfield', {
+      .state('app.gumgacustomfield', {
         url: '/gumgacustomfield',
-        templateUrl: tempĺateBase
+        abstract: true
       })
 
     const handlingLoading = ($injector, $timeout) => {
@@ -150,7 +155,7 @@ angular.module('app.core', [
           config.headers['gumgaToken'] = window.sessionStorage.getItem('user') ? JSON.parse(window.sessionStorage.getItem('user')).token : 0
           handlingLoading($injector, $timeout);
             var url = config.url;
-            if (url === '/baseGrandsComponents.html'){
+          if (url === '/baseGrandsComponents.html') {
                 config.url = tempĺateBase;
             }
           return config
@@ -179,7 +184,7 @@ angular.module('app.core', [
           if (rejection.data.response == 'NO_TOKEN' || rejection.data.response == 'TOKEN_EXPIRED') {
             sessionStorage.clear();
             localStorage.clear();
-            $state.go('app.login');
+            $state.go('login');
             $gmdAlert.error('Login necessário', 'Sua sessão expirou, faça o login novamente.', 3000);
           }
           if (error.title === 'OPERATION_NOT_ALLOWED') {
@@ -189,9 +194,171 @@ angular.module('app.core', [
             error.message = 'Estes dados não podem ser deletados, pois estão sendo utilizado por outros registros.'
           }
           $gmdAlert.error($filter('gumgaTranslate')(error.title, 'exception'), error.message, 3000);
-          rejection.status === 403 && ($state.go('app.login'));
+          rejection.status === 403 && ($state.go('login'));
           return $q.reject(rejection);
         }
       }
     })
   }])
+  .controller('app.controller', ($scope, $state) => {
+    $scope.configBase = {
+      theme: 'theme10'
+    };
+
+    $scope.configTopbar = {
+      logo: 'resources/images/logo_mobiage_darker.png',
+      logoActionType: 'state',
+      logoAction: 'app.home.base',
+      user: {
+        links: [
+          {
+            label: 'Meu Perfil',
+            iconSrc: 'fontawesome',
+            iconSize: '22',
+            actionType: 'state',
+            action: 'app.user.profile'
+          },
+          {
+            label: 'Trocar de Conta',
+            iconSrc: 'fontawesome',
+            iconSize: '22',
+            actionType: 'internal',
+            action: 'changeAccount'
+          },
+          {
+            label: 'Ir para o Finance',
+            iconSrc: 'fontawesome',
+            iconSize: '22',
+            actionType: 'link',
+            action: '/finance'
+          },
+          {
+            label: 'Sair',
+            iconSrc: 'fontawesome',
+            iconSize: '22',
+            actionType: 'function',
+            action: () => {
+              sessionStorage.clear();
+              $state.go('login');
+            }
+          }
+        ]
+      },
+      search: {
+        active: true,
+        indexFields: [{ name: 'name' }],
+        data: [
+          {
+            type: 'static',
+            data: 'sideMenuLinks'
+          }
+        ]
+      }
+    };
+
+    $scope.configMenu = {
+      quickMenu: { enabled: false },
+      structure: [
+        {
+          type: 'category',
+          label: 'Menu',
+          children: [
+            {
+              type: 'btn',
+              label: 'Início',
+              iconSrc: 'material',
+              icon: 'home',
+              actionType: 'state',
+              action: 'app.welcome.home'
+            },
+            {
+              type: 'sub-category',
+              label: 'Cadastros',
+              children: [
+                {
+                  type: 'btn',
+                  label: 'Árvore de Produto',
+                  iconSrc: 'material',
+                  icon: 'device_hub',
+                  actionType: 'state',
+                  action: 'app.categorization.tree'
+                },
+                {
+                  type: 'btn',
+                  label: 'Características',
+                  iconSrc: 'material',
+                  icon: 'photo_filter',
+                  actionType: 'state',
+                  action: 'app.characteristic.list'
+                },
+                {
+                  type: 'btn',
+                  label: 'Tipos de Pagamento',
+                  iconSrc: 'material',
+                  icon: 'monetization_on',
+                  actionType: 'state',
+                  action: 'app.paymentmethods.insert'
+                },
+                {
+                  type: 'btn',
+                  label: 'Tipos de Operação',
+                  iconSrc: 'material',
+                  icon: 'layers',
+                  actionType: 'state',
+                  action: 'app.stock.insert'
+                },
+                {
+                  type: 'btn',
+                  label: 'Regra Comercial',
+                  iconSrc: 'material',
+                  icon: 'local_offer',
+                  actionType: 'state',
+                  action: 'app.businessrule.list'
+                },
+                {
+                  type: 'btn',
+                  label: 'Papéis',
+                  iconSrc: 'material',
+                  icon: 'person_pin',
+                  actionType: 'state',
+                  action: 'app.role.list'
+                },
+                {
+                  type: 'btn',
+                  label: 'Grupo fiscal de Produto',
+                  iconSrc: 'material',
+                  icon: 'local_library',
+                  actionType: 'state',
+                  action: 'app.productfiscalgroup.productlist'
+                },
+                {
+                  type: 'btn',
+                  label: 'Grupo fiscal de Pessoa',
+                  iconSrc: 'material',
+                  icon: 'person_pin_circle',
+                  actionType: 'state',
+                  action: 'app.fiscalgroup.personlist'
+                },
+                {
+                  type: 'btn',
+                  label: 'Fórmulas',
+                  iconSrc: 'material',
+                  icon: 'note_add',
+                  actionType: 'state',
+                  action: 'app.formula.list'
+                },
+                {
+                  type: 'btn',
+                  label: 'Configurações de Tributo',
+                  iconSrc: 'material',
+                  icon: 'local_atm',
+                  actionType: 'state',
+                  action: 'app.taxsettings.list'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+  });

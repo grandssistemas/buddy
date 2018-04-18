@@ -10,28 +10,28 @@ module.exports = angular
   ])
   .config(($stateProvider, $httpProvider) => {
     $stateProvider
-      .state('gumgacustomfield.list', {
+      .state('app.gumgacustomfield.list', {
         url: '/list',
         templateUrl: 'app/modules/gumgacustomfield/views/list.html',
         controller: 'GumgaCustomFieldListController'
       })
-      .state('gumgacustomfield.insert', {
+      .state('app.gumgacustomfield.insert', {
         url: '/insert',
         templateUrl: 'app/modules/gumgacustomfield/views/form.html',
         controller: 'GumgaCustomFieldFormController',
         resolve: {
-          entity: ['$stateParams', '$http', function($stateParams, $http) {
+          entity: ['$http', function($http) {
             return $http.get(APILocation.apiLocation + '/api/gumgacustomfield/new');
           }]
         }
       })
-      .state('gumgacustomfield.edit', {
+      .state('app.gumgacustomfield.edit', {
         url: '/edit/:id',
         templateUrl: 'app/modules/gumgacustomfield/views/form.html',
         controller: 'GumgaCustomFieldFormController',
         resolve: {
-          entity: ['$stateParams', '$http', function($stateParams, $http) {
-            return $http.get(APILocation.apiLocation + '/api/gumgacustomfield/' + $stateParams.id);
+          entity: ['$transition$', '$http', function($transition$, $http) {
+            return $http.get(APILocation.apiLocation + '/api/gumgacustomfield/' + $transition$.params().id);
           }]
         }
       });

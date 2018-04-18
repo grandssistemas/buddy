@@ -4,7 +4,7 @@ module.exports = angular
   .service('AccountService', require('./services/AccountService'))
   .config(($stateProvider, $httpProvider) => {
     $stateProvider
-      .state('account.browse', {
+      .state('app.account.browse', {
         url: '/browse',
         templateUrl: 'app/modules/account/views/account.html',
         controller: 'AccountController'

@@ -6,7 +6,7 @@ function LoginController (LoginService, $state, $scope, $timeout){
     vm.loginGumga = (login) => {
         LoginService.loginGumga(login)
             .then((response) => {
-                $state.go('welcome.home');
+                $state.go('app.welcome.home');
             }, (error) => {
                 // console.error(error);
             })
@@ -16,7 +16,7 @@ function LoginController (LoginService, $state, $scope, $timeout){
         LoginService.createTokenWithFacebook(login.user.email, login.authResponse.accessToken)
             .then((tokenSecurity) => {
                 if (!tokenSecurity.data.response) {
-                    $state.go('welcome.home');
+                    $state.go('app.welcome.home');
                 } else {
                     showMessagesFacebook(tokenSecurity.data.response)
                 }
@@ -50,7 +50,7 @@ function LoginController (LoginService, $state, $scope, $timeout){
         LoginService.createTokenWithGooglePlus(login.user.email, login.authResponse.access_token)
             .then((tokenSecurity) => {
                 if (!tokenSecurity.data.response) {
-                    $state.go('welcome.home');
+                    $state.go('app.welcome.home');
                 } else {
                     showMessagesGooglePlus(tokenSecurity.data.response)
                 }
@@ -62,7 +62,7 @@ function LoginController (LoginService, $state, $scope, $timeout){
     };
 
     vm.onLogin = (user, organizations) => {
-        $state.go('welcome.home');
+        $state.go('app.welcome.home');
     }
 
 }
