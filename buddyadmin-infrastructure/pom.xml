@@ -22,13 +22,11 @@
         <dependency>
             <groupId>io.gumga</groupId>
             <artifactId>gumga-application</artifactId>
-            <version>${io.gumga.version}</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>io.gumga</groupId>
             <artifactId>gumga-security</artifactId>
-            <version>${io.gumga.version}</version>
             <type>jar</type>
         </dependency>
         <dependency>

@@ -27,14 +27,12 @@
         <dependency>
             <groupId>io.gumga</groupId>
             <artifactId>gumga-domain</artifactId>
-            <version>${io.gumga.version}</version>
         </dependency>
 
 
         <dependency>
             <groupId>br.com.mobiage</groupId>
             <artifactId>mobiage-application</artifactId>
-            <version>${mobiage.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>br.com.mobiage</groupId>
@@ -47,7 +45,6 @@
         <dependency>
             <groupId>br.com.mobiage</groupId>
             <artifactId>mobiage-api</artifactId>
-            <version>${mobiage.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>br.com.mobiage</groupId>
@@ -60,7 +57,6 @@
         <dependency>
             <groupId>br.com.mobiage</groupId>
             <artifactId>mobiage-gateway</artifactId>
-            <version>${mobiage.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>br.com.mobiage</groupId>

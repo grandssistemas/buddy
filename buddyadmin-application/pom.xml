@@ -62,7 +62,6 @@
         <dependency>
             <groupId>io.gumga</groupId>
             <artifactId>gumga-domain</artifactId>
-            <version>${io.gumga.version}</version>
             <type>jar</type>
         </dependency>
         <dependency>
