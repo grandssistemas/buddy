@@ -3,8 +3,8 @@
 
 
 "@mobiage/base@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@mobiage/base/-/base-1.0.7.tgz#2937eec148fac8b53f3ef3b0c1c403566efbca0c"
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@mobiage/base/-/base-1.2.4.tgz#da0f028582a762402329fc06c3cdebf5d9155349"
   dependencies:
     angular "^1.6.9"
     angular-hotkeys "^1.7.0"
@@ -13,8 +13,8 @@
     sanitize.css "^5.0.0"
 
 "@mobiage/login@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@mobiage/login/-/login-1.0.7.tgz#d2255174d2cd8e20410425023fbce8e2b25e7adb"
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@mobiage/login/-/login-1.2.0.tgz#6298f5a89932e386c82dd8550ff5a6eaba486c13"
   dependencies:
     angular "^1.6.9"
     sanitize.css "^5.0.0"

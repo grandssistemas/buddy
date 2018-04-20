@@ -1,7 +1,19 @@
 'use strict';
 
-function LoginController (LoginService, $state, $scope, $timeout){
+function LoginController(LoginService, $state, $scope, $timeout) {
     var vm = this;
+
+    $scope.configMobiageLogin = {
+        logo: 'resources/images/logo_mobiage.png',
+        showLogoText: false,
+        showCredits: false,
+        showSignUp: false,
+        theme: 'mobiage',
+        appUrl: window.APILocation.apiLocation,
+        fbKey: '1786309761398353',
+        ggKey: 'FlVUpodFvQFIlUIhzl-_xRqA',
+        clientId: '792727207063-77lrbkmkrgum236fs4uq65akjpctq7cm.apps.googleusercontent.com'
+    };
 
     vm.loginGumga = (login) => {
         LoginService.loginGumga(login)
@@ -58,10 +70,10 @@ function LoginController (LoginService, $state, $scope, $timeout){
     }
 
     vm.configuration = {
-        appURL : APILocation.apiLocation
+        appURL: APILocation.apiLocation
     };
 
-    vm.onLogin = (user, organizations) => {
+    $scope.onLogin = (user) => {
         $state.go('app.welcome.home');
     }
 

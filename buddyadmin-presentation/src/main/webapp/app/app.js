@@ -226,11 +226,11 @@ angular.module('app.core', [
             action: 'changeAccount'
           },
           {
-            label: 'Ir para o Finance',
+            label: 'Ir para o Mobiage',
             iconSrc: 'fontawesome',
             iconSize: '22',
             actionType: 'link',
-            action: '/finance'
+            action: '/mobiage'
           },
           {
             label: 'Sair',
