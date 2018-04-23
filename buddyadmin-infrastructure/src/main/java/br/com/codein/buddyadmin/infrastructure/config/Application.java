@@ -24,6 +24,8 @@ import java.util.Properties;
 @Configuration
 @ComponentScan(basePackages = {
         "br.com.codein",
+        "br.com.mobiage.configuration.properties",
+        "br.com.mobiage.mobiage.application.component",
         "br.com.mobiage.mobiage.application.service.person",
         "br.com.mobiage.mobiage.application.service.fiscalgroup",
         "br.com.mobiage.mobiage.application.service.configuration",
