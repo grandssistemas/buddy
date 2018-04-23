@@ -29,7 +29,7 @@ const GumgaTagDefinitionFormController = (GumgaTagDefinitionService, $state, ent
 
     $scope.gumgatagdefinition.on('putSuccess', function (data) {
         $gmdAlert.success('Sucesso!', 'Seu registro foi adicionado!', 2000);
-        $state.go('gumgatagdefinition.list');
+        $state.go('app.gumgatagdefinition.list');
     })
 
 }
