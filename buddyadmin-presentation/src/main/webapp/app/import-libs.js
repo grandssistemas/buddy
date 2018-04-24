@@ -1,5 +1,6 @@
 import 'angular';
 import '@uirouter/angularjs';
+import '@uirouter/angularjs/release/stateEvents';
 import '@mobiage/base/dist/mobiage-base.min.js';
 import '@mobiage/base/dist/mobiage-base.min.css';
 import '@mobiage/login/dist/mobiage-login.min.js';
