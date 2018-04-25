@@ -1,6 +1,8 @@
 'use strict';
 const env = process.env.NODE_ENV == "production" ? require('./environments/environment.prod').env : require('./environments/environment').env;
 
+import topbarUserService from './services/topbarUser.service';
+
 Object.keys(env).forEach(key => window[key] = env[key]);
 require('./import-libs');
 require('./import-styles');
@@ -44,8 +46,9 @@ angular.module('gumga.core', [
 
 angular.module('app.core', [
   'ui.router',
-    'ui.select',
-    'ui.tree',
+  'ui.router.state.events',
+  'ui.select',
+  'ui.tree',
   'mbgBase',
   'mbgLogin',
 
@@ -59,29 +62,35 @@ angular.module('app.core', [
   , 'app.gumgatagdefinition'
   , 'app.gumgacustomfield'
   , 'app.welcome',
-    'oitozero.ngSweetAlert',
-    'ui.select',
-    'ui.ace',
-    'brasil.filters',
-    'app.taxsettings.services',
-    'buddy.core',
-    'grands.components',
-    'finance.embedded',
-    'characteristic.core',
-    'product.core',
-    'operationtype.core',
-    'taxsettings.core',
-    'paymenttype.core',
-    'pdv.core',
-    'movementgroup.core',
-    'app.reportlist'
+  'oitozero.ngSweetAlert',
+  'ui.select',
+  'ui.ace',
+  'brasil.filters',
+  'app.taxsettings.services',
+  'buddy.core',
+  'grands.components',
+  'finance.embedded',
+  'characteristic.core',
+  'product.core',
+  'operationtype.core',
+  'taxsettings.core',
+  'paymenttype.core',
+  'pdv.core',
+  'movementgroup.core',
+  'app.reportlist'
   //FIMINJECTIONS
 ])
-  .run(['$rootScope', '$timeout', '$transitions', '$uiRouter', function ($rootScope, $timeout, $transitions, $uiRouter) {
-    // $uiRouter.plugin(window["ui-router-visualizer"].visualizer);
-      $rootScope.$watch(() => {
-        setTimeout(() => angular.element('a[href]').attr('target', '_self'), 0);
-      });
+  .service('updateUserTop', topbarUserService)
+  .run(['$rootScope', '$timeout', '$transitions', 'updateUserTop', function ($rootScope, $timeout, $transitions, updateUserTop) {
+    $rootScope.$watch(() => {
+      setTimeout(() => angular.element('a[href]').attr('target', '_self'), 0);
+    });
+    $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState) => {
+      if (toState.name !== 'login') {
+        updateUserTop.update();
+      }
+    });
+
   }])
   .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$injector', function ($stateProvider, $urlRouterProvider, $httpProvider, $injector) {
 
@@ -96,7 +105,7 @@ angular.module('app.core', [
     var tempĺateBase = 'app/modules/common/views/base.html';
     $urlRouterProvider.otherwise('/login');
 
-      $stateProvider
+    $stateProvider
       .state('app', {
         abstract: true,
         template: `
@@ -154,10 +163,10 @@ angular.module('app.core', [
         'request': function (config) {
           config.headers['gumgaToken'] = window.sessionStorage.getItem('user') ? JSON.parse(window.sessionStorage.getItem('user')).token : 0
           handlingLoading($injector, $timeout);
-            var url = config.url;
+          var url = config.url;
           if (url === '/baseGrandsComponents.html') {
-                config.url = tempĺateBase;
-            }
+            config.url = tempĺateBase;
+          }
           return config
         },
         'response': function (config) {
@@ -200,7 +209,7 @@ angular.module('app.core', [
       }
     })
   }])
-  .controller('app.controller', ($scope, $state) => {
+  .controller('app.controller', function ($scope, $state, updateUserTop, $http) {
     $scope.configBase = {
       theme: 'theme10'
     };
@@ -213,40 +222,56 @@ angular.module('app.core', [
         links: [
           {
             label: 'Meu Perfil',
-            iconSrc: 'fontawesome',
-            iconSize: '22',
+						iconSrc: 'fontawesome',
+						icon: 'far fa-user',
+						iconSize: '22',
             actionType: 'state',
-            action: 'app.user.profile'
+            action: 'app.account.browse'
           },
           {
-            label: 'Trocar de Conta',
-            iconSrc: 'fontawesome',
-            iconSize: '22',
+						label: 'Trocar de Conta',
+						iconSrc: 'fontawesome',
+						icon: 'fas fa-exchange-alt',
+						iconSize: '22',
             actionType: 'internal',
             action: 'changeAccount'
           },
           {
-            label: 'Ir para o Mobiage',
-            iconSrc: 'fontawesome',
-            iconSize: '22',
-            actionType: 'link',
-            action: '/mobiage'
-          },
-          {
-            label: 'Sair',
-            iconSrc: 'fontawesome',
-            iconSize: '22',
+						label: 'Sair',
+						iconSrc: 'fontawesome',
+						icon: 'fas fa-sign-out-alt',
+						iconSize: '22',
             actionType: 'function',
             action: () => {
               sessionStorage.clear();
               $state.go('login');
             }
           }
-        ]
+        ],
+        changeOrganizationAction: (organizationSelected) => {
+          const user = JSON.parse(sessionStorage.getItem('user'));
+          $http.get(`${window.APILocation.apiLocation}/public/token/changeorganization/${user.token}/${organizationSelected.id}`)
+            .then((res) => {
+              const newOrganization = res.data;
+              if (res.status === 200 && newOrganization !== undefined) {
+                user.organization = newOrganization.name;
+                user.organizationHierarchyCode = newOrganization.hierarchyCode;
+                user.securityManager = newOrganization.securityManager;
+                user.softwareHouse = newOrganization.isSoftwareHouse;
+                user.token = newOrganization.token || user.token;
+                window.location.reload();
+              } else {
+                console.error(res);
+              }
+            })
+            .catch((error) => { console.error(error); });
+        }
       },
       search: {
         active: true,
-        indexFields: [{ name: 'name' }],
+        indexFields: [{
+          name: 'name'
+        }],
         data: [
           {
             type: 'static',

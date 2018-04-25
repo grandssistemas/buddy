@@ -74,6 +74,7 @@ function LoginController(LoginService, $state, $scope, $timeout) {
     };
 
     $scope.onLogin = (user) => {
+        sessionStorage.setItem('token', user.token);
         $state.go('app.welcome.home');
     }
 
