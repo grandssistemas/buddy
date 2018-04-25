@@ -303,6 +303,12 @@
 	            <groupId>br.com.mobiage</groupId>
 	            <artifactId>mobiage-configuration</artifactId>
 	            <version>${mobiage.version}</version>
+	            <exclusions>
+	            	<exclusion>
+			            <groupId>org.springframework.cloud</groupId>
+			            <artifactId>spring-cloud-starter-config</artifactId>
+	            	</exclusion>
+	            </exclusions>
 	        </dependency>
 
             <dependency>
