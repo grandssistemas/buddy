@@ -127,5 +127,28 @@
 
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <entrance-gate>apiLocation:location.origin</entrance-gate>
+            </properties>
+        </profile>
+        <profile>
+            <id>homologation</id>
+            <properties>
+                <entrance-gate>apiLocation:'https://api-hom.kigisistemas.com.br'</entrance-gate>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <entrance-gate>apiLocation:'https://api.kigisistemas.com.br'</entrance-gate>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
