@@ -18,7 +18,7 @@ RUN mkdir -p "$CATALINA_HOME" &&\
   apk del curl &&\
   rm -rf /var/cache/apk/*
 
-COPY ./buddyadmin-api/target/finance-api.war $CATALINA_HOME/webapps/
+COPY ./buddyadmin-api/target/buddyadmin-api.war $CATALINA_HOME/webapps/
 
 VOLUME ["/usr/local/apache-tomcat-8.5.30/logs"]
 
