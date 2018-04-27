@@ -109,27 +109,17 @@
                 <configuration>
                     <regex>false</regex>
                     <includes>
-                        <include>${project.basedir}/target/${project.build.finalName}/index.html</include>
-                        <include>${project.basedir}/target/${project.build.finalName}/dist/app.min.js</include>
-                        <include>${project.basedir}/target/${project.build.finalName}/dist/app.min.css</include>
-                        <include>${project.basedir}/target/${project.build.finalName}/app/modules/**/*</include>
+                        <include>${project.basedir}/target/${war-name}/app/apiLocations.js</include>
+                        <include>${project.basedir}/target/${war-name}/dist/buddy.*.min.js</include>
                     </includes>
                     <replacements>
                         <replacement>
-                            <token>src="dist/app-dev.js"</token>
-                            <value></value>
+                            <token>(apiLocation:location.origin)</token>
+                            <value>${entrance-gate}</value>
                         </replacement>
                         <replacement>
-                            <token>buildall</token>
-                            <valueFile>${project.basedir}/target/${project.build.finalName}/dist/app-prod.min.js</valueFile>
-                        </replacement>
-                        <replacement>
-                            <token>&lt;link rel="stylesheet" href="dist/app-dev.css"&gt;</token>
-                            <value>&lt;style&gt;STYLE_VALUE&lt;/style&gt;</value>
-                        </replacement>
-                        <replacement>
-                            <token>STYLE_VALUE</token>
-                            <valueFile>${project.basedir}/target/${project.build.finalName}/dist/app-prod.min.css</valueFile>
+                            <token>(apiLocation: location.origin)</token>
+                            <value>${entrance-gate}</value>
                         </replacement>
                     </replacements>
                 </configuration>
