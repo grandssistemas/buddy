@@ -13,10 +13,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <war-name>buddyadmin</war-name>
     </properties>
 
     <build>
-        <finalName>buddyadmin</finalName>
+        <finalName>${war-name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -103,29 +104,38 @@
                         <goals>
                             <goal>replace</goal>
                         </goals>
-
                     </execution>
                 </executions>
                 <configuration>
                     <regex>true</regex>
                     <includes>
-                        <include>${project.basedir}/target/${project.build.finalName}/dist/buddy.*.min.js</include>
+                        <include>${project.basedir}/target/${war-name}/dist/buddy.*.min.js</include>
                     </includes>
+                    <!--<outputFile>${project.basedir}/target/${project.build.finalName}/index2.html</outputFile>-->
                     <replacements>
                         <replacement>
-                            <token>(apiLocation:location.origin)</token>
-                            <value>${entrance-gate}</value>
+                            <token>apiLocation:.*?('|").*?('|")</token>
+                            <value>apiLocation:${buddyadmin-api}</value>
                         </replacement>
                         <replacement>
-                            <token>(apiLocation: location.origin)</token>
-                            <value>${entrance-gate}</value>
+                            <token>apiLocationMobiage:.*?('|").*?('|")</token>
+                            <value>apiLocationMobiage:${mobiage-api}</value>
+                        </replacement>
+                        <replacement>
+                            <token>apiStorageLocation:.*?('|").*?('|")</token>
+                            <value>apiStorageLocation:${storage-api}</value>
+                        </replacement>
+                        <replacement>
+                            <token>apiAmazonStorageLocation:.*?('|").*?('|")</token>
+                            <value>apiAmazonStorageLocation:${amazon-api}</value>
                         </replacement>
                     </replacements>
                 </configuration>
             </plugin>
 
         </plugins>
-    </build>
+    </build>    
+
     <profiles>
         <profile>
             <id>dev</id>
@@ -133,19 +143,28 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <entrance-gate>apiLocation:location.origin</entrance-gate>
+            	<buddyadmin-api>location.origin + ':8095/buddyadmin-api'</buddyadmin-api>
+            	<mobiage-api>location.origin + ':8080/mobiage-api'</mobiage-api>
+            	<storage-api>'http://23.92.31.122:8080/storage-api'</storage-api>
+            	<amazon-api>'https://hom-container-digital.s3-sa-east-1.amazonaws.com/'</amazon-api>
             </properties>
         </profile>
         <profile>
-            <id>homologation</id>
+            <id>hom</id>
             <properties>
-                <entrance-gate>apiLocation:'https://api-hom.kigisistemas.com.br'</entrance-gate>
+            	<buddyadmin-api>'https://api-hom.kigisistemas.com.br/buddyadmin-api'</buddyadmin-api>
+            	<mobiage-api>'https://api-hom.kigisistemas.com.br/mobiage-api'</mobiage-api>
+            	<storage-api>'http://23.92.31.122:8080/storage-api'</storage-api>
+            	<amazon-api>'https://hom-container-digital.s3-sa-east-1.amazonaws.com/'</amazon-api>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
-                <entrance-gate>apiLocation:'https://api.kigisistemas.com.br'</entrance-gate>
+            	<buddyadmin-api>'https://api.kigisistemas.com.br/buddyadmin-api'</buddyadmin-api>
+            	<mobiage-api>'https://api.kigisistemas.com.br/mobiage-api'</mobiage-api>
+            	<storage-api>'http://23.92.31.122:8080/storage-api'</storage-api>
+            	<amazon-api>'https://hom-container-digital.s3-sa-east-1.amazonaws.com/'</amazon-api>
             </properties>
         </profile>
     </profiles>
