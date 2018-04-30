@@ -107,10 +107,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <regex>false</regex>
+                    <regex>true</regex>
                     <includes>
-                        <include>${project.basedir}/target/${war-name}/app/apiLocations.js</include>
-                        <include>${project.basedir}/target/${war-name}/dist/buddy.*.min.js</include>
+                        <include>${project.basedir}/target/${project.build.finalName}/dist/buddy.*.min.js</include>
                     </includes>
                     <replacements>
                         <replacement>
