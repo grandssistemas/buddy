@@ -1,19 +1,17 @@
 import 'angular';
 import '@uirouter/angularjs';
 import '@uirouter/angularjs/release/stateEvents';
+
 import '@mobiage/base/dist/mobiage-base.min.js';
 import '@mobiage/base/dist/mobiage-base.min.css';
 import '@mobiage/login/dist/mobiage-login.min.js';
 import '@mobiage/login/dist/mobiage-login.min.css';
 
 require("script-loader!../node_modules/jquery/dist/jquery.min.js");
-// require("script-loader!../node_modules/angular/angular.min");
 require("script-loader!../node_modules/angular-mocks/angular-mocks");
 require("script-loader!../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls");
-// require("script-loader!../node_modules/angular-ui-select/select.min");
 require('script-loader!../bower_components/ui-select/dist/select.min.js');
 require("script-loader!../node_modules/angular-sanitize/angular-sanitize.min");
-// require("script-loader!../node_modules/@uirouter/angularjs/release/angular-ui-router.min");
 require('script-loader!../bower_components/sweetalert/dist/sweetalert.min.js');
 require('script-loader!../bower_components/ngSweetAlert/SweetAlert.min.js');
 require("script-loader!../node_modules/bootstrap/dist/js/bootstrap.min");

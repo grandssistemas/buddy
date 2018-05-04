@@ -17,7 +17,7 @@
   "dependencies": {
     "@mobiage/base": "^1.0.7",
     "@mobiage/login": "^1.0.7",
-    "@uirouter/angularjs": "^1.0.3",
+    "@uirouter/angularjs": "^1.0.15",
     "angular": "^1.6.10",
     "angular-bootstrap": "^0.12.2",
     "angular-datepicker": "^1.0.5",
