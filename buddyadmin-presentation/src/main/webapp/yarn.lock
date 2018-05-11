@@ -3,10 +3,11 @@
 
 
 "@mobiage/base@^1.0.7":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@mobiage/base/-/base-1.2.5.tgz#e8f386592780f47d70095c1853e880ff129b8f15"
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@mobiage/base/-/base-1.4.3.tgz#367b0ebd6bfa1ab0fb1f6a7304d4cda5cd9f12af"
   dependencies:
     angular "^1.6.9"
+    angular-animate "^1.6.10"
     angular-hotkeys "^1.7.0"
     angular-sanitize "^1.6.9"
     overlayscrollbars "^1.4.1"
@@ -149,6 +150,10 @@ alphanum-sort@^1.0.1, alphanum-sort@^1.0.2:
 amdefine@>=0.0.4, amdefine@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
+
+angular-animate@^1.6.10:
+  version "1.6.10"
+  resolved "https://registry.yarnpkg.com/angular-animate/-/angular-animate-1.6.10.tgz#c520f6d341370e34e0a62060c99bcf47b7d7db8c"
 
 angular-bootstrap@^0.12.2:
   version "0.12.2"
@@ -4905,8 +4910,8 @@ osenv@^0.1.4:
     os-tmpdir "^1.0.0"
 
 overlayscrollbars@^1.4.1:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/overlayscrollbars/-/overlayscrollbars-1.4.3.tgz#66514ab54e658fc356bce9aa56d587f52fe44f37"
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/overlayscrollbars/-/overlayscrollbars-1.4.4.tgz#810108b0cef4c93a311556e0a621554e92a73b9d"
 
 p-limit@^1.1.0:
   version "1.2.0"
