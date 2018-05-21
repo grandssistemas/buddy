@@ -1,4 +1,4 @@
-const service = function (mbgBaseUserService, StorageService, $http, apiLocation) {
+const service = function (mbUserService, StorageService, $http) {
 	const createImage = (image) => {
 		if (image !== null && image !== undefined && typeof image === 'object') {
 			return `data:${image.mimeType};base64,${image.bytes}`;
@@ -13,7 +13,7 @@ const service = function (mbgBaseUserService, StorageService, $http, apiLocation
 
 		if (user !== undefined && user !== null) {
 
-			mbgBaseUserService.setUser({
+			mbUserService.setUser({
 				name: user.name !== undefined ? user.name : undefined,
 				avatar: user.picture !== undefined ? createImage(user.picture) : undefined
 			});
@@ -27,7 +27,7 @@ const service = function (mbgBaseUserService, StorageService, $http, apiLocation
 								tmpOrg.logo = undefined;
 								return tmpOrg;
 							});
-							mbgBaseUserService.setUser({ otherOrganizations });
+							mbUserService.setUser({ otherOrganizations });
 						}
 					})
 					.catch((error) => {
@@ -77,7 +77,7 @@ const service = function (mbgBaseUserService, StorageService, $http, apiLocation
 				});
 			}
 
-			mbgBaseUserService.setUser({ actualOrganization });
+			mbUserService.setUser({ actualOrganization });
 		}).catch((error) => {
 			console.error(error);
 		});
