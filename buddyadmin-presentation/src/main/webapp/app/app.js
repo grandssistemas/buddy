@@ -23,6 +23,7 @@ angular.module('gumga.core', [
 	'gumga.mask',
 	'gumga.upload',
 	'gumga.customfields',
+	'gumga.avatar',
 	'gumga.formbuttons',
 	'gumga.counter',
 	'gumga.breadcrumb',
