@@ -52,6 +52,7 @@ angular.module('app.core', [
 	'mbg.base',
 	'mbgLogin',
 
+	'ui.sortable',
 	'ngSanitize',
 	'ngColorPicker',
 	'ui.bootstrap',
