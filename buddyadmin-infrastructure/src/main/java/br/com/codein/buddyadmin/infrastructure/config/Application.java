@@ -157,6 +157,7 @@ public class Application {
         properties.put("hibernate.connection.characterEncoding", "UTF-8");
         properties.put("hibernate.connection.useUnicode", "true");
         properties.put("hibernate.jdbc.batch_size", "55");
+        properties.put("org.hibernate.envers.default_schema", getProperties().getProperty("schema.aud.name"));
 
         properties.put("liquibase.enabled", "false");
 //        properties.put("liquibase.drop-first", "false");
