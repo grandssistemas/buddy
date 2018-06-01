@@ -25,6 +25,7 @@ public class BuddyadminGumgaRestTemplate implements CustomGumgaRestTemplate {
         return requestFactory;
     }
 
+
     @Override
     public List<HttpMessageConverter<?>> getMessageConverters() {
         return Arrays.asList(new MappingJackson2HttpMessageConverter());
