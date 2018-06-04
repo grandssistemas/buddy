@@ -8,3 +8,7 @@ listagemvendacomnf.json;SALE;Listagem de Venda com Nota;25-10-2017 11:00
 analiticoconsignado.json;CONSIGMENT;Analítico de Consignado;18-12-2017 16:26
 bobinavenda.json;PRINTSALE;Bobina (Venda);01-03-2018 16:26
 stockproduct.json;PRODUCT;Estoque de Produtos;10-04-2018 10:59
+resumocaixa.json;CASHCHECKOUT;Fechamento de Caixa;04-06-2018 14:35
+vendanfce.json;SALE;Vendas com NFC-e;04-06-2018 14:35
+vendanfe.json;SALE;Vendas com NF-e;04-06-2018 14:35
+listagemclientes.json;PERSON;Listagem de Clientes;04-06-2018 14:35
