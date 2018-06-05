@@ -219,7 +219,7 @@ angular.module('app.core', [
 		$scope.configTopbar = {
 			logo: 'resources/images/logo_mobiage_darker.png',
 			logoActionType: 'state',
-			logoAction: 'app.home.base',
+			logoAction: 'app.welcome.home',
 			user: {
 				links: [
 					{
