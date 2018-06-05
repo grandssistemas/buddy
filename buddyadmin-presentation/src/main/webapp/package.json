@@ -33,6 +33,7 @@
     "gumga-address-ng": "^1.4.2",
     "gumga-alert-ng": "^1.0.5",
     "gumga-breadcrumb": "^1.0.0",
+    "gumga-chips-ng": "^1.4.0",
     "gumga-confirm": "^1.2.0",
     "gumga-controller-ng": "^1.8.0",
     "gumga-counter-ng": "^1.1.0",

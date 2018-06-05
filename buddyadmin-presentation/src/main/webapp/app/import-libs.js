@@ -56,6 +56,7 @@ require('script-loader!../node_modules/gumga-query-action-ng/dist/gumga-query-ac
 require('script-loader!../node_modules/gumga-number-in-words-ng/dist/gumga-number-in-words.min');
 require('script-loader!../node_modules/my-account-embedded/dist/my-profile-embedded.min');
 require('script-loader!../node_modules/gumga-gallery-icon-ng/dist/gumga-gallery-icon.min');
+require('script-loader!../node_modules/gumga-chips-ng/dist/gumga-chips.min');
 require('script-loader!../resources/javascript/ng-filters-br/ng-filter-br.js');
 require('script-loader!../bower_components/gumga-avatar-ng/dist/gumga-avatar.min.js');
 require('script-loader!../bower_components/angular-ui-sortable/sortable.min.js');

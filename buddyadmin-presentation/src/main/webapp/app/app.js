@@ -21,6 +21,7 @@ angular.module('gumga.core', [
 	'gumga.address',
 	'gumga.translate',
 	'gumga.mask',
+	'gumga.chips',
 	'gumga.upload',
 	'gumga.customfields',
 	'gumga.avatar',
