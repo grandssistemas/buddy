@@ -7,6 +7,7 @@ require('../bower_components/angular-ui-tree/dist/angular-ui-tree.min.css');
 require('../bower_components/ui-select/dist/select.min.css');
 require('../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css');
 require("../node_modules/gumga-login/dist/gumga-login.min.css");
+require("../node_modules/gumga-chips-ng/dist/gumga-chips.min.css");
 require("../resources/styles/css/gumga/gumga.min.css");
 require("../gumga-layout/gumga-layout.min.css");
 require('../bower_components/grands-components/grands-components.min.css');
