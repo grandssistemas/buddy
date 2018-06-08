@@ -21,4 +21,9 @@ public class ApplicationConstants implements GumgaValues {
         return "buddyadmin.properties";
     }
 
+    @Override
+    public String getSoftwareName() {
+        return "br.com.codein.buddyadmin";
+    }
+
 }

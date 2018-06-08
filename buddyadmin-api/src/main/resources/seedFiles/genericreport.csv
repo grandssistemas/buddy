@@ -1,4 +1,4 @@
-termica3c.json;TAG;Termica - 3 Colunas;25-10-2017 12:00
+termica3c.json;TAG;Termica - 3 Colunas;29-03-2018 17:04
 listagemvendas.json;SALE;Listagem de Venda;25-10-2017 11:00
 a45c.json;TAG;A4 - 5 Colunas;25-10-2017 11:00
 cabecalho.json;HEADERFOOTER;cabecalhorodape;25-10-2017 11:00
@@ -7,3 +7,9 @@ romaneiovenda.json;PRINTSALE;Romaneio de Venda;31-01-2018 15:00
 listagemvendacomnf.json;SALE;Listagem de Venda com Nota;25-10-2017 11:00
 analiticoconsignado.json;CONSIGMENT;Analítico de Consignado;18-12-2017 16:26
 bobinavenda.json;PRINTSALE;Bobina (Venda);01-03-2018 16:26
+stockproduct.json;PRODUCT;Estoque de Produtos;10-04-2018 10:59
+resumocaixa.json;CASHCHECKOUT;Fechamento de Caixa;04-06-2018 14:35
+vendanfce.json;SALE;Vendas com NFC-e;04-06-2018 14:35
+vendanfe.json;SALE;Vendas com NF-e;04-06-2018 14:35
+listagemclientes.json;PERSON;Listagem de Clientes;04-06-2018 14:35
+argox3c.json;TAG;Argox - 3 Colunas;07-06-2018 14:35

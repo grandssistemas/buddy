@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import io.gumga.core.GumgaThreadScope;
 import io.gumga.core.QueryObject;
+import io.gumga.presentation.CustomGumgaRestTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -33,6 +36,9 @@ public abstract class AbstractClient<T>{
     private ObjectMapper mapper = new ObjectMapper();
     protected String url;
 
+    @Autowired
+    private CustomGumgaRestTemplate buddyadminGumgaRestTemplate;
+
     public AbstractClient(){
         this.objectClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         mapper.getSerializationConfig().withSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -44,12 +50,16 @@ public abstract class AbstractClient<T>{
         this.objectClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
+    @PostConstruct
+    public void initRestTemplate() {
+        this.restTemplate = buddyadminGumgaRestTemplate.getRestTemplate(new RestTemplate());
+    }
+
     protected ResponseEntity<T> get(String url) {
         return this.get(url, new HashMap<>());
     }
 
     protected ResponseEntity<T> get(String url, Map<String, Object> stringObjectMap) {
-        this.restTemplate = new RestTemplate();
         this.headers = new HttpHeaders();
         this.headers.set("Accept", "application/json, text/plain, */*");
         this.headers.set("Accept-Encoding", "gzip, deflate");
@@ -60,7 +70,6 @@ public abstract class AbstractClient<T>{
     }
 
     protected ResponseEntity<T> post(String url, Object object) {
-        this.restTemplate = new RestTemplate();
         this.headers = new HttpHeaders();
         this.headers.set("Accept", "application/json, text/plain, */*");
         this.headers.set("Accept-Encoding", "gzip, deflate");
@@ -71,7 +80,6 @@ public abstract class AbstractClient<T>{
     }
 
     protected ResponseEntity<List<T>> postArray(String url, Object object) {
-        this.restTemplate = new RestTemplate();
         this.headers = new HttpHeaders();
         this.headers.set("Accept", "application/json, text/plain, */*");
         this.headers.set("Accept-Encoding", "gzip, deflate");
@@ -84,7 +92,6 @@ public abstract class AbstractClient<T>{
     }
 
     protected ResponseEntity<T> put(String url, Object object) {
-        this.restTemplate = new RestTemplate();
         this.headers = new HttpHeaders();
         this.headers.set("Accept", "application/json, text/plain, */*");
         this.headers.set("Accept-Encoding", "gzip, deflate");
@@ -95,7 +102,6 @@ public abstract class AbstractClient<T>{
     }
 
     protected ResponseEntity<T> search(String url, QueryObject q){
-        this.restTemplate = new RestTemplate();
         this.headers = new HttpHeaders();
         this.headers.set("Accept", "application/json, text/plain, */*");
         this.headers.set("Accept-Encoding", "gzip, deflate");

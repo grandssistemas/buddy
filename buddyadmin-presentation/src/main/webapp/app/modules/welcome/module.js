@@ -2,7 +2,7 @@
 
 const WelcomeConfiguration = ($stateProvider) => {
     $stateProvider
-        .state('welcome.home', {
+        .state('app.welcome.home', {
             url: '/home',
             templateUrl: 'app/modules/welcome/views/welcome.html'
         });

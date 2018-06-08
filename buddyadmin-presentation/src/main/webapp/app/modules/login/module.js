@@ -2,7 +2,7 @@
 
 const LoginConfiguration = ($stateProvider) => {
     $stateProvider
-        .state('app.login', {
+        .state('login', {
             url: '/login',
             templateUrl: 'app/modules/login/views/login.html',
             controller: 'LoginController',
@@ -10,7 +10,7 @@ const LoginConfiguration = ($stateProvider) => {
             onEnter: ['$state', function($state) {
                 var user = JSON.parse(sessionStorage.getItem('user')) || undefined;
                 if (user) {
-                    $state.go('welcome.home');
+                    $state.go('app.welcome.home');
                 }
             }]
         });

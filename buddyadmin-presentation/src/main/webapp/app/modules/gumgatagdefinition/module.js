@@ -10,28 +10,28 @@ module.exports = angular
   ])
   .config(($stateProvider, $httpProvider) => {
     $stateProvider
-      .state('gumgatagdefinition.list', {
+      .state('app.gumgatagdefinition.list', {
         url: '/list',
         templateUrl: 'app/modules/gumgatagdefinition/views/list.html',
         controller: 'GumgaTagDefinitionListController'
       })
-      .state('gumgatagdefinition.insert', {
+      .state('app.gumgatagdefinition.insert', {
         url: '/insert',
         templateUrl: 'app/modules/gumgatagdefinition/views/form.html',
         controller: 'GumgaTagDefinitionFormController',
         resolve: {
-          entity: ['$stateParams', '$http', function($stateParams, $http) {
+          entity: ['$http', function($http) {
             return $http.get(APILocation.apiLocation + '/api/gumgatagdefinition/new');
           }]
         }
       })
-      .state('gumgatagdefinition.edit', {
+      .state('app.gumgatagdefinition.edit', {
         url: '/edit/:id',
         templateUrl: 'app/modules/gumgatagdefinition/views/form.html',
         controller: 'GumgaTagDefinitionFormController',
         resolve: {
-          entity: ['$stateParams', '$http', function($stateParams, $http) {
-            return $http.get(APILocation.apiLocation + '/api/gumgatagdefinition/' + $stateParams.id);
+          entity: ['$transition$', '$http', function($transition$, $http) {
+            return $http.get(APILocation.apiLocation + '/api/gumgatagdefinition/' + $transition$.params().id);
           }]
         }
       });

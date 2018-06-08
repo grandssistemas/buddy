@@ -4,7 +4,7 @@
     <parent>
         <groupId>br.com.codein</groupId>
         <artifactId>buddyadmin</artifactId>
-        <version>1.2.0</version>
+        <version>2.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>buddyadmin-presentation</artifactId>
@@ -13,10 +13,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <war-name>buddyadmin</war-name>
     </properties>
 
     <build>
-        <finalName>buddyadmin</finalName>
+        <finalName>${war-name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -103,39 +104,69 @@
                         <goals>
                             <goal>replace</goal>
                         </goals>
-
                     </execution>
                 </executions>
                 <configuration>
-                    <regex>false</regex>
+                    <regex>true</regex>
                     <includes>
-                        <include>${project.basedir}/target/${project.build.finalName}/index.html</include>
-                        <include>${project.basedir}/target/${project.build.finalName}/dist/app.min.js</include>
-                        <include>${project.basedir}/target/${project.build.finalName}/dist/app.min.css</include>
-                        <include>${project.basedir}/target/${project.build.finalName}/app/modules/**/*</include>
+                        <include>${project.basedir}/target/${war-name}/dist/buddy.*.min.js</include>
                     </includes>
+                    <!--<outputFile>${project.basedir}/target/${project.build.finalName}/index2.html</outputFile>-->
                     <replacements>
                         <replacement>
-                            <token>src="dist/app-dev.js"</token>
-                            <value></value>
+                            <token>apiLocation:.*?('|").*?('|")</token>
+                            <value>apiLocation:${buddyadmin-api}</value>
                         </replacement>
                         <replacement>
-                            <token>buildall</token>
-                            <valueFile>${project.basedir}/target/${project.build.finalName}/dist/app-prod.min.js</valueFile>
+                            <token>apiLocationMobiage:.*?('|").*?('|")</token>
+                            <value>apiLocationMobiage:${mobiage-api}</value>
                         </replacement>
                         <replacement>
-                            <token>&lt;link rel="stylesheet" href="dist/app-dev.css"&gt;</token>
-                            <value>&lt;style&gt;STYLE_VALUE&lt;/style&gt;</value>
+                            <token>apiStorageLocation:.*?('|").*?('|")</token>
+                            <value>apiStorageLocation:${storage-api}</value>
                         </replacement>
                         <replacement>
-                            <token>STYLE_VALUE</token>
-                            <valueFile>${project.basedir}/target/${project.build.finalName}/dist/app-prod.min.css</valueFile>
+                            <token>apiAmazonStorageLocation:.*?('|").*?('|")</token>
+                            <value>apiAmazonStorageLocation:${amazon-api}</value>
                         </replacement>
                     </replacements>
                 </configuration>
             </plugin>
 
         </plugins>
-    </build>
+    </build>    
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+            	<buddyadmin-api>location.origin + ':8095/buddyadmin-api'</buddyadmin-api>
+            	<mobiage-api>location.origin + ':8080/mobiage-api'</mobiage-api>
+            	<storage-api>'http://23.92.31.122:8080/storage-api'</storage-api>
+            	<amazon-api>'https://hom-container-digital.s3-sa-east-1.amazonaws.com/'</amazon-api>
+            </properties>
+        </profile>
+        <profile>
+            <id>hom</id>
+            <properties>
+            	<buddyadmin-api>'https://api-hom.kigisistemas.com.br/buddyadmin-api'</buddyadmin-api>
+            	<mobiage-api>'https://api-hom.kigisistemas.com.br/mobiage-api'</mobiage-api>
+            	<storage-api>'http://23.92.31.122:8080/storage-api'</storage-api>
+            	<amazon-api>'https://hom-container-digital.s3-sa-east-1.amazonaws.com/'</amazon-api>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+            	<buddyadmin-api>'https://api.kigisistemas.com.br/buddyadmin-api'</buddyadmin-api>
+            	<mobiage-api>'https://api.kigisistemas.com.br/mobiage-api'</mobiage-api>
+            	<storage-api>'http://23.92.31.122:8080/storage-api'</storage-api>
+            	<amazon-api>'https://hom-container-digital.s3-sa-east-1.amazonaws.com/'</amazon-api>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

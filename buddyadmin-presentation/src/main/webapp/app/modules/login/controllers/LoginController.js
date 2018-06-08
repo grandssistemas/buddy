@@ -1,12 +1,24 @@
 'use strict';
 
-function LoginController (LoginService, $state, $scope, $timeout){
+function LoginController(LoginService, $state, $scope, $timeout) {
     var vm = this;
+
+    $scope.configMobiageLogin = {
+        logo: 'resources/images/logo_mobiage.png',
+        showLogoText: false,
+        showCredits: false,
+        showSignUp: false,
+        theme: 'mobiage',
+        appUrl: window.APILocation.apiLocation,
+        fbKey: '1786309761398353',
+        ggKey: 'FlVUpodFvQFIlUIhzl-_xRqA',
+        clientId: '792727207063-77lrbkmkrgum236fs4uq65akjpctq7cm.apps.googleusercontent.com'
+    };
 
     vm.loginGumga = (login) => {
         LoginService.loginGumga(login)
             .then((response) => {
-                $state.go('welcome.home');
+                $state.go('app.welcome.home');
             }, (error) => {
                 // console.error(error);
             })
@@ -16,7 +28,7 @@ function LoginController (LoginService, $state, $scope, $timeout){
         LoginService.createTokenWithFacebook(login.user.email, login.authResponse.accessToken)
             .then((tokenSecurity) => {
                 if (!tokenSecurity.data.response) {
-                    $state.go('welcome.home');
+                    $state.go('app.welcome.home');
                 } else {
                     showMessagesFacebook(tokenSecurity.data.response)
                 }
@@ -50,7 +62,7 @@ function LoginController (LoginService, $state, $scope, $timeout){
         LoginService.createTokenWithGooglePlus(login.user.email, login.authResponse.access_token)
             .then((tokenSecurity) => {
                 if (!tokenSecurity.data.response) {
-                    $state.go('welcome.home');
+                    $state.go('app.welcome.home');
                 } else {
                     showMessagesGooglePlus(tokenSecurity.data.response)
                 }
@@ -58,11 +70,12 @@ function LoginController (LoginService, $state, $scope, $timeout){
     }
 
     vm.configuration = {
-        appURL : APILocation.apiLocation
+        appURL: APILocation.apiLocation
     };
 
-    vm.onLogin = (user, organizations) => {
-        $state.go('welcome.home');
+    $scope.onLogin = (user) => {
+        sessionStorage.setItem('token', user.token);
+        $state.go('app.welcome.home');
     }
 
 }

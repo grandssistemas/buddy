@@ -24,6 +24,9 @@ import java.util.Properties;
 @Configuration
 @ComponentScan(basePackages = {
         "br.com.codein",
+        "br.com.mobiage.configuration.properties",
+//        "br.com.mobiage.configuration.http",
+        "br.com.mobiage.mobiage.application.component",
         "br.com.mobiage.mobiage.application.service.person",
         "br.com.mobiage.mobiage.application.service.fiscalgroup",
         "br.com.mobiage.mobiage.application.service.configuration",
@@ -155,6 +158,7 @@ public class Application {
         properties.put("hibernate.connection.characterEncoding", "UTF-8");
         properties.put("hibernate.connection.useUnicode", "true");
         properties.put("hibernate.jdbc.batch_size", "55");
+        properties.put("org.hibernate.envers.default_schema", getProperties().getProperty("schema.aud.name"));
 
         properties.put("liquibase.enabled", "false");
 //        properties.put("liquibase.drop-first", "false");
