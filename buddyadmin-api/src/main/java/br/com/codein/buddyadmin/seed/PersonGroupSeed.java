@@ -38,6 +38,7 @@ public class PersonGroupSeed implements AppSeed {
     public void loadSeed() throws IOException {
         if(service.findAll().isEmpty()){
             PersonGroup personGroup = new PersonGroup("Grupo de pessoa fiscal", "Grupo de pessoa fiscal padrão");
+            this.service.save(personGroup);
             buddySeedControlService.saveSeedIntegrationFromBuddy(personGroup, service);
         }
     }

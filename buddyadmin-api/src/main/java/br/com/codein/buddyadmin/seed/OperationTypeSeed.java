@@ -113,7 +113,7 @@ public class OperationTypeSeed implements AppSeed {
         operationTypeDXml.setInvoiceObjective(DocumentFinality.DEVOLUTION);
         operationTypeDXml.setCategory(OperationCategory.XML_RETURN);
         operation.getTypes().add(operationTypeDXml);
-
+        this.service.save(operation);
         operation = buddySeedControlService.saveSeedIntegrationFromBuddy(operation, service);
         operation.getTypes().stream().forEach(category -> {
             buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
@@ -224,7 +224,7 @@ public class OperationTypeSeed implements AppSeed {
         operationTypeRE.setOperation(operation2);
         operationTypeRE.setCategory(OperationCategory.REVERSED_ENTRY);
         operation2.getTypes().add(operationTypeRE);
-
+        this.service.save(operation2);
         operation2 = buddySeedControlService.saveSeedIntegrationFromBuddy(operation2, service);
         operation2.getTypes().stream().forEach(category -> {
             buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
@@ -253,6 +253,7 @@ public class OperationTypeSeed implements AppSeed {
         operationTypePC.setInvoiceObjective(DocumentFinality.NORMAL);
         operationTypePC.setCategory(OperationCategory.CONSIGNMENT_ORDER);
         operation3.getTypes().add(operationTypePC);
+        this.service.save(operation3);
         operation3 = buddySeedControlService.saveSeedIntegrationFromBuddy(operation3, service);
         operation3.getTypes().stream().forEach(category -> {
             buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());

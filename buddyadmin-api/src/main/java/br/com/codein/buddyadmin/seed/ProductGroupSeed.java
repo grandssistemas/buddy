@@ -31,6 +31,7 @@ public class ProductGroupSeed implements AppSeed {
     public void loadSeed() throws IOException {
         if(service.findAll().isEmpty()){
             ProductGroup productGroup = new ProductGroup("Grupo de produto fiscal", "Grupo de produto fiscal padrão");
+            this.service.save(productGroup);
             buddySeedControlService.saveSeedIntegrationFromBuddy(productGroup, service);
         }
     }

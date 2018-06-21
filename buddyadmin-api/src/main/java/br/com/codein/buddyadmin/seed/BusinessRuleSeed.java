@@ -71,7 +71,7 @@ public class BusinessRuleSeed implements AppSeed {
         if (!service.containsConflict(businessRule)){
             List<OperationType> operationTypes = operationTypeService.recoveryAllByCategory(OperationCategory.SIMPLE_SALE);
             operationTypes.addAll(operationTypeService.recoveryAllByCategory(OperationCategory.CONSIGNMENT_SALE));
-
+            this.service.save(businessRule);
             businessRule = buddySeedControlService.saveSeedIntegrationFromBuddy(businessRule, service);
             service.createManyWithOperation(Collections.singletonList(businessRule), operationTypes);
         }

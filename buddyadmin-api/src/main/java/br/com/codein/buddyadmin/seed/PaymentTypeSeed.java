@@ -70,6 +70,7 @@ public class PaymentTypeSeed implements AppSeed {
         paymentType.setPaymentMethod(PaymentMethodsENUM.DINHEIRO);
         paymentType.setAccountType(AccountType.CAIXA_FISICO);
         paymentCategory.getPaymentTypes().add(paymentType);
+        this.service.save(paymentForm);
         paymentForm = buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, service);
 
         paymentForm.getPaymentCategories().stream().forEach(category -> {
@@ -136,6 +137,7 @@ public class PaymentTypeSeed implements AppSeed {
         paymentTypeDep.setPaymentMethod(PaymentMethodsENUM.OUTROS);
         paymentTypeDep.setAccountType(AccountType.CONTA_CORRENTE);
         paymentCategoryDep.getPaymentTypes().add(paymentTypeDep);
+        this.service.save(paymentForm);
         paymentForm = buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, service);
         paymentForm.getPaymentCategories().stream().forEach(category -> {
             buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
@@ -224,6 +226,7 @@ public class PaymentTypeSeed implements AppSeed {
         paymentTypeTroca.setAccountType(AccountType.CAIXA_FISICO);
         paymentTypeTroca.setPaymentCategory(paymentCategory);
         paymentCategoryCrediario.getPaymentTypes().add(paymentTypeTroca);
+        this.service.save(paymentForm);
 
         paymentForm = buddySeedControlService.saveSeedIntegrationFromBuddy(paymentForm, service);
         paymentForm.getPaymentCategories().stream().forEach(category -> {

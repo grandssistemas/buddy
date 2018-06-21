@@ -207,10 +207,12 @@ public class DepartmentSeed implements AppSeed {
                     System.out.println(p.getName());
                 }
                 for (AssociativeCharacteristic a : p.getCharacteristics()) {
+                    this.associativeCharacteristicService.save(a);
                     buddySeedControlService.saveSeedIntegrationFromBuddy(a, associativeCharacteristicService);
                 }
             }
         }
+        this.service.save(moda);
         buddySeedControlService.saveSeedIntegrationFromBuddy(moda, service);
         moda.getCategories().stream().forEach(category -> {
             buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());
@@ -224,6 +226,7 @@ public class DepartmentSeed implements AppSeed {
         pt.setCategory(cat);
         Department department = new Department("Informática", new HashSet<>(Arrays.asList(cat)), "INF");
         cat.setDepartment(department);
+        this.service.save(department);
         buddySeedControlService.saveSeedIntegrationFromBuddy(department, service);
         department.getCategories().stream().forEach(category -> {
             buddySeedControlService.saveSeedIntegrationFromBuddy(category, category.getId());

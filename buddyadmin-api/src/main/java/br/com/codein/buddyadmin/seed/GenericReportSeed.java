@@ -60,7 +60,7 @@ public class GenericReportSeed implements AppSeed {
                     } else {
                         defaultReport = new GenericReport(name,type,json,lastAlteration);
                     }
-
+                    this.service.save(defaultReport);
                     buddySeedControlService.saveSeedIntegrationFromBuddy(defaultReport, service);
                 }
             }

@@ -10,7 +10,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
+import javax.persistence.PersistenceContext;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -67,6 +71,7 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 	@Qualifier("codigosTributaveisSeed")
 	private CodigosTributaveisSeed codigosTributaveisSeed;
 
+	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (started.get()) return;
 

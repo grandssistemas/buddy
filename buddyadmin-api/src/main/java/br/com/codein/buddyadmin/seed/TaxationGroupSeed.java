@@ -124,6 +124,7 @@ public class TaxationGroupSeed implements AppSeed {
         taxationGroup.setTaxationPIS(taxationPIS);
         taxationGroup.setTaxationCOFINS(taxationCOFINS);
         taxationGroup.setTaxationIPI(taxationIPI);
+        this.service.save(taxationGroup);
         buddySeedControlService.saveSeedIntegrationFromBuddy(taxationGroup, service);
 
 
@@ -172,6 +173,7 @@ public class TaxationGroupSeed implements AppSeed {
         taxationGroup1.setTaxationPIS(taxationPIS1);
         taxationGroup1.setTaxationCOFINS(taxationCOFINS1);
         taxationGroup1.setTaxationIPI(taxationIPI1);
+        this.service.save(taxationGroup1);
         buddySeedControlService.saveSeedIntegrationFromBuddy(taxationGroup1, service);
 
         Cfop cfop2 = cfopService.findByCodigo("5917");
@@ -219,6 +221,7 @@ public class TaxationGroupSeed implements AppSeed {
         taxationGroup2.setTaxationPIS(taxationPIS2);
         taxationGroup2.setTaxationCOFINS(taxationCOFINS2);
         taxationGroup2.setTaxationIPI(taxationIPI2);
+        this.service.save(taxationGroup2);
         buddySeedControlService.saveSeedIntegrationFromBuddy(taxationGroup2, service);
 
         Cfop cfop3 = cfopService.findByCodigo("5115");
@@ -266,6 +269,7 @@ public class TaxationGroupSeed implements AppSeed {
         taxationGroup3.setTaxationPIS(taxationPIS3);
         taxationGroup3.setTaxationCOFINS(taxationCOFINS3);
         taxationGroup3.setTaxationIPI(taxationIPI3);
+        this.service.save(taxationGroup3);
         buddySeedControlService.saveSeedIntegrationFromBuddy(taxationGroup3, service);
 
         Cfop cfop4 = cfopService.findByCodigo("1918");
@@ -313,6 +317,7 @@ public class TaxationGroupSeed implements AppSeed {
         taxationGroup4.setTaxationPIS(taxationPIS4);
         taxationGroup4.setTaxationCOFINS(taxationCOFINS4);
         taxationGroup4.setTaxationIPI(taxationIPI4);
+        this.service.save(taxationGroup4);
         buddySeedControlService.saveSeedIntegrationFromBuddy(taxationGroup4, service);
 
 
@@ -361,6 +366,8 @@ public class TaxationGroupSeed implements AppSeed {
         taxationGroup5.setTaxationPIS(taxationPIS5);
         taxationGroup5.setTaxationCOFINS(taxationCOFINS5);
         taxationGroup5.setTaxationIPI(taxationIPI5);
+        this.service.save(taxationGroup5);
+
         buddySeedControlService.saveSeedIntegrationFromBuddy(taxationGroup5, service);
 
         Cfop cfop6 = cfopService.findByCodigo("5927");
@@ -408,6 +415,8 @@ public class TaxationGroupSeed implements AppSeed {
         taxationGroup6.setTaxationPIS(taxationPIS6);
         taxationGroup6.setTaxationCOFINS(taxationCOFINS6);
         taxationGroup6.setTaxationIPI(taxationIPI6);
+        this.service.save(taxationGroup6);
+
         buddySeedControlService.saveSeedIntegrationFromBuddy(taxationGroup6, service);
 
         Cfop cfop7 = cfopService.findByCodigo("1202");
@@ -455,6 +464,8 @@ public class TaxationGroupSeed implements AppSeed {
         taxationGroup7.setTaxationPIS(taxationPIS7);
         taxationGroup7.setTaxationCOFINS(taxationCOFINS7);
         taxationGroup7.setTaxationIPI(taxationIPI7);
+        this.service.save(taxationGroup7);
+
         buddySeedControlService.saveSeedIntegrationFromBuddy(taxationGroup7, service);
 
         Cfop cfop8 = cfopService.findByCodigo("5949");
@@ -496,6 +507,8 @@ public class TaxationGroupSeed implements AppSeed {
         taxationGroup8.setTaxationPIS(taxationPIS8);
         taxationGroup8.setTaxationCOFINS(taxationCOFINS8);
         taxationGroup8.setTaxationIPI(taxationIPI8);
+        this.service.save(taxationGroup8);
+
         buddySeedControlService.saveSeedIntegrationFromBuddy(taxationGroup8, service);
     }
 
