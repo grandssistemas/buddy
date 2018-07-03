@@ -15,6 +15,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 /**
  * Created by rafael on 06/05/15.
  */
@@ -27,41 +29,40 @@ public class GenericReportSeed implements AppSeed {
     @Autowired
     private BuddySeedControlService buddySeedControlService;
 
-
-
     @Override
     @Transactional
     public void loadSeed() throws IOException {
         try {
             ClassLoader classLoader = getClass().getClassLoader();
             File file = new File(classLoader.getResource("seedFiles/genericreport.csv").getFile());
-            BufferedReader source = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
-            String line;
-            while ((line = source.readLine()) != null) {
-                String[] parts = line.split(";");
-                String filename = parts[0];
-                String tipo = parts[1];
-                String name = parts[2];
+            try (BufferedReader source = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
+                String line;
+                while ((line = source.readLine()) != null) {
+                    String[] parts = line.split(";");
+                    String filename = parts[0];
+                    String tipo = parts[1];
+                    String name = parts[2];
 
-                DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-                Date lastAlteration = formatter.parse(parts[3]);
+                    DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                    Date lastAlteration = formatter.parse(parts[3]);
 
-                ReportType type = ReportType.valueOf(tipo);
+                    ReportType type = ReportType.valueOf(tipo);
 
-                GenericReport defaultReport = service.getPublicReport(type,name);
-                if (defaultReport == null || defaultReport.getImportationDate() == null ||defaultReport.getImportationDate().before(lastAlteration)){
-                    File report = new File(classLoader.getResource("seedFiles/reports/"+filename).getFile());
-                    BufferedReader reportSource = new BufferedReader(new InputStreamReader(new FileInputStream(report), StandardCharsets.UTF_8));
-                    String json = reportSource.readLine();
+                    GenericReport defaultReport = service.getPublicReport(type, name);
 
-                    if (defaultReport != null){
-                        defaultReport.setImportationDate(lastAlteration);
-                        defaultReport.setJsonReport(json);
-                    } else {
-                        defaultReport = new GenericReport(name,type,json,lastAlteration);
+                    if (defaultReport == null || defaultReport.getImportationDate() == null || defaultReport.getImportationDate().before(lastAlteration)) {
+                        File report = new File(classLoader.getResource("seedFiles/reports/" + filename).getFile());
+                        BufferedReader reportSource = new BufferedReader(new InputStreamReader(new FileInputStream(report), UTF_8));
+                        String json = getJsonFile(reportSource);
+                        if (defaultReport != null) {
+                            defaultReport.setImportationDate(lastAlteration);
+                            defaultReport.setJsonReport(json);
+                        } else {
+                            defaultReport = new GenericReport(name, type, json, lastAlteration);
+                        }
+                        this.service.save(defaultReport);
+                        buddySeedControlService.saveSeedIntegrationFromBuddy(defaultReport, service);
                     }
-                    this.service.save(defaultReport);
-                    buddySeedControlService.saveSeedIntegrationFromBuddy(defaultReport, service);
                 }
             }
 
@@ -69,4 +70,14 @@ public class GenericReportSeed implements AppSeed {
             e.printStackTrace();
         }
     }
+
+    private String getJsonFile(BufferedReader buffIn) throws IOException {
+        StringBuilder everything = new StringBuilder();
+        String line;
+        while( (line = buffIn.readLine()) != null) {
+            everything.append(line);
+        }
+        return everything.toString();
+    }
+
 }
