@@ -74,7 +74,7 @@ public class Seed implements ApplicationListener<ContextRefreshedEvent> {
 	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (started.get()) return;
-
+		System.out.println("deu certo caio!");
 		for (AppSeed seed : seeds()) {
 			try {
 				seed.loadSeed();

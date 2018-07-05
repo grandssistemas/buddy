@@ -370,6 +370,6 @@
         <module>buddyadmin-application</module>
         <module>buddyadmin-gateway</module>
         <module>buddyadmin-api</module>
-        <!--<module>buddyadmin-presentation</module>-->
+        <module>buddyadmin-presentation</module>
     </modules>
 </project>
